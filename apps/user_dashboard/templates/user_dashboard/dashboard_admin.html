@@ -44,7 +44,7 @@
                             </li>
                             <li class="nav-item">
                                 <span class="navbar-text">
-                                    <a href="">Profile</a>
+                                    <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
                                 </span>
                             </li>
                         </div>
@@ -79,8 +79,11 @@
 
                     <!-- LINK TO ADD A USER PAGE: users_new.html  -->
                     <a href="/user_dashboard/users_new/"
-                        style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Add
-                        new</a>
+                        style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold; text-decoration: none;">
+                        Add new <span class="material-icons">
+                            person_add_alt_1
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>

@@ -43,9 +43,9 @@
                                     {% endif %}
                                 </span>
                             </li>
-                            <li class="nav-item" style="margin-right:30px;">
+                            <li class="nav-item">
                                 <span class="navbar-text">
-                                    <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                    <a href="/user_dashboard/users/edit/">Edit Profile</a>
                                 </span>
                             </li>
                         </div>
@@ -120,8 +120,9 @@
                             method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <textarea name="message_content" class="form-control" rows="3" placeholder="{{request.session.user_name}} wrote: ..."
-                                    style="border: solid 3px black;" ></textarea>
+                                <textarea name="message_content" class="form-control" rows="3"
+                                    placeholder="{{request.session.user_name}} wrote: ..."
+                                    style="border: solid 3px black;"></textarea>
                             </div>
 
                             <div class="row justify-content-end">
@@ -148,82 +149,86 @@
                 <div class="row">
                     <div class="col" style="font-style: italic;">
 
-                        <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/">{{ message.dashboardSender_id.first_name }}
+                        <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                            style="margin-right: 10px;">{{ message.dashboardSender_id.first_name }}
                         </a> wrote:
-                        <span style="padding-left:10px;">
+                    </div>
+                </div>
+                <div class="row">
+
+
+
+                    <div class='col' style="margin-left: 10px; border: dotted 3px black; padding: 20px;">
+                        <span>
                             {{ message.message }}
                         </span>
 
                     </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!--                           COMMENT CONTENT                             -->
+    <!-- --------------------------------------------------------------------- -->
+    {% if comments %}
+    {% for comment in comments %}
+    {% if comment.message_id.id == message.id %}
+
+    <div class="row justify-content-end" style="padding-top: 50px;">
+        <div class="col-9">
+            <div class="row">
+                <div class="col" style="font-style: italic;">
+
+                    <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                        style="margin-right: 10px;">{{ comment.user_id.first_name }}
+                    </a> commented:
 
                 </div>
 
-
-
-
-                
             </div>
-        </div>
-
-        <!-- --------------------------------------------------------------------- -->
-        <!--                           COMMENT CONTENT                             -->
-        <!-- --------------------------------------------------------------------- -->
-        {% if comments %}
-        {% for comment in comments %}
-        {% if comment.message_id.id == message.id %}
-
-        <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-9">
-                <div class="row">
-                    <div class="col" style="font-style: italic;">
-
-                        <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/">{{ comment.user_id.first_name }}
-                        </a> commented:
-
-                    </div>
-
+            <div class="row">
+                <div class="col" style="border: dotted 3px black; padding: 20px;">
+                    {{ comment.comment }}
                 </div>
-                <div class="row">
-                    <div class="col" style="border: dotted 3px black; padding: 20px;">
-                        {{ comment.comment }}
-                    </div>
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <!-- --------------------------------------------------------------------- -->
+    <!--                         form: create a comment                        -->
+    <!-- --------------------------------------------------------------------- -->
+
+    <div class="row justify-content-end" style="padding-top: 50px;">
+        <div class="col-8">
+
+            <form action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
+                method="post">
+
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="comment_content" class="form-control" rows="3"
+                        style="border: solid 1px black;"></textarea>
                 </div>
 
-            </div>
+                <div class="row justify-content-end">
+                    <button type="submit"
+                        style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">
+                        Post</button>
+                </div>
+            </form>
+
         </div>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
+    </div>
 
-        <!-- --------------------------------------------------------------------- -->
-        <!--                         form: create a comment                        -->
-        <!-- --------------------------------------------------------------------- -->
-
-        <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-8">
-
-                <form
-                    action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
-                    method="post">
-
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <textarea name="comment_content" class="form-control" rows="3"
-                            style="border: solid 1px black;"></textarea>
-                    </div>
-
-                    <div class="row justify-content-end">
-                        <button type="submit"
-                            style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">
-                            Post</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-
-        {% endfor %}
-        {% endif %}
+    {% endfor %}
+    {% endif %}
 
 
     </div>
