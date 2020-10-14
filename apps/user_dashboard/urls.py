@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views         
 
 urlpatterns = [
+    
     url(r'^$', views.index, name='user_dashboard_index'),
 
     url(r'^logout/$', views.logout, name="user_dashboard_logout"),
@@ -41,12 +42,6 @@ urlpatterns = [
 
     url(r'^create_message/(?P<id>\d+)/(?P<receiverID>\d+)/$', views.create_message, name="user_dashboard_create_message"),
 
-    url(r'^create_comment/(?P<userID>\d+)/(?P<messageID>\d+)/(?P<receiverID>\d+)/$', views.create_comment, name="user_dashboard_create_comment"),
-
-    # url(r'^/$',),
-    # url(r'^/$',),
-    # url(r'^/$',),
-    # url(r'^/$',),
-    
+    url(r'^create_comment/(?P<userID>\d+)/(?P<messageID>\d+)/(?P<receiverID>\d+)/$', views.create_comment, name="user_dashboard_create_comment")   
     
 ]

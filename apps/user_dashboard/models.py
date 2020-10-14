@@ -69,7 +69,6 @@ class DashboardUser(models.Model):
 
     objects = DashboardUserManager()
 
-    
     def __str__(self):
         return ('first_name = ' + self.first_name + ', last_name = ' + self.last_name + ', email = ' + self.email + ', password_hash = ' + self.password_hash)
 
@@ -111,9 +110,6 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
 
     objects = CommentManager()
-
-    # def __str__(self):
-    #     return ('comment = ' + self.comment )
 
 
 

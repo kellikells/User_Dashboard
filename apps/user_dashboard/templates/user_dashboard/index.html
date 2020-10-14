@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/../../static/style.css">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
+    <!-- google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -58,22 +63,30 @@
 
         <div class="jumbotron">
             <h5 class="display-4" style="font-weight: bold">Member Messages</h5>
-            <h5 style="margin-bottom: 50px;" style="font-weight: bold">Where members can send messages to other members, and signing up for a membership is free!</h5>
-
-            <a href="/user_dashboard/signin/"
-                style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;"
-                >Start</a>
+            <h5 style="margin-bottom: 50px;" style="font-weight: bold">Where members can send messages to other members,
+                and signing up for a membership is free!</h5>
+            <div style="text-align:right;">
+                <a href="/user_dashboard/signin/"
+                    style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Start</a>
+            </div>
         </div>
 
-        <div class="row">
+        <div class="row ">
             <!-- --------------------------------------------------------------------- -->
             <!--                             CARD                                      -->
             <!-- --------------------------------------------------------------------- -->
             <div class="col">
-                <div class="card" style="border: none;">
-                    <div class="card-body">
-                        <h5 class="card-title">Manage Users</h5>
-                        <p class="card-text">Using this application, you'll learn how to add, remove, and edit users for
+                <div class="card " style="border: none; text-align: center;">
+
+                    <!-- icon -->
+                    <span style="font-size: 3em; color: Tomato;">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </span>
+
+                    <div class="card-body ">
+                        <h5 class="card-title ">Manage Users</h5>
+                        <p class="card-text ">Using this application, you'll learn how to add, remove, and edit users
+                            for
                             the application</p>
                     </div>
                 </div>
@@ -82,7 +95,16 @@
             <!--                             CARD                          -->
             <!-- ---------------------------------------------------------- -->
             <div class="col">
-                <div class="card" style="border: none;">
+                <div class="card" style="border: none; text-align: center;">
+
+                    <!-- icon -->
+                    <!-- <span style="font-size: 3em; color: Tomato;">
+                        <i class="fas fa-envelope-square"></i>
+                    </span> -->
+                    <span class="material-icons" style="font-size: 4.5em; color: Tomato;">
+                        mark_email_unread
+                    </span>
+
                     <div class="card-body">
                         <h5 class="card-title">Leave messages</h5>
                         <p class="card-text">Users will be able to leave a message to another user using this
@@ -94,7 +116,13 @@
             <!--                             CARD                          -->
             <!-- ---------------------------------------------------------- -->
             <div class="col">
-                <div class="card" style="border: none;">
+                <div class="card" style="border: none; text-align: center;">
+
+                    <!-- icon -->
+                    <span style="font-size: 3em; color: Tomato;">
+                        <i class="fas fa-user-edit"></i>
+                    </span>
+
                     <div class="card-body">
                         <h5 class="card-title">Edit Users Information</h5>
                         <p class="card-text">Admins will be able to edit another user's information (email address,

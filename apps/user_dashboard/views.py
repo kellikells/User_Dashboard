@@ -63,7 +63,6 @@ def register_process(request):
                 }
                 return render(request, 'user_dashboard/users_new.html', context)
            
-            
             else:
                 return redirect('/user_dashboard')
 
@@ -294,8 +293,3 @@ def create_comment(request, userID, messageID, receiverID):
     
             return redirect('/user_dashboard/users/show/'+receiverID +'/')
 
-
-# ------------------------------------------------------------------------
-
-
-# ------------------------------------------------------------------------
