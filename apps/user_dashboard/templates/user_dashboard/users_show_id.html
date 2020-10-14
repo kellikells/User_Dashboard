@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>users/show/id</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/../../static/style.css">
+
+</head>
+<!-- --------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------- -->
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="nav">
+                    <div class="col">
+                        <div class="row">
+                            <li class="nav-item" style="margin-right:30px;">
+                                <span class="navbar-text">
+                                    Member Messages
+                                </span>
+                            </li>
+                            <li class="nav-item" style="margin-right:30px;">
+                                <span class="navbar-text">
+                                    {% if request.session.user_level == "1" %}
+                                    <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
+                                    {% endif %}
+                                    {% if request.session.user_level == "0" %}
+                                    <a href="/user_dashboard/dashboard/">Dashboard</a>
+                                    {% endif %}
+                                </span>
+                            </li>
+                            <li class="nav-item" style="margin-right:30px;">
+                                <span class="navbar-text">
+                                    <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                </span>
+                            </li>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row justify-content-end">
+                            <li class="nav-item">
+                                <span class=" navbar-text">
+                                    <a href="/user_dashboard/logout/">Log out</a>
+                                </span>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div style="border-bottom: solid black 4px;"></div>
+    <!-- --------------------------------------------------------------------- -->
+    <!--                         USER INFO                                      -->
+    <!-- --------------------------------------------------------------------- -->
+    <div class="container" style="padding: 50px 0 0 0;">
+
+        <div class="row">
+            <div class="col">
+                <h4 style="padding: 0 0 50px 0;">{{user.first_name}} {{user.last_name}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table>
+                    <tr>
+                        <td>Registered at:</td>
+                        <td>{{user.created_at}}</td>
+                    </tr>
+                    <tr>
+                        <td>User ID:</td>
+                        <td>{{user.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email address:</td>
+                        <td>{{user.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>{{user.desc}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col">
+                {% if errors %}
+                <p>{{ errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------------- -->
+        <!--                         form: create a message                        -->
+        <!-- --------------------------------------------------------------------- -->
+
+        <div class="row" style="padding-bottom: 20px;">
+            <div class="col">
+                <h4 style="padding-top:50px;">Leave a message for: {{user.first_name}}</h4>
+
+                <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="message_content" class="form-control" rows="3"
+                            style="border: solid 3px black;"></textarea>
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <button type="submit"
+                            style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">
+                            Post</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------------- -->
+        <!--                         MESSAGE CONTENT                              -->
+        <!-- --------------------------------------------------------------------- -->
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row justify-content-end" style="padding-top: 50px;">
+            <div class="col-11">
+                <div class="row">
+                    <div class="col">
+
+                        <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/">{{ message.dashboardSender_id.first_name }}
+                        </a> wrote:
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col" style="border: solid 3px black; padding: 20px;">
+                        {{ message.message }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- --------------------------------------------------------------------- -->
+        <!--                           COMMENT CONTENT                             -->
+        <!-- --------------------------------------------------------------------- -->
+        {% if comments %}
+        {% for comment in comments %}
+        {% if comment.message_id.id == message.id %}
+
+        <div class="row justify-content-end" style="padding-top: 50px;">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+
+                        <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/">{{ comment.user_id.first_name }}
+                        </a> wrote:
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col" style="border: dotted 3px black; padding: 20px;">
+                        {{ comment.comment }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        <!-- --------------------------------------------------------------------- -->
+        <!--                         form: create a comment                        -->
+        <!-- --------------------------------------------------------------------- -->
+
+        <div class="row justify-content-end" style="padding-top: 50px;">
+            <div class="col-9">
+
+                <form
+                    action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
+                    method="post">
+
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="comment_content" class="form-control" rows="3"
+                            style="border: solid 1px black;"></textarea>
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <button type="submit"
+                            style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">
+                            Post</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
