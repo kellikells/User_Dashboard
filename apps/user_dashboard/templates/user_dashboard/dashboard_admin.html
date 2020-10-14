@@ -64,7 +64,7 @@
         </div>
 
     </div>
-    <div style="border-bottom: solid black 4px;"></div>
+   <div style="border-bottom: solid #cb8 10px;"></div>
     <!-- --------------------------------------------------------------------- -->
     <!--                                                -->
     <!-- --------------------------------------------------------------------- -->
@@ -80,7 +80,7 @@
                     <!-- LINK TO ADD A USER PAGE: users_new.html  -->
                     <a href="/user_dashboard/users_new/"
                         style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold; text-decoration: none;">
-                        Add new <span class="material-icons">
+                        Add new <span class="material-icons" style="font-size: 1em;">
                             person_add_alt_1
                         </span>
                     </a>
@@ -141,17 +141,17 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="removeModalLabel">Are you sure you want to
-                                                    remove?</h5>
+                                                    REMOVE?</h5>
                                             </div>
                                             <div class="modal-body row justify-content-center">
 
                                                 <form action="/user_dashboard/remove/" method="post">
                                                     {% csrf_token %}
 
-                                                    <button type="button" class="btn btn-secondary"
+                                                    <button type="button" class="btn btn-warning"
                                                         data-dismiss="modal">No</button>
-                                                    <button type="submit" class="btn btn-primary">Yes</button>
-                                                    <!-- dv gets hidden input appended  -->
+                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                    <!-- div gets hidden input appended  -->
                                                     <div id="special-div"></div>
                                                 </form>
 

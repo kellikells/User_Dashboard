@@ -63,7 +63,7 @@
         </div>
 
     </div>
-    <div style="border-bottom: solid black 4px;"></div>
+<div style="border-bottom: solid #cb8 10px;"></div>
     <!-- ------------------------------------------------------------>
     <!-- ---------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
@@ -132,7 +132,7 @@
 
                                 <div class="row justify-content-end">
                                     <button type="submit"
-                                        style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Save</button>
+                                        style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Save</button>
                                 </div>
                             </form>
 
@@ -162,7 +162,7 @@
 
                             <div class="row justify-content-end">
                                 <button type="submit"
-                                    style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Update
+                                    style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Update
                                     Password</button>
                             </div>
                         </form>
@@ -196,7 +196,7 @@
                 <div class="row">
                     <div class="col" style="padding: 40px;">
 
-                        <form action="/user_dashboard/update_description/{{request.session.id}}/" method="post">
+                        <form action="/user_dashboard/update_description/{{user.id}}/" method="post">
                             {% csrf_token %}
 
                             <div class="form-group">
@@ -206,7 +206,7 @@
 
                             <div class="row justify-content-end">
                                 <button type="submit"
-                                    style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Save</button>
+                                    style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Save</button>
                             </div>
                         </form>
 

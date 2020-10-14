@@ -213,6 +213,7 @@ def update_password(request, id):
             temp_user.password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
 
             temp_user.save()
+            return redirect('/user_dashboard/users/edit/'+ id + '/')
 
 # ------------------------------------------------------------------------
 def update_description(request, id):
@@ -222,7 +223,7 @@ def update_description(request, id):
         temp_user.desc = request.POST['desc']
         temp_user.save()
 
-        return redirect('/user_dashboard/dashboard/')
+        return redirect('/user_dashboard/users/edit/' +id + '/')
 
 # ------------------------------------------------------------------------
 def users_show(request, id):

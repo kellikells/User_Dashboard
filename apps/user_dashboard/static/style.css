@@ -11,5 +11,6 @@ body{
 
 #my_link {
     text-decoration: underline;
+    font-weight: bold;
 }
 
