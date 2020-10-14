@@ -113,6 +113,8 @@ def signin_process(request):
                         request.session['user_level'] = "1"
                     if 'user_id' not in request.session:
                         request.session['user_id'] = this_user.id
+                    if 'user_name' not in request.session:
+                        request.session['user_name'] = this_user.first_name
                     return redirect('/user_dashboard/dashboard_admin/')   
 
                 # if user_level is normal : renders dashboard.html
@@ -121,6 +123,8 @@ def signin_process(request):
                         request.session['user_level'] = "0"
                     if 'user_id' not in request.session:
                         request.session['user_id'] = this_user.id
+                    if 'user_name' not in request.session:
+                        request.session['user_name'] = this_user.first_name
                     return redirect('/user_dashboard/dashboard/')
             # .............................................................
                 

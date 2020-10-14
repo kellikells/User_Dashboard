@@ -120,8 +120,8 @@
                             method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <textarea name="message_content" class="form-control" rows="3"
-                                    style="border: solid 3px black;"></textarea>
+                                <textarea name="message_content" class="form-control" rows="3" placeholder="{{request.session.user_name}} wrote: ..."
+                                    style="border: solid 3px black;" ></textarea>
                             </div>
 
                             <div class="row justify-content-end">
