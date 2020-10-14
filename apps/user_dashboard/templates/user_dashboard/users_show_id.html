@@ -30,7 +30,7 @@
                         <div class="row">
                             <li class="nav-item" style="margin-right:30px;">
                                 <span class="navbar-text">
-                                    Member Messages
+                                    Visiting: {{user.first_name}} {{user.last_name}}
                                 </span>
                             </li>
                             <li class="nav-item" style="margin-right:30px;">
@@ -73,83 +73,95 @@
 
         <div class="row">
             <div class="col">
-                <h4 style="padding: 0 0 50px 0;">{{user.first_name}} {{user.last_name}}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <table>
-                    <tr>
-                        <td>Registered at:</td>
-                        <td>{{user.created_at}}</td>
-                    </tr>
-                    <tr>
-                        <td>User ID:</td>
-                        <td>{{user.id}}</td>
-                    </tr>
-                    <tr>
-                        <td>Email address:</td>
-                        <td>{{user.email}}</td>
-                    </tr>
-                    <tr>
-                        <td>Description:</td>
-                        <td>{{user.desc}}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col">
-                {% if errors %}
-                <p>{{ errors }}</p>
-                {% endif %}
-            </div>
-        </div>
-        <!-- --------------------------------------------------------------------- -->
-        <!--                         form: create a message                        -->
-        <!-- --------------------------------------------------------------------- -->
-
-        <div class="row" style="padding-bottom: 20px;">
-            <div class="col">
-                <h4 style="padding-top:50px;">Leave a message for: {{user.first_name}}</h4>
-
-                <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <textarea name="message_content" class="form-control" rows="3"
-                            style="border: solid 3px black;"></textarea>
+                <h3 style="padding: 0 0 20px 0;">{{user.first_name}} {{user.last_name}}</h3>
+                <!-- </div>
+        </div> -->
+                <div class="row">
+                    <div class="col">
+                        <table>
+                            <tr>
+                                <td>Registered at:</td>
+                                <td>{{user.created_at}}</td>
+                            </tr>
+                            <tr>
+                                <td>User ID:</td>
+                                <td>{{user.id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email address:</td>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td>{{user.desc}}</td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div class="row justify-content-end">
-                        <button type="submit"
-                            style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">
-                            Post</button>
+                    {% if errors %}
+                    <div class="col">
+                        <p>{{ errors }}</p>
                     </div>
-                </form>
-
+                    {% endif %}
+                </div>
             </div>
+
+
+            <!-- --------------------------------------------------------------------- -->
+            <!--                         form: create a message                        -->
+            <!-- --------------------------------------------------------------------- -->
+            <div class="col">
+                <h5 style="padding-top:50px;">Leave {{user.first_name}} a message</h5>
+
+                <div class="row justify-content-end">
+                    <div class="col-11">
+
+                        <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/"
+                            method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea name="message_content" class="form-control" rows="3"
+                                    style="border: solid 3px black;"></textarea>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <button type="submit"
+                                    style="background-color:#4a4; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">
+                                    Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+
         <!-- --------------------------------------------------------------------- -->
         <!--                         MESSAGE CONTENT                              -->
         <!-- --------------------------------------------------------------------- -->
 
         {% if messages %}
         {% for message in messages %}
-        <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-11">
+        <div class="row justify-content-end" style="padding-top: 10px;">
+            <div class="col-10">
                 <div class="row">
-                    <div class="col">
+                    <div class="col" style="font-style: italic;">
 
                         <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/">{{ message.dashboardSender_id.first_name }}
                         </a> wrote:
+                        <span style="padding-left:10px;">
+                            {{ message.message }}
+                        </span>
 
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="col" style="border: solid 3px black; padding: 20px;">
-                        {{ message.message }}
-                    </div>
-                </div>
 
+
+
+
+                
             </div>
         </div>
 
@@ -161,12 +173,12 @@
         {% if comment.message_id.id == message.id %}
 
         <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-10">
+            <div class="col-9">
                 <div class="row">
-                    <div class="col">
+                    <div class="col" style="font-style: italic;">
 
                         <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/">{{ comment.user_id.first_name }}
-                        </a> wrote:
+                        </a> commented:
 
                     </div>
 
@@ -188,7 +200,7 @@
         <!-- --------------------------------------------------------------------- -->
 
         <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-9">
+            <div class="col-8">
 
                 <form
                     action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
