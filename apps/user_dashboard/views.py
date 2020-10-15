@@ -1,4 +1,3 @@
-
 from django import http
 from django.shortcuts import render, HttpResponse, redirect
 from django.core.urlresolvers import reverse
@@ -6,7 +5,8 @@ from django.views import generic
 from .models import *
 import bcrypt
 from django.contrib import messages # flash messages
-from .models import *
+from django.core import serializers
+
 
 # ====================================================
 def index(request):
@@ -298,3 +298,14 @@ def create_comment(request, userID, messageID, receiverID):
     
             return redirect('/user_dashboard/users/show/'+receiverID +'/')
 
+# ------------------------------------------------------------------------
+def search_by_name(request):
+
+    if request.POST['name']:
+
+        users = DashboardUser.objects.filter(first_name__startswith = request.POST['name'])
+ 
+    
+        return render(request, 'user_dashboard/table.html', {'users': users})
+
+    # return render('user_dashboard/table.html', context)

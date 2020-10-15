@@ -14,7 +14,8 @@
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <!-- Link to jQuery  -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -64,9 +65,9 @@
         </div>
 
     </div>
-   <div style="border-bottom: solid #cb8 10px;"></div>
+    <div style="border-bottom: solid #cb8 10px;"></div>
     <!-- --------------------------------------------------------------------- -->
-    <!--                                                -->
+    <!--                      header & add user button                        -->
     <!-- --------------------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
 
@@ -87,13 +88,31 @@
                 </div>
             </div>
         </div>
+
+        <!-- ------------------------------------------------------- -->
+        <!--               input: search by name                     -->
+        <!-- ------------------------------------------------------- -->
         <div class="row">
             <div class="col">
 
-                <!-- ------------------------------------------------------- -->
-                <!--               LOOP: USERS : TABLE                       -->
-                <!-- ------------------------------------------------------- -->
-                <table class="table table-striped table-bordered">
+                <form action="/user_dashboard/search_by_name/" id="searchForm">
+                    {% csrf_token %}
+
+                    <label for="name">Search by name</label>
+                    <input type="text" name="name">
+
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- ------------------------------------------------------- -->
+        <!--               LOOP: USERS : TABLE                       -->
+        <!-- ------------------------------------------------------- -->
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped table-bordered" id="table_placeholder">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -171,17 +190,47 @@
     <!-- ------------------------------------------------------------ -->
     <!-- ------------------------------------------------------------ -->
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+
+    <!-- input search by name form  -->
+    <script>
+
+
+
+
+        function submitAjaxform() {
+
+            console.log('submitAjaxform')
+            console.log('data:')
+            console.log($("#searchForm").serialize())
+
+            $.ajax({
+                method: "post",
+                url: $("#searchForm").attr("action"),
+                data: $("#searchForm").serialize(),
+                success: function (serverResponse) {
+                    $("#table_placeholder").html(serverResponse)
+                }
+                // return false;
+            });
+        }
+
+        $("input[name=name").keyup(function () {
+            submitAjaxform();
+        })
+
+
+    </script>
+
+
+
+    <!-- BOOTSTRAP'S: Optional JavaScript
+        jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'
+        integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo'
+        crossorigin='anonymous'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'
+        integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6'
+        crossorigin='anonymous'></script>
 
     <!-- modal functionality -->
     <script>
@@ -196,7 +245,14 @@
             var special = $("<input>").attr("type", "hidden").attr("name", "removeID").attr("value", recipient)
             $("#special-div").append(special);
         })
+
+
+
+
+
     </script>
+
+
 </body>
 
 </html>

@@ -42,6 +42,8 @@ urlpatterns = [
 
     url(r'^create_message/(?P<id>\d+)/(?P<receiverID>\d+)/$', views.create_message, name="user_dashboard_create_message"),
 
-    url(r'^create_comment/(?P<userID>\d+)/(?P<messageID>\d+)/(?P<receiverID>\d+)/$', views.create_comment, name="user_dashboard_create_comment")   
-    
+    url(r'^create_comment/(?P<userID>\d+)/(?P<messageID>\d+)/(?P<receiverID>\d+)/$', views.create_comment, name="user_dashboard_create_comment"),
+
+    url(r'^search_by_name/$', views.search_by_name, name="user_dashboard_search_by_name"),
+
 ]
