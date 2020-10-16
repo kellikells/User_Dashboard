@@ -97,15 +97,12 @@
 
                 <form action="/user_dashboard/search_by_name/" id="searchForm">
                     {% csrf_token %}
-
                     <label for="name">Search by name</label>
                     <input type="text" name="name">
-
                 </form>
 
             </div>
         </div>
-
 
         <!-- ------------------------------------------------------- -->
         <!--               LOOP: USERS : TABLE                       -->
@@ -190,18 +187,10 @@
     <!-- ------------------------------------------------------------ -->
     <!-- ------------------------------------------------------------ -->
 
-
     <!-- input search by name form  -->
     <script>
 
-
-
-
         function submitAjaxform() {
-
-            console.log('submitAjaxform')
-            console.log('data:')
-            console.log($("#searchForm").serialize())
 
             $.ajax({
                 method: "post",
@@ -210,7 +199,6 @@
                 success: function (serverResponse) {
                     $("#table_placeholder").html(serverResponse)
                 }
-                // return false;
             });
         }
 
@@ -218,10 +206,7 @@
             submitAjaxform();
         })
 
-
     </script>
-
-
 
     <!-- BOOTSTRAP'S: Optional JavaScript
         jQuery first, then Popper.js, then Bootstrap JS -->
@@ -245,13 +230,7 @@
             var special = $("<input>").attr("type", "hidden").attr("name", "removeID").attr("value", recipient)
             $("#special-div").append(special);
         })
-
-
-
-
-
     </script>
-
 
 </body>
 
