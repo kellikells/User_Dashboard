@@ -29,15 +29,14 @@
                     <ul class="nav">
                         <div class="col">
                             <div class="row">
-                                <li class="nav-item" style="margin-right:30px;">
+                                <li class="nav-item" style="margin-right:10px;">
                                     <span class="navbar-text">
                                         <a href="/user_dashboard/users/edit/">Edit Profile</a>
                                     </span>
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        <!-- <a href="/user_dashboard/users/edit/">Profile</a> -->
-                                        <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                        | <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -69,17 +68,14 @@
     <!-- --------------------------------------------------------------------- -->
     <!--                              header                                   -->
     <!-- --------------------------------------------------------------------- -->
-    <div class="container" style="padding: 50px 0 0 0;">
+    <div class="container" style="padding: 20px 0 20px 0;">
 
         <div class="row">
             <div class="col">
-                <h3 style=" text-align:center;">All Users</h3>
-                <div class="row">
-                    <div class="col">
-                        <p style="text-align: center; font-weight: lighter; padding: 0 0 50px 0;">Click on a user's name
-                            to checkout their profile page where you can leave them a message</p>
-                    </div>
-                </div>
+
+                <p style="text-align: center; font-weight: lighter;">Click on a user's name
+                    to checkout their profile page where you can leave them a message</p>
+
             </div>
         </div>
 
@@ -87,14 +83,20 @@
         <!--               input: search by name                     -->
         <!-- ------------------------------------------------------- -->
         <div class="row" style="margin-bottom: 30px;">
-            <div class="col">
+            <div class="col-4">
                 <form action="/user_dashboard/search_by_name/" id="searchForm">
                     {% csrf_token %}
-
-                    <div class="form-row">
-                        <div class="col-4">
-                            <input type="text" name="name" class="form-control" placeholder="Search by name">
+                    <label class="sr-only" for="nameSearch">Search by name</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <span class="material-icons">
+                                    person_search
+                                </span>
+                            </div>
                         </div>
+                        <input type="text" name="name" class="form-control" id="nameSearch"
+                            placeholder="Search by name">
                     </div>
                 </form>
             </div>
@@ -106,8 +108,9 @@
         <div class="row">
             <div class="col">
 
-                <table class="table table-striped table-bordered table-hover" id="table_placeholder">
-                    <thead>
+                <table class="table table-striped table-bordered table-hover" id="table_placeholder"
+                    style="border:solid black 2px;">
+                    <thead style="background-color:black; color: white;">
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>

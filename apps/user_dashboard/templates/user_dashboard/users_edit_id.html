@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../../static/style.css">
+    <link rel="stylesheet" href="../../../../static/style.css">
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
@@ -28,7 +28,7 @@
                     <ul class="nav">
                         <div class="col">
                             <div class="row">
-                                <li class="nav-item" style="margin-right:30px;">
+                                <li class="nav-item" style="margin-right:10px;">
                                     <span class="navbar-text">
                                         {% if request.session.user_level == "1" %}
                                         <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
@@ -40,7 +40,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                        | <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -73,14 +73,10 @@
     <!-- ---------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
         <div class="row">
-            <div class="col">
-                <h4 style="padding: 0 0 50px 0;">Edit profile</h4>
-            </div>
             {% if request.session.user_level == "1" %}
             <div class="col">
                 <div class="row justify-content-end">
-                    <a href="/user_dashboard/dashboard_admin/"
-                        style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold;">Return
+                    <a class="myBtn" href="/user_dashboard/dashboard_admin/">Return
                         to Dashboard</a>
                 </div>
             </div>
@@ -92,11 +88,11 @@
     <div class=" container">
         <div class="row">
 
-            <div class="col" style="border: solid 1px black; margin-right: 30px;">
+            <div class="col">
 
                 <h5>Edit Information</h5>
                 <div class="row">
-                    <div class="col" style="padding: 40px 80px;">
+                    <div class="col" style="padding: 20px 40px;border: solid 1px black; margin-right: 30px;">
 
                         {% if request.session.user_level == "1" %}
                         <form action="/user_dashboard/update/{{user.id}}/" method="post">
@@ -138,7 +134,8 @@
                                 <div class="row justify-content-end">
                                     <!-- <button class="myBtn" type="submit">Submit</button> -->
                                     <button type="submit"
-                                        style="background-color:#38e; color: white;padding: 5px 40px; font-weight: bold; border: none;">Save</button>
+                                        style="background-color:#38e; color: white;padding: 5px 40px; font-weight: bold; border: none;">Update
+                                        Information</button>
                                 </div>
                             </form>
 
@@ -147,11 +144,11 @@
             </div>
             <!-- ------------------------------------------------------------>
             <!-- ---------------------------------------------------------- -->
-            <div class="col" style="border: solid 1px black; margin-right: 30px;">
+            <div class="col">
 
                 <h5>Change Password</h5>
                 <div class="row">
-                    <div class="col" style="padding: 40px 80px;">
+                    <div class="col" style="padding: 20px 40px;border: solid 1px black; margin-right: 30px;">
 
                         <form action="/user_dashboard/update_password/{{user.id}}/" method="post">
                             {% csrf_token %}
@@ -167,9 +164,7 @@
                             </div>
 
                             <div class="row justify-content-end">
-                                <!-- <button class="myBtn" type="submit">Submit</button> -->
-                                <button type="submit"
-                                    style="background-color:#38e; color: white; padding: 5px 40px; font-weight: bold; border: none;">Update
+                                <button id="editBtns" type="submit">Update
                                     Password</button>
                             </div>
                         </form>
@@ -198,10 +193,10 @@
 
         {% if request.session.user_level == "0" %}
         <div class="row" style="margin-top:40px;">
-            <div class="col" style="border: solid 1px black; margin-right: 30px;">
+            <div class="col">
                 <h5>Edit Description</h5>
                 <div class="row">
-                    <div class="col" style="padding: 40px;">
+                    <div class="col" style="padding: 40px;border: solid 1px black; margin-right: 30px;">
 
                         <form action="/user_dashboard/update_description/{{user.id}}/" method="post">
                             {% csrf_token %}
@@ -212,9 +207,10 @@
                             </div>
 
                             <div class="row justify-content-end">
-                                <!-- <button class="myBtn" type="submit">Submit</button> -->
                                 <button type="submit"
-                                    style="background-color:#38e; color: white;padding: 5px 40px; font-weight: bold; border:none;">Save</button>
+                                    style="background-color:#38e; color: white;padding: 5px 40px; font-weight: bold; border:none;">Update
+                                    Description
+                                </button>
                             </div>
                         </form>
 

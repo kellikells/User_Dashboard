@@ -5,7 +5,8 @@
 body {
      font-weight: bold;
      /* background-color: #dae0e6; */
-     background-color: #fff;
+     /* background-color: #fff; */
+     /* background-color: #e9ecef; */
 }
 
 #my_link {
@@ -13,14 +14,22 @@ body {
      font-weight: bold;
 }
 
-
-
 #myNav {
-     background-color: white;
+     /* background-color: white; */
+     background-color: #e9ecef;
      font-weight: bold;
      line-height: 1.6;
      padding: 20px;
 }
+
+/* #navLink {
+     border-radius: 100%;
+     transition: border 0.5s;
+}
+
+#navLink:hover {
+     border-radius: 25%;
+} */
 
 .myBtn {
      background: #38e;
@@ -30,9 +39,7 @@ body {
      box-shadow: 5px 5px #cb8;
      font-weight: bold;
      text-decoration: none;
-
      transition: all 150ms linear;
-     /* transition: all 0.3s ease; */
 }
 .myBtn:hover {
      background: #cb8;
@@ -98,4 +105,11 @@ body {
 #myMessage {
      padding-top: 10px;
      border: solid 1px black;
+}
+
+#editBtns {
+     background-color: #38e;
+     color: white;
+     padding: 5px 20px;
+     border: none;
 }

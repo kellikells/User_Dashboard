@@ -14,7 +14,6 @@
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
 </head>
 <!-- --------------------------------------------------------------------- -->
 <!-- --------------------------------------------------------------------- -->
@@ -27,7 +26,7 @@
                     <ul class="nav">
                         <div class="col">
                             <div class="row">
-                                <li class="nav-item" style="margin-right:30px;">
+                                <li class="nav-item" style="margin-right:10px;">
                                     <span class="navbar-text">
                                         {% if request.session.user_level == "1" %}
                                         <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
@@ -39,7 +38,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        <a href="">Profile</a>
+                                        | <a href="">Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -71,18 +70,15 @@
     <!-- ------------------------------------------------------------>
     <!-- ---------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
-
         <div class="row">
             <div class="col">
                 <h4 style="padding: 0 0 50px 0;">Add a new user</h4>
             </div>
             <div class="col">
                 <div class="row justify-content-end">
-                    <a href="/user_dashboard/dashboard_admin/"
-                        style="background-color:#38e; color: white; padding: 5px 40px; box-shadow: 5px 5px #cb8; font-weight: bold; text-decoration: none; border: none;">Return
+                    <a class="myBtn" href="/user_dashboard/dashboard_admin/">Return
                         to Dashboard</a>
                 </div>
-
             </div>
         </div>
     </div>
@@ -103,7 +99,6 @@
                         <label for="email">Email Address:</label>
                         <input name="email" type="email" class="form-control" id="email">
                     </div>
-
                     <div class="form-group row">
                         <label for="first_name">First Name:</label>
                         <input name="first_name" type="text" class="form-control" id="first_name">
