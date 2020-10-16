@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="../../../static/style.css">
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
@@ -21,47 +21,52 @@
 <!-- --------------------------------------------------------------------- -->
 
 <body>
-    <div class="container" style="font-weight:bold;">
-        <div class="row">
-            <div class="col">
-                <ul class="nav">
-                    <div class="col">
-                        <div class="row">
-                            <li class="nav-item" style="margin-right:30px;">
-                                <span class="navbar-text">
-                                    Edit Profile
-                                </span>
-                            </li>
-                            <li class="nav-item" style="margin-right:30px;">
-                                <span class="navbar-text">
-                                    {% if request.session.user_level == "1" %}
-                                    <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
-                                    {% endif %}
-                                    {% if request.session.user_level == "0" %}
-                                    <a href="/user_dashboard/dashboard/">Dashboard</a>
-                                    {% endif %}
-                                </span>
-                            </li>
-                            <li class="nav-item">
-                                <span class="navbar-text">
-                                    <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
-                                </span>
-                            </li>
+    <div id="myNav">
+        <div class="container">
+            <div class="row">
+                <div class="col justify-content-between">
+                    <ul class="nav">
+                        <div class="col">
+                            <div class="row">
+                                <li class="nav-item" style="margin-right:30px;">
+                                    <span class="navbar-text">
+                                        {% if request.session.user_level == "1" %}
+                                        <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
+                                        {% endif %}
+                                        {% if request.session.user_level == "0" %}
+                                        <a href="/user_dashboard/dashboard/">Dashboard</a>
+                                        {% endif %}
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                    </span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="row justify-content-end">
-                            <li class="nav-item">
-                                <span class=" navbar-text">
-                                    <a href="/user_dashboard/logout/">Log out</a>
-                                </span>
-                            </li>
+                        <div class="col">
+                            <div class="row justify-content-center">
+                                <li class="nav-item" style="margin-right:30px;">
+                                    <span class="navbar-text">
+                                        Edit Profile: {{user.first_name}}
+                                    </span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-                </ul>
+                        <div class="col">
+                            <div class="row justify-content-end">
+                                <li class="nav-item">
+                                    <span class=" navbar-text">
+                                        <a href="/user_dashboard/logout/">Log out</a>
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
             </div>
         </div>
-
     </div>
     <div style="border-bottom: solid #cb8 10px;"></div>
     <!-- ------------------------------------------------------------>

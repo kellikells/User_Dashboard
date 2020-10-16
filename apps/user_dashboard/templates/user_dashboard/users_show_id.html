@@ -9,71 +9,74 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="../../../../static/style.css">
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
 
 </head>
 <!-- --------------------------------------------------------------------- -->
 <!-- --------------------------------------------------------------------- -->
 
 <body>
+    <div id="myNav">
+        <div class="container">
+            <div class="row">
+                <div class="col justify-content-between">
+                    <ul class="nav">
+                        <div class="col">
+                            <div class="row">
 
-    <div class="container" style="font-weight:bold;">
-        <div class="row">
-            <div class="col">
-                <ul class="nav">
-                    <div class="col">
-                        <div class="row">
-                            <li class="nav-item" style="margin-right:30px;">
-                                <span class="navbar-text">
-                                    Visiting: {{user.first_name}} {{user.last_name}}
-                                </span>
-                            </li>
-                            <li class="nav-item" style="margin-right:30px;">
-                                <span class="navbar-text">
-                                    {% if request.session.user_level == "1" %}
-                                    <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
-                                    {% endif %}
-                                    {% if request.session.user_level == "0" %}
-                                    <a href="/user_dashboard/dashboard/">Dashboard</a>
-                                    {% endif %}
-                                </span>
-                            </li>
-                            <li class="nav-item">
-                                <span class="navbar-text">
-                                    <a href="/user_dashboard/users/edit/">Edit Profile</a>
-                                </span>
-                            </li>
+                                <li class="nav-item" style="margin-right:10px;">
+                                    <span class="navbar-text">
+                                        {% if request.session.user_level == "1" %}
+                                        <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
+                                        {% endif %}
+                                        {% if request.session.user_level == "0" %}
+                                        <a href="/user_dashboard/dashboard/">Dashboard</a>
+                                        {% endif %}
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        <a href="/user_dashboard/users/edit/">Edit Profile</a>
+                                    </span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="row justify-content-end">
-                            <li class="nav-item">
-                                <span class=" navbar-text">
-                                    <a href="/user_dashboard/logout/">Log out</a>
-                                </span>
-                            </li>
+                        <div class="col">
+                            <div class="row justify-content-center">
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        Visiting: {{user.first_name}} {{user.last_name}}
+                                    </span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-                </ul>
+                        <div class="col">
+                            <div class="row justify-content-end">
+                                <li class="nav-item">
+                                    <span class=" navbar-text">
+                                        <a href="/user_dashboard/logout/">Log out</a>
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
             </div>
         </div>
-
     </div>
     <div style="border-bottom: solid #cb8 10px;"></div>
+
     <!-- --------------------------------------------------------------------- -->
     <!--                         USER INFO                                      -->
     <!-- --------------------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
-
         <div class="row">
-            <div class="col">
-                <h3 style="padding: 0 0 20px 0;">{{user.first_name}} {{user.last_name}}</h3>
+            <div class="col-4" style="border:solid 1px black; margin-left: 5em; background-color: white;">
+                <h3 style="padding: 20px 0 20px 0;">{{user.first_name}} {{user.last_name}}</h3>
                 <div class="row">
                     <div class="col">
                         <table>
@@ -107,9 +110,8 @@
             <!-- --------------------------------------------------------------------- -->
             <!--                         form: create a message                        -->
             <!-- --------------------------------------------------------------------- -->
-            <div class="col">
-                <h5 style="padding-top:50px;">Leave {{user.first_name}} a message</h5>
-
+            <div class="col" style="margin-right: 3em;">
+                <h5 style="padding-top:50px; margin-left:3em;">Leave {{user.first_name}} a message</h5>
                 <div class="row justify-content-end">
                     <div class="col-11">
 
@@ -117,11 +119,9 @@
                             method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <textarea name="message_content" class="form-control" rows="3"
-                                    placeholder="{{request.session.user_name}} wrote: ..."
-                                    style="border: solid 3px black;"></textarea>
+                                <textarea name="message_content" class="form-control" id="msgInput" rows="3"
+                                    placeholder="{{request.session.user_name}} wrote: ..."></textarea>
                             </div>
-
                             <div class="row justify-content-end">
                                 <button class="messageBtns" type="submit">Send</button>
                             </div>
@@ -129,8 +129,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <!-- --------------------------------------------------------------------- -->
@@ -139,92 +137,82 @@
 
         {% if messages %}
         {% for message in messages %}
-        <div class="row justify-content-end" style="padding-top: 10px;">
-            <div class="col-10">
+        <div class="row justify-content-center" style="margin: 2em 2em 0 2em;">
+            <div class="col-10" id="myMessage">
                 <div class="row">
-                    <div class="col" style="font-style: italic;">
-
+                    <div class="col" style="font-style: italic; font-size: 2rem;">
                         <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
                             style="margin-right: 10px;">{{ message.dashboardSender_id.first_name }}
                         </a> wrote:
                     </div>
                 </div>
                 <div class="row">
-
-
-
-                    <div class='col' style="margin-left: 10px; border: dotted 3px black; padding: 20px;">
-                        <span>
+                    <div class='col' style="margin-left: 10px;  padding: 20px;">
+                        <span style="font-size: 1.5rem; font-weight:normal;">
                             {{ message.message }}
                         </span>
+                    </div>
+                </div>
+
+                <!-- --------------------------------------------------------------------- -->
+                <!--                           COMMENT CONTENT                             -->
+                <!-- --------------------------------------------------------------------- -->
+                {% if comments %}
+                {% for comment in comments %}
+                {% if comment.message_id.id == message.id %}
+                <div id="myComment">
+                    <div class="row">
+                        <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
+                            <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                                style="margin-right: 10px;">{{ comment.user_id.first_name }}
+                            </a> commented:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col' style="margin-left: 10px;  padding: 10px;">
+                            <span style="font-size: 18px; font-weight:400; ">
+                                {{ comment.comment }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                <!-- --------------------------------------------------------------------- -->
+                <!--                         form: create a comment                        -->
+                <!-- --------------------------------------------------------------------- -->
+
+                <div class="row justify-content-end" style="padding-top: 50px;">
+                    <div class="col">
+
+                        <form
+                            action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
+                            method="post">
+
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input id="msgInput" name="comment_content" type="text" class="form-control"
+                                    placeholder="{{request.session.user_name}} commented: ..." aria-label="user comment"
+                                    aria-describedby="messageBtns">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" id="messageBtns"
+                                        type="submit">Comment</button>
+                                </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
-
         </div>
-
-        <!-- --------------------------------------------------------------------- -->
-        <!--                           COMMENT CONTENT                             -->
-        <!-- --------------------------------------------------------------------- -->
-        {% if comments %}
-        {% for comment in comments %}
-        {% if comment.message_id.id == message.id %}
-
-        <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-9">
-                <div class="row">
-                    <div class="col" style="font-style: italic;">
-
-                        <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                            style="margin-right: 10px;">{{ comment.user_id.first_name }}
-                        </a> commented:
-
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col" style="border: dotted 3px black; padding: 20px;">
-                        {{ comment.comment }}
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        {% endif %}
         {% endfor %}
         {% endif %}
-
-        <!-- --------------------------------------------------------------------- -->
-        <!--                         form: create a comment                        -->
-        <!-- --------------------------------------------------------------------- -->
-
-        <div class="row justify-content-end" style="padding-top: 50px;">
-            <div class="col-8">
-
-                <form
-                    action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
-                    method="post">
-
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <textarea name="comment_content" class="form-control" rows="3"
-                            style="border: solid 1px black;"></textarea>
-                    </div>
-
-                    <div class="row justify-content-end">
-                        <button class="messageBtns" type="submit">Post</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-
-        {% endfor %}
-        {% endif %}
-
-
     </div>
+
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

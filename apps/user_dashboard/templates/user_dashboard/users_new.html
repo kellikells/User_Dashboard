@@ -20,48 +20,52 @@
 <!-- --------------------------------------------------------------------- -->
 
 <body>
-    <div class="container" style="font-weight:bold;">
-        <div class="row">
-            <div class="col">
-                <ul class="nav">
-                    <div class="col">
-                        <div class="row">
-                            <li class="nav-item" style="margin-right:30px;">
-                                <span class="navbar-text">
-                                    Member Messages
-                                </span>
-                            </li>
-                            <li class="nav-item" style="margin-right:30px;">
-                                <span class="navbar-text">
-                                    {% if request.session.user_level == "1" %}
-                                    <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
-                                    {% endif %}
-                                    {% if request.session.user_level == "0" %}
-                                    <a href="/user_dashboard/dashboard/">Dashboard</a>
-                                    {% endif %}
-                                </span>
-                            </li>
-                            <li class="nav-item">
-                                <span class="navbar-text">
-                                    <a href="">Profile</a>
-                                </span>
-                            </li>
+    <div id="myNav">
+        <div class="container">
+            <div class="row">
+                <div class="col justify-content-between">
+                    <ul class="nav">
+                        <div class="col">
+                            <div class="row">
+                                <li class="nav-item" style="margin-right:30px;">
+                                    <span class="navbar-text">
+                                        {% if request.session.user_level == "1" %}
+                                        <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
+                                        {% endif %}
+                                        {% if request.session.user_level == "0" %}
+                                        <a href="/user_dashboard/dashboard/">Dashboard</a>
+                                        {% endif %}
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        <a href="">Profile</a>
+                                    </span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="row justify-content-end">
-                            <li class="nav-item">
-                                <span class=" navbar-text">
-                                    <a href="/user_dashboard/logout/">Log out</a>
-                                </span>
-                            </li>
+                        <div class="col">
+                            <div class="row justify-content-center">
+                                <li class="nav-item" style="margin-right:30px;">
+                                    <span class="navbar-text">
+                                        Add User
+                                    </span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-                </ul>
+                        <div class="col">
+                            <div class="row justify-content-end">
+                                <li class="nav-item">
+                                    <span class=" navbar-text">
+                                        <a href="/user_dashboard/logout/">Log out</a>
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
             </div>
         </div>
-
     </div>
     <div style="border-bottom: solid #cb8 10px;"></div>
     <!-- ------------------------------------------------------------>
