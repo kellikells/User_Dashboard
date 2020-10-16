@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>dashboard/admin</title>
+    <title>Admin Dashboard</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -70,7 +70,6 @@
     <!--                      header & add user button                        -->
     <!-- --------------------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
-
         <div class="row">
             <div class="col">
                 <h4 style="padding: 0 0 50px 0;">Manage Users</h4>
@@ -80,7 +79,7 @@
 
                     <!-- LINK TO ADD A USER PAGE: users_new.html  -->
                     <a href="/user_dashboard/users_new/"
-                        style="background-color:#38e; color: white;border: 5px solid black; padding: 2px 20px; box-shadow: 5px 5px black;font-weight: bold; text-decoration: none;">
+                        style="background-color:#38e; color: white; padding: 5px 30px; box-shadow: 5px 5px #cb8; font-weight: bold; text-decoration: none;">
                         Add new <span class="material-icons" style="font-size: 1em;">
                             person_add_alt_1
                         </span>
@@ -92,15 +91,16 @@
         <!-- ------------------------------------------------------- -->
         <!--               input: search by name                     -->
         <!-- ------------------------------------------------------- -->
-        <div class="row">
+        <div class="row" style="margin-bottom: 30px;">
             <div class="col">
-
                 <form action="/user_dashboard/search_by_name/" id="searchForm">
                     {% csrf_token %}
-                    <label for="name">Search by name</label>
-                    <input type="text" name="name">
+                    <div class="form-row">
+                        <div class="col-4">
+                            <input type="text" name="name" class="form-control" placeholder="Search by name">
+                        </div>
+                    </div>
                 </form>
-
             </div>
         </div>
 

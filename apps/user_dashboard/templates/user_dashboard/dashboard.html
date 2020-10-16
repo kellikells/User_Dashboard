@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>dashboard/normal</title>
+    <title>Dashboard</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -83,15 +83,17 @@
         <!-- ------------------------------------------------------- -->
         <!--               input: search by name                     -->
         <!-- ------------------------------------------------------- -->
-        <div class="row">
+        <div class="row" style="margin-bottom: 30px;">
             <div class="col">
-
                 <form action="/user_dashboard/search_by_name/" id="searchForm">
                     {% csrf_token %}
-                    <label for="name">Search by name</label>
-                    <input type="text" name="name">
-                </form>
 
+                    <div class="form-row">
+                        <div class="col-4">
+                            <input type="text" name="name" class="form-control" placeholder="Search by name">
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
