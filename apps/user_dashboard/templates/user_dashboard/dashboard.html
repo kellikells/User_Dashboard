@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Link to jQuery  -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-        <!-- w3schools -->
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- w3schools -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -38,7 +38,8 @@
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        | <a id="navLink" href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                        | <a id="navLink"
+                                            href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -166,7 +167,7 @@
                 }
             });
         }
-        
+
         $("input[name=name").keyup(function () {
             submitAjaxform();
         })

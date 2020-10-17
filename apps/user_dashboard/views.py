@@ -233,8 +233,18 @@ def users_show(request, id):
         "messages" : Message.objects.filter(dashboardReceiver_id = id).order_by("-updated_at"),
         "comments" : Comment.objects.all().order_by("-updated_at")
     }
-
     return render(request, 'user_dashboard/users_show_id.html', context)
+
+# ------------------------------------------------------------------------
+# get the data for this users page
+def on_load(request, id):
+ 
+    context = {
+        "user" : DashboardUser.objects.get(id=id),
+        "messages" : Message.objects.filter(dashboardReceiver_id = id).order_by("-updated_at"),
+        "comments" : Comment.objects.all().order_by("-updated_at")
+    }
+    return render(request, 'user_dashboard/table_messages.html', context)
 
 # ------------------------------------------------------------------------
 def create_message(request, id, receiverID):
@@ -316,4 +326,16 @@ def search_by_name(request):
         if users.count() == 0 or request.POST['name'] == '':
             users = DashboardUser.objects.all()
         return render(request, 'user_dashboard/table_admin.html', {'users': users})
+
+
+# ------------------------------------------------------------------------
+def message_delete(request):
+
+    if request.method == "POST":
+        return HttpResponse("YAY")
+
+        # Message.objects.get(id = messageID).delete()
+    
+
+
 

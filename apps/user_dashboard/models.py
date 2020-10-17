@@ -76,10 +76,10 @@ class DashboardUser(models.Model):
 
 class Message(models.Model):
     # one-to-many relationship: one senderUser to many messages
-    dashboardSender_id = models.ForeignKey(DashboardUser, related_name = "sent_messages")
+    dashboardSender_id = models.ForeignKey(DashboardUser, on_delete= models.CASCADE, related_name = "sent_messages")
 
     # one-to-many relationship: one receiver to many messages
-    dashboardReceiver_id = models.ForeignKey(DashboardUser, related_name = "received_messages")
+    dashboardReceiver_id = models.ForeignKey(DashboardUser, on_delete= models.CASCADE, related_name = "received_messages")
 
     message = models.TextField()
 
@@ -99,10 +99,10 @@ class Message(models.Model):
 
 class Comment(models.Model):
     # one-to-many relationship: one user_id to many comments
-    user_id = models.ForeignKey(DashboardUser, related_name = "sent_comments")
+    user_id = models.ForeignKey(DashboardUser, on_delete= models.CASCADE, related_name = "sent_comments")
 
     # one-to-many relationship: one message_id to many comments
-    message_id = models.ForeignKey(Message, related_name = "this_message")
+    message_id = models.ForeignKey(Message, on_delete= models.CASCADE, related_name = "this_message")
   
     comment = models.TextField()
 

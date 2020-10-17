@@ -27,6 +27,8 @@ urlpatterns = [
 
     url(r'^users/show/(?P<id>\d+)/$', views.users_show, name="user_dashboard_users_show"),
 
+    url(r'^on_load/(?P<id>\d+)/$', views.on_load, name="user_dashboard_on_load"),
+
     # admin 
     url(r'^users/edit/(?P<id>\d+)/$', views.users_edit, name="user_dashboard_users_edit"),
 
@@ -45,5 +47,7 @@ urlpatterns = [
     url(r'^create_comment/(?P<userID>\d+)/(?P<messageID>\d+)/(?P<receiverID>\d+)/$', views.create_comment, name="user_dashboard_create_comment"),
 
     url(r'^search_by_name/$', views.search_by_name, name="user_dashboard_search_by_name"),
+
+    url(r'^messageDel/$', views.message_delete, name="user_Dashboard_messageDel"),
 
 ]

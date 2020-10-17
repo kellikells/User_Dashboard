@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="../../../../static/style.css">
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
@@ -20,112 +20,103 @@
 
 <body>
 
-
     <!-- --------------------------------------------------------------------- -->
     <!--                         MESSAGE CONTENT                              -->
     <!-- --------------------------------------------------------------------- -->
-
-    {% if messages %}
-    {% for message in messages %}
-    <div class="row justify-content-center" style="margin: 2em 2em 0 2em;">
-        <div class="col-10" id="myMessage">
-            <div class="row">
-                <div class="col" style="font-style: italic; font-size: 2rem;">
-                    <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                        style="margin-right: 10px; color: #38d;">{{ message.dashboardSender_id.first_name }}
-                    </a> wrote:
-                </div>
-            </div>
-            <div class="row">
-                <div class='col' style="margin-left: 10px;  padding: 20px;">
-                    <span style="font-size: 1.5rem; font-weight:normal;">
-                        {{ message.message }}
-                    </span>
-                </div>
-
-
-
-                <!-- --------------------------------------------------------------- -->
-                <!--                        DELETE BUTTON:                           -->
-                <!-- ---------------------------------------------------------------- -->
-                <!-- if user created the message  -->
-
-                {% if message.dashboardSender_id.id == request.session.user_id %}
-                <form>
-
-
-                    <div class="col-1">
-
-                        <a href=''><i class="fas fa-trash" style="font-size: 20px;"></i></a>
-                    </div>
-                </form>
-                <!-- if user received the message  -->
-                {% elif message.dashboardReceiver_id.id == request.session.user_id %}
-                <div class="col-1">
-                    <i class="fas fa-trash" style="font-size: 20px;"></i>
-                </div>
-                {% endif %}
-
-            </div>
-
-            <!-- --------------------------------------------------------------------- -->
-            <!--                           COMMENT CONTENT                             -->
-            <!-- --------------------------------------------------------------------- -->
-            {% if comments %}
-            {% for comment in comments %}
-            {% if comment.message_id.id == message.id %}
-            <div id="myComment">
+    <div id="table_placeholder">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row justify-content-center" style="margin: 2em 2em 0 2em;">
+            <div class="col-10" id="myMessage">
                 <div class="row">
-                    <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
+                    <div class="col" style="font-style: italic; font-size: 2rem;">
                         <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                            style="margin-right: 10px; color: #38d;">{{ comment.user_id.first_name }}
-                        </a> commented:
+                            style="margin-right: 10px; color: #38d;">{{ message.dashboardSender_id.first_name }}
+                        </a> wrote:
                     </div>
                 </div>
                 <div class="row">
-                    <div class='col' style="margin-left: 10px;  padding: 10px;">
-                        <span style="font-size: 18px; font-weight:400; ">
-                            {{ comment.comment }}
+                    <div class='col' style="margin-left: 10px;  padding: 20px;">
+                        <span style="font-size: 1.5rem; font-weight:normal;">
+                            {{ message.message }}
                         </span>
                     </div>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-            {% endif %}
 
-            <!-- --------------------------------------------------------------------- -->
-            <!--                         form: create a comment                        -->
-            <!-- --------------------------------------------------------------------- -->
+                    <!-- --------------------------------------------------------------- -->
+                    <!--                        DELETE BUTTON:                           -->
+                    <!-- ---------------------------------------------------------------- -->
+                    <!-- if user created the message  -->
 
-            <div class="row justify-content-end" style="padding-top: 50px;">
-                <div class="col">
-
-                    <form
-                        action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
-                        method="post">
-
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <input id="msgInput" name="comment_content" type="text" class="form-control"
-                                placeholder="{{request.session.user_name}} commented: ..." aria-label="user comment"
-                                aria-describedby="messageBtns">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" id="messageBtns"
-                                    type="submit">Comment</button>
-                            </div>
+                    {% if message.dashboardSender_id.id == request.session.user_id %}
+                    <form>
+                        <div class="col-1">
+                            <a href=''><i class="fas fa-trash" style="font-size: 20px;"></i></a>
                         </div>
                     </form>
+                    <!-- if user received the message  -->
+                    {% elif message.dashboardReceiver_id.id == request.session.user_id %}
+                    <div class="col-1">
+                        <i class="fas fa-trash" style="font-size: 20px;"></i>
+                    </div>
+                    {% endif %}
 
+                </div>
+
+                <!-- --------------------------------------------------------------------- -->
+                <!--                           COMMENT CONTENT                             -->
+                <!-- --------------------------------------------------------------------- -->
+                {% if comments %}
+                {% for comment in comments %}
+                {% if comment.message_id.id == message.id %}
+                <div id="myComment">
+                    <div class="row">
+                        <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
+                            <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                                style="margin-right: 10px; color: #38d;">{{ comment.user_id.first_name }}
+                            </a> commented:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col' style="margin-left: 10px;  padding: 10px;">
+                            <span style="font-size: 18px; font-weight:400; ">
+                                {{ comment.comment }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                <!-- --------------------------------------------------------------------- -->
+                <!--                         form: create a comment                        -->
+                <!-- --------------------------------------------------------------------- -->
+
+                <div class="row justify-content-end" style="padding-top: 50px;">
+                    <div class="col">
+
+                        <form
+                            action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
+                            method="post">
+
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input id="msgInput" name="comment_content" type="text" class="form-control"
+                                    placeholder="{{request.session.user_name}} commented: ..." aria-label="user comment"
+                                    aria-describedby="messageBtns">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" id="messageBtns"
+                                        type="submit">Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
+        {% endif %}
     </div>
-    {% endfor %}
-    {% endif %}
-
-
-
 
 
 
