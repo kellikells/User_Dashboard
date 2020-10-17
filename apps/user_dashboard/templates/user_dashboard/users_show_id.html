@@ -14,7 +14,8 @@
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <!-- w3schools  -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <!-- --------------------------------------------------------------------- -->
 <!-- --------------------------------------------------------------------- -->
@@ -31,16 +32,16 @@
                                 <li class="nav-item" style="margin-right:10px;">
                                     <span class="navbar-text">
                                         {% if request.session.user_level == "1" %}
-                                        <a href="/user_dashboard/dashboard_admin/">Dashboard</a>
+                                        <a id="navLink" href="/user_dashboard/dashboard_admin/">Dashboard</a>
                                         {% endif %}
                                         {% if request.session.user_level == "0" %}
-                                        <a href="/user_dashboard/dashboard/">Dashboard</a>
+                                        <a id="navLink" href="/user_dashboard/dashboard/">Dashboard</a>
                                         {% endif %}
                                     </span>
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        | <a href="/user_dashboard/users/edit/">Edit Profile</a>
+                                        | <a id="navLink" href="/user_dashboard/users/edit/">Edit Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -58,7 +59,7 @@
                             <div class="row justify-content-end">
                                 <li class="nav-item">
                                     <span class=" navbar-text">
-                                        <a href="/user_dashboard/logout/">Log out</a>
+                                        <a id="navLink" href="/user_dashboard/logout/">Log out</a>
                                     </span>
                                 </li>
                             </div>
@@ -75,7 +76,8 @@
     <!-- --------------------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
         <div class="row">
-            <div class="col-4" style="border:solid 1px black; margin-left: 5em; background-color: white;">
+            <div class="col-4 w3-panel w3-leftbar w3-rightbar w3-border-silver"
+                style=" margin-left: 5em; background-color: white;">
                 <h3 style="padding: 20px 0 20px 0;">{{user.first_name}} {{user.last_name}}</h3>
                 <div class="row">
                     <div class="col">
@@ -118,13 +120,30 @@
                         <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/"
                             method="post">
                             {% csrf_token %}
-                            <div class="form-group">
+                            <div class="input-group input-group-lg">
                                 <textarea name="message_content" class="form-control" id="msgInput" rows="3"
-                                    placeholder="{{request.session.user_name}} wrote: ..."></textarea>
+                                    placeholder="{{request.session.user_name}} wrote: ..." aria-label="message space"
+                                    aria-describedby="basic-addon2"></textarea>
+
+                                <div class="input-group-append">
+
+                                    <button class="messageBtns" type="submit" id="basic-addon2">
+                                        <span class="messageBtns" id="basic=addon2">Send &nbsp; ></span>
+                                    </button>
+
+                                </div>
+
                             </div>
-                            <div class="row justify-content-end">
-                                <button class="messageBtns" type="submit">Send</button>
-                            </div>
+
+
+                            <!-- <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+        aria-describedby="button-addon2">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+    </div>
+</div> -->
+
                         </form>
                     </div>
                 </div>
@@ -142,7 +161,7 @@
                 <div class="row">
                     <div class="col" style="font-style: italic; font-size: 2rem;">
                         <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                            style="margin-right: 10px;">{{ message.dashboardSender_id.first_name }}
+                            style="margin-right: 10px; color: #38d;">{{ message.dashboardSender_id.first_name }}
                         </a> wrote:
                     </div>
                 </div>
@@ -152,6 +171,30 @@
                             {{ message.message }}
                         </span>
                     </div>
+
+
+
+                    <!-- --------------------------------------------------------------- -->
+                    <!--                        DELETE BUTTON:                           -->
+                    <!-- ---------------------------------------------------------------- -->
+                    <!-- if user created the message  -->
+
+                    {% if message.dashboardSender_id.id == request.session.user_id %}
+                    <form>
+
+
+                        <div class="col-1">
+                            
+                           <a href=''><i class="fas fa-trash" style="font-size: 20px;"></i></a> 
+                        </div>
+                    </form>
+                    <!-- if user received the message  -->
+                    {% elif message.dashboardReceiver_id.id == request.session.user_id %}
+                    <div class="col-1">
+                        <i class="fas fa-trash" style="font-size: 20px;"></i>
+                    </div>
+                    {% endif %}
+
                 </div>
 
                 <!-- --------------------------------------------------------------------- -->
@@ -164,7 +207,7 @@
                     <div class="row">
                         <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
                             <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                                style="margin-right: 10px;">{{ comment.user_id.first_name }}
+                                style="margin-right: 10px; color: #38d;">{{ comment.user_id.first_name }}
                             </a> commented:
                         </div>
                     </div>

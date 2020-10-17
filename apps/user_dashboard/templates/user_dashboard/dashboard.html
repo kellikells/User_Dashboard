@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Link to jQuery  -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <!-- w3schools -->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -31,12 +33,12 @@
                             <div class="row">
                                 <li class="nav-item" style="margin-right:10px;">
                                     <span class="navbar-text">
-                                        <a href="/user_dashboard/users/edit/">Edit Profile</a>
+                                        <a id="navLink" href="/user_dashboard/users/edit/">Edit Profile</a>
                                     </span>
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        | <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                        | <a id="navLink" href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -54,7 +56,7 @@
                             <div class="row justify-content-end">
                                 <li class="nav-item">
                                     <span class=" navbar-text">
-                                        <a href="/user_dashboard/logout/">Log out</a>
+                                        <a id="navLink" href="/user_dashboard/logout/">Log out</a>
                                     </span>
                                 </li>
                             </div>
@@ -69,13 +71,10 @@
     <!--                              header                                   -->
     <!-- --------------------------------------------------------------------- -->
     <div class="container" style="padding: 20px 0 20px 0;">
-
         <div class="row">
             <div class="col">
-
                 <p style="text-align: center; font-weight: lighter;">Click on a user's name
                     to checkout their profile page where you can leave them a message</p>
-
             </div>
         </div>
 
@@ -158,7 +157,6 @@
     <script>
 
         function submitAjaxform() {
-
             $.ajax({
                 method: "post",
                 url: $("#searchForm").attr("action"),
@@ -168,11 +166,10 @@
                 }
             });
         }
-
+        
         $("input[name=name").keyup(function () {
             submitAjaxform();
         })
-
     </script>
 
     <!-- BOOTSTRAP'S: Optional JavaScript
