@@ -176,7 +176,7 @@
                         <div class="col-1">
 
                             <form id="deleteForm" action="messageDel/{{message.id}}/" method="post">
-                            <!-- <form id="deleteForm" action="user_dashboard/messageDel/{{message.id}}/{{user.id}}/"
+                                <!-- <form id="deleteForm" action="user_dashboard/messageDel/{{message.id}}/{{user.id}}/"
                                 method="post"> -->
 
                                 {% csrf_token %}
@@ -199,7 +199,6 @@
                         </div>
 
                         <!-- <script>
-
                             $('#deleteForm').submit(function (event) {
                                 event.preventDefault()
 
@@ -215,18 +214,22 @@
                                     }
                                 })
                             })
-
                         </script> -->
-
-
 
                         <!-- if user received the message  -->
                         {% elif message.dashboardReceiver_id.id == request.session.user_id %}
                         <div class="col-1">
-                            <p>yay</p>
+
+                            <form id="deleteForm" action="messageDel/{{message.id}}/" method="post">
+                                {% csrf_token %}
+
+                                <button id="deleteBtn" type="submit">
+                                    <i id="trash" class="fas fa-trash" style="font-size: 20px;"></i>
+                                </button>
+                            </form>
+            
                         </div>
                         {% endif %}
-
                     </div>
 
                     <!-- --------------------------------------------------------------------- -->
