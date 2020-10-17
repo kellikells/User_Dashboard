@@ -111,9 +111,15 @@ def signin_process(request):
                 if this_user.user_level == "1":
                     if 'user_level' not in request.session:
                         request.session['user_level'] = "1"
+                    else:
+                        request.session['user_level'] = "1"
                     if 'user_id' not in request.session:
                         request.session['user_id'] = this_user.id
+                    else:
+                        request.session['user_id'] = this_user.id
                     if 'user_name' not in request.session:
+                        request.session['user_name'] = this_user.first_name
+                    else:
                         request.session['user_name'] = this_user.first_name
                     return redirect('/user_dashboard/dashboard_admin/')   
 
@@ -121,9 +127,15 @@ def signin_process(request):
                 else:
                     if 'user_level' not in request.session:
                         request.session['user_level'] = "0"
+                    else:
+                        request.session['user_level'] = "0"
                     if 'user_id' not in request.session:
                         request.session['user_id'] = this_user.id
+                    else:
+                        request.session['user_id'] = this_user.id
                     if 'user_name' not in request.session:
+                        request.session['user_name'] = this_user.first_name
+                    else:
                         request.session['user_name'] = this_user.first_name
                     return redirect('/user_dashboard/dashboard/')
             # .............................................................
@@ -237,14 +249,14 @@ def users_show(request, id):
 
 # ------------------------------------------------------------------------
 # get the data for this users page
-def on_load(request, id):
+# def on_load(request, id):
  
-    context = {
-        "user" : DashboardUser.objects.get(id=id),
-        "messages" : Message.objects.filter(dashboardReceiver_id = id).order_by("-updated_at"),
-        "comments" : Comment.objects.all().order_by("-updated_at")
-    }
-    return render(request, 'user_dashboard/table_messages.html', context)
+#     context = {
+#         "user" : DashboardUser.objects.get(id=id),
+#         "messages" : Message.objects.filter(dashboardReceiver_id = id).order_by("-updated_at"),
+#         "comments" : Comment.objects.all().order_by("-updated_at")
+#     }
+#     return render(request, 'user_dashboard/table_messages.html', context)
 
 # ------------------------------------------------------------------------
 def create_message(request, id, receiverID):
@@ -329,12 +341,23 @@ def search_by_name(request):
 
 
 # ------------------------------------------------------------------------
-def message_delete(request):
+def message_delete(request, id, messageID):
 
     if request.method == "POST":
-        return HttpResponse("YAY")
 
-        # Message.objects.get(id = messageID).delete()
+        print('-'*30)
+        print('gotit')
+
+        Message.objects.get(id = messageID).delete()
+    
+    return redirect('/user_dashboard/users/show/' + id + '/')
+
+
+
+# def message_delete(request):
+
+#     if request.method == 'POST':
+#         return redirect('/user_dashboard')
     
 
 

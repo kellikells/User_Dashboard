@@ -41,27 +41,41 @@
                             {{ message.message }}
                         </span>
                     </div>
-
+    
+    
+    
                     <!-- --------------------------------------------------------------- -->
                     <!--                        DELETE BUTTON:                           -->
                     <!-- ---------------------------------------------------------------- -->
                     <!-- if user created the message  -->
-
+    
                     {% if message.dashboardSender_id.id == request.session.user_id %}
-                    <form>
-                        <div class="col-1">
-                            <a href=''><i class="fas fa-trash" style="font-size: 20px;"></i></a>
-                        </div>
-                    </form>
+                    <div class="col-1">
+                        <form id="deleteForm" action="user_dashboard/messageDel/" method="post">
+                            {% csrf_token %}
+    
+                            <input type="hidden" value="{{message.id}}">
+    
+    
+                            <i id="trash" class="fas fa-trash" style="font-size: 20px;">
+    
+                                <input type="submit" value="Submit"
+                                    style="border:none; background-color: transparent; color: transparent;">
+    
+                            </i>
+    
+                        </form>
+                    </div>
                     <!-- if user received the message  -->
                     {% elif message.dashboardReceiver_id.id == request.session.user_id %}
                     <div class="col-1">
-                        <i class="fas fa-trash" style="font-size: 20px;"></i>
+                        <p>yay</p>
+                        <!-- <i class="fas fa-trash" style="font-size: 20px;"></i> -->
                     </div>
                     {% endif %}
-
+    
                 </div>
-
+    
                 <!-- --------------------------------------------------------------------- -->
                 <!--                           COMMENT CONTENT                             -->
                 <!-- --------------------------------------------------------------------- -->
@@ -87,26 +101,25 @@
                 {% endif %}
                 {% endfor %}
                 {% endif %}
-
+    
                 <!-- --------------------------------------------------------------------- -->
                 <!--                         form: create a comment                        -->
                 <!-- --------------------------------------------------------------------- -->
-
+    
                 <div class="row justify-content-end" style="padding-top: 50px;">
                     <div class="col">
-
+    
                         <form
                             action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
                             method="post">
-
+    
                             {% csrf_token %}
                             <div class="input-group mb-3">
                                 <input id="msgInput" name="comment_content" type="text" class="form-control"
                                     placeholder="{{request.session.user_name}} commented: ..." aria-label="user comment"
                                     aria-describedby="messageBtns">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" id="messageBtns"
-                                        type="submit">Comment</button>
+                                    <button class="btn btn-outline-secondary messageBtns" type="submit">Comment</button>
                                 </div>
                             </div>
                         </form>
@@ -117,7 +130,6 @@
         {% endfor %}
         {% endif %}
     </div>
-
 
 
     <!-- BOOTSTRAP'S: Optional JavaScript
