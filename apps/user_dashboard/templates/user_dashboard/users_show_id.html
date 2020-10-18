@@ -126,18 +126,22 @@
                         <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/"
                             method="post">
                             {% csrf_token %}
-                            <div class="input-group input-group mb-3">
-                                <input id="msgInput" name="message_content" type="text" class="form-control"
-                                    placeholder="{{request.session.user_name}} wrote: ..." aria-label="message space"
-                                    aria-describedby="messageBtns"></input>
+                            <div class="input-group input-group mb-3" id="container-2">
 
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" id="messageBtns" type="submit">
-                                        <span>Send
-                                            &nbsp; ></span>
-                                    </button>
-                                </div>
+                                <textarea id="msgInput" name="message_content" type="text" class="form-control"
+                                    placeholder="{{request.session.user_name}} wrote: ..." aria-label="message space"
+                                    aria-describedby="messageBtns">
+                                </textarea>
+
                             </div>
+
+                            <div class="row justify-content-end">
+                                <button class="btn btn-outline-secondary" id="messageBtns" type="submit">
+                                    <span>Send
+                                        &nbsp; ></span>
+                                </button>
+                            </div>
+
                         </form>
 
                     </div>
@@ -158,31 +162,33 @@
                 <div id="myMessage">
                     <div class="row">
                         <div class="col" style="font-style: italic; font-size: 2rem;">
-                            <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                                style="margin-right: 10px; color: #38d;">{{ message.dashboardSender_id.first_name }}
+                            <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                                style="margin-right: 10px; color: #38d; text-decoration: underline;">{{ message.dashboardSender_id.first_name }}
                             </a> wrote:
                         </div>
                         <!-- ---------------------------------------- -->
                         <!--        DELETE BUTTON:                    -->
                         <!-- ---------------------------------------- -->
-                        
+
                         <!-- if user created the message  -->
                         {% if message.dashboardSender_id.id == request.session.user_id %}
                         <div class="col-1">
                             <form action="messageDel/{{message.id}}/" method="post">
                                 {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn" type="submit">
-                                    <span class="fas fa-trash" style="font-size: 20px;"></span>
+                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                    type="submit">
+                                    <span id="deleteImg" class="fas fa-trash"></span>
                                 </button>
                             </form>
                         </div>
-                        
+
                         <!-- if user received the message  -->
                         {% elif message.dashboardReceiver_id.id == request.session.user_id %}
                         <div class="col-1">
                             <form action="messageDel/{{message.id}}/" method="post">
                                 {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn" type="submit">
+                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                    type="submit">
                                     <span class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
                             </form>
@@ -206,9 +212,9 @@
                 <div id="myComment">
                     <div class="row">
                         <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
-                            <a href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                                style="margin-right: 10px; color: #38d;">{{ comment.user_id.first_name }}
-                            </a> commented:
+                            <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                                style=" color: #38d; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
+                            </a>  commented:
                         </div>
                     </div>
                     <div class="row">
@@ -229,7 +235,7 @@
                                 {% csrf_token %}
                                 <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
                                     type="submit">
-                                    <span class="fas fa-trash" style="font-size: 20px;"></span>
+                                    <span id="deleteImg" class="fas fa-trash"></span>
                                 </button>
                             </form>
 
@@ -293,6 +299,8 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+
+        $('textarea').autoResize();
     </script>
 
     <!-- Optional JavaScript -->

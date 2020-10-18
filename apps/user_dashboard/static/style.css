@@ -1,32 +1,36 @@
 * {
      box-sizing: border-box;
 }
-
+/* -------------------------------- */
 body {
      font-weight: bold;
-     /* background-color: #dae0e6; */
-     /* background-color: #fff; */
-     /* background-color: #e9ecef; */
 }
 /* -------------------------------- */
-
 #my_link {
      text-decoration: underline;
 }
+/* -------------------------------- */
+#myUser {
+     padding: 10px;
+     transition: 0.3s;
+}
 
+#myUser:hover {
+     font-size: 120%;
+}
+/* -------------------------------- */
 #myNav {
-     /* background-color: white; */
      background-color: #e9ecef;
      font-weight: bold;
      line-height: 1.5;
      padding: 15px;
 }
-
+/* -------------------------------- */
 .nav-item {
      font-size: 22px;
      font-weight: 450;
 }
-
+/* -------------------------------- */
 #navLink {
      font-size: 18px;
      /* letter-spacing: 1px; */
@@ -36,7 +40,6 @@ body {
      display: inline-block;
 }
 /* -------------------------------- */
-
 #indexBtn {
      background-color: #38e;
      color: white;
@@ -46,9 +49,7 @@ body {
      text-decoration: none;
      transition: all 150ms linear;
 }
-
 /* -------------------------------- */
-
 .myBtn {
      background: #38e;
      color: white;
@@ -73,7 +74,6 @@ body {
      transition: all 250ms linear;
 }
 /* -------------------------------- */
-
 .addUserBtn {
      background: #38e;
      color: white;
@@ -93,7 +93,6 @@ body {
      transition: all 250ms linear;
 }
 /* -------------------------------- */
-
 #messageBtns {
      background-color: #38e;
      color: white;
@@ -103,14 +102,30 @@ body {
      text-decoration: none;
      border: none;
 }
-
+/* -------------------------------- */
 #msgInput {
-     background-color: aliceblue;
-     border: solid 2px #3bd;
-     transition: border 0.5s;
+     width: 50px;
+     height: 50px;
+     background-color: rgb(197, 230, 247);
+     border: solid 4px #3bd;
+     font-size: 10pt;
+     float: left;
+     color: #262626;
+     padding-left: 35px;
+     resize: none;
+
+     -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+     transition: all 0.5s ease;
+     transition: width 0.55s ease;
 }
+
+#msgInput:focus {
+     height: 100px;
+}
+
 #msgInput:hover {
-     border: solid 2px #3bd;
+     height: 100px;
 }
 /* -------------------------------- */
 #commentBtns {
@@ -122,42 +137,74 @@ body {
      text-decoration: none;
      border: none;
 }
-
+/* -------------------------------- */
 #commentInput {
      background-color: aliceblue;
      border: solid 2px #3bd;
-     transition: border 0.5s;
+     transition: 0.1s;
+}
+
+#commentInput:focus {
+     background-color: #ffd;
 }
 
 #commentInput:hover {
-     border: solid 2px #3bd;
+     background-color: #ffd;
 }
+
 /* -------------------------------- */
-
-#myComment {
-     padding: 15px;
-     transition: border 0.1s;
-}
-
-#myComment:hover {
-     border: dotted 3px black;
-}
-/* -------------------------------- */
-
-#myMessage {
-     padding: 10px;
-     /* border: solid 1px black; */
-     border: solid 5px #3bd;
-}
-
 #editBtns {
      background-color: #38e;
      color: white;
      padding: 5px 20px;
      border: none;
 }
-
+/* -------------------------------- */
 #deleteBtn {
      border: none;
      background-color: transparent;
+     display: none;
+}
+/* -------------------------------- */
+#myComment {
+     padding: 15px;
+     border: dotted 3px transparent;
+     transition: 0.1s;
+}
+
+#myComment:hover {
+     padding: 15px;
+     border: dotted 3px black;
+     background-color: #ffd;
+}
+
+#myComment:hover #deleteBtn{
+     display: block;
+}
+
+
+/* -------------------------------- */
+#myMessage {
+     padding: 10px;
+     /* border: solid 1px black; */
+     border: solid 5px #3bd;
+     transition: 0.1s;
+}
+
+#myMessage:hover {
+     background-color: #ffd;
+}
+
+#myMessage:hover #deleteBtn{
+     display: block;
+}
+
+/* -------------------------------- */
+#deleteImg {
+     font-size: 20px;
+     background-color: transparent;
+}
+
+#deleteImg:hover {
+     color: red;
 }
