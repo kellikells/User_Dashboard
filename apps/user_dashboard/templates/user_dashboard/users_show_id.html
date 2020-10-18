@@ -83,7 +83,8 @@
         <div class="row">
             <div class="col-4 w3-panel w3-leftbar w3-rightbar w3-border-silver"
                 style=" margin-left: 5em; background-color: white;">
-                <h3 style="padding: 20px 0 20px 0;">{{user.first_name}} {{user.last_name}}</h3>
+                <div style="padding: 20px 0 20px 0; font-weight: 500; font-size: 24px;">{{user.first_name}}
+                    {{user.last_name}}</div>
                 <div class="row">
                     <div class="col">
                         <table>
@@ -119,19 +120,74 @@
             <!--                         form: create a message                        -->
             <!-- --------------------------------------------------------------------- -->
             <div class="col" style="margin-right: 3em;">
-                <h5 style="padding-top:50px; margin-left:3em;">Leave {{user.first_name}} a message</h5>
+                <div style="margin:50px 0 20px 0;text-align: center; font-size: 24px;">Leave {{user.first_name}} a
+                    message
+                </div>
                 <div class="row justify-content-end">
                     <div class="col-11">
 
+                        <!-- MODAL CLICK  -->
+                        <div class="row justify-content-between" id="modalView">
+                            <a data-toggle="modal" data-target="#modalForm">Create message...</a>
+                            <i class="material-icons" style="font-size: 37px;">
+                                mail
+                            </i>
+                        </div>
+
+                        <!-- modal form for creating a message -->
+                        <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #e4e6eb;">
+                                        <h5 class="modal-title" id="modalFormLabel"
+                                            style="font-size: 145%; font-weight:bold;">Create
+                                            Message</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <form
+                                        action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/"
+                                        method="post">
+                                        {% csrf_token %}
+                                        <div class="modal-body" style="padding: .5rem;">
+                                            <div class="form-group">
+                                                <label for="msgInput" class="col-form-label"
+                                                    style="display:none;">Message:</label>
+                                                <textarea placeholder="{{request.session.user_name}} wrote: ..."
+                                                    id="msgInput" name="message_content" class="form-control"
+                                                    aria-label="message space" aria-describedby="messageBtns" rows="4">
+                                </textarea>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="modal-footer" style="border-top: none; padding-top: none;">
+
+                                        <button type="submit" class="btn btn-primary" data-toggle="tooltip"
+                                            data-placement="bottom" title="send" id="sendBtn">
+                                            <i class="far fa-paper-plane" id="sendBtn"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- 
                         <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/"
                             method="post">
                             {% csrf_token %}
                             <div class="input-group input-group mb-3" id="container-2">
 
-                                <textarea id="msgInput" name="message_content" type="text" class="form-control"
+                                <textarea id="msgInput" name="message_content" class="form-control"
                                     placeholder="{{request.session.user_name}} wrote: ..." aria-label="message space"
                                     aria-describedby="messageBtns">
-                                </textarea>
+                                                                                </textarea>
 
                             </div>
 
@@ -142,7 +198,8 @@
                                 </button>
                             </div>
 
-                        </form>
+                        </form> -->
+
 
                     </div>
                 </div>
@@ -214,7 +271,7 @@
                         <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
                             <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
                                 style=" color: #38d; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
-                            </a>  commented:
+                            </a> commented:
                         </div>
                     </div>
                     <div class="row">
@@ -265,7 +322,7 @@
                 <!--            form: create a comment        -->
                 <!-- ---------------------------------------- -->
 
-                <div class="row justify-content-end" style="padding-top: 50px;">
+                <div class="row justify-content-end" style="padding-top: 50px; ">
                     <div class="col">
 
                         <form
@@ -300,7 +357,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
 
-        $('textarea').autoResize();
+        // $('textarea').autoResize();
     </script>
 
     <!-- Optional JavaScript -->

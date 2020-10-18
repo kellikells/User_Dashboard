@@ -6,6 +6,12 @@ body {
      font-weight: bold;
 }
 /* -------------------------------- */
+
+/* -------------------------------- */
+textarea {
+  resize: none;
+}
+/* -------------------------------- */
 #my_link {
      text-decoration: underline;
 }
@@ -27,17 +33,19 @@ body {
 }
 /* -------------------------------- */
 .nav-item {
-     font-size: 22px;
+     font-size: 18px;
      font-weight: 450;
 }
 /* -------------------------------- */
 #navLink {
-     font-size: 18px;
-     /* letter-spacing: 1px; */
      text-transform: uppercase;
      cursor: pointer;
      font-weight: bold;
      display: inline-block;
+}
+
+#navLink:hover {
+     background-color: #ddd;
 }
 /* -------------------------------- */
 #indexBtn {
@@ -49,13 +57,17 @@ body {
      text-decoration: none;
      transition: all 150ms linear;
 }
+
+#indexBtn:hover {
+     border: solid 3px #cb8;
+}
 /* -------------------------------- */
 .myBtn {
      background: #38e;
      color: white;
      border: none;
      padding: 5px 40px;
-     box-shadow: 5px 5px #cb8;
+     /* box-shadow: 5px 5px #cb8; */
      font-weight: bold;
      text-decoration: none;
      transition: all 150ms linear;
@@ -64,13 +76,13 @@ body {
      background: #cb8;
      color: white;
      border: none;
-     box-shadow: 5px 5px #38e;
+     /* box-shadow: 5px 5px #38e; */
      text-decoration: none;
 
      /* shrink effect */
-     -webkit-transform: scale(0.8);
+     /* -webkit-transform: scale(0.8);
      -ms-transform: scale(0.8);
-     transform: scale(0.8);
+     transform: scale(0.8); */
      transition: all 250ms linear;
 }
 /* -------------------------------- */
@@ -103,15 +115,14 @@ body {
      border: none;
 }
 /* -------------------------------- */
-#msgInput {
-     width: 50px;
+/* #msgInput {
      height: 50px;
      background-color: rgb(197, 230, 247);
      border: solid 4px #3bd;
      font-size: 10pt;
-     float: left;
+    
      color: #262626;
-     padding-left: 35px;
+     padding-left: 15px;
      resize: none;
 
      -webkit-transition: all 0.5s ease;
@@ -126,7 +137,38 @@ body {
 
 #msgInput:hover {
      height: 100px;
+} */
+
+#msgInput {
+     border: none;
+     outline: none;
 }
+
+#modalView {
+     width: 100%;
+     background-color: #e9ecef;
+     border: solid 4px #cb8;
+     border-radius: 20px;
+     padding: 20px;
+     font-size: 21px;
+     font-weight:normal;
+     font-family :Verdana, Geneva, Tahoma, sans-serif;
+     transition: 0.3s;
+}
+
+#modalView:hover {
+     background-color: #e3eaf3;
+     border: solid 4px #3bd;
+}
+
+#modalForm {
+     font-weight: bold;
+}
+/* -------------------------------- */
+#sendBtn {
+     font-size: 125%;
+}
+
 /* -------------------------------- */
 #commentBtns {
      background-color: #38e;
@@ -178,10 +220,9 @@ body {
      background-color: #ffd;
 }
 
-#myComment:hover #deleteBtn{
+#myComment:hover #deleteBtn {
      display: block;
 }
-
 
 /* -------------------------------- */
 #myMessage {
@@ -195,7 +236,7 @@ body {
      background-color: #ffd;
 }
 
-#myMessage:hover #deleteBtn{
+#myMessage:hover #deleteBtn {
      display: block;
 }
 
@@ -203,6 +244,7 @@ body {
 #deleteImg {
      font-size: 20px;
      background-color: transparent;
+     transition: 0.1s;
 }
 
 #deleteImg:hover {
