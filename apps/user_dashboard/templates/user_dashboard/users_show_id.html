@@ -139,7 +139,7 @@
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header" style="background-color: #e4e6eb;">
+                                    <div class="modal-header" style="background-color: #e4e6eb; border-bottom: solid 7px #38e;">
                                         <h5 class="modal-title" id="modalFormLabel"
                                             style="font-size: 145%; font-weight:bold;">Create
                                             Message</h5>
@@ -246,7 +246,7 @@
                                 {% csrf_token %}
                                 <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
                                     type="submit">
-                                    <span class="fas fa-trash" style="font-size: 20px;"></span>
+                                    <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
                             </form>
                         </div>
@@ -305,7 +305,7 @@
                                 {% csrf_token %}
                                 <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
                                     type="submit">
-                                    <span class="fas fa-trash" style="font-size: 20px;"></span>
+                                    <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
                             </form>
 
@@ -336,7 +336,7 @@
                                     aria-describedby="messageBtns">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" id="commentBtns"
-                                        type="submit">Comment</button>
+                                        type="submit" data-toggle="tooltip" data-placement="top" title="post comment"><i class="far fa-comment"></i></button>
                                 </div>
                             </div>
                         </form>

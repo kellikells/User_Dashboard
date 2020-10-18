@@ -33,7 +33,7 @@ textarea {
 }
 /* -------------------------------- */
 .nav-item {
-     font-size: 18px;
+     font-size: 15px;
      font-weight: 450;
 }
 /* -------------------------------- */
@@ -42,6 +42,8 @@ textarea {
      cursor: pointer;
      font-weight: bold;
      display: inline-block;
+     padding: .5em;
+     transition: 0.1s;
 }
 
 #navLink:hover {
@@ -250,3 +252,5 @@ textarea {
 #deleteImg:hover {
      color: red;
 }
+
+
