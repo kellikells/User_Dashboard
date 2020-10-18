@@ -8,6 +8,7 @@ body {
      /* background-color: #fff; */
      /* background-color: #e9ecef; */
 }
+/* -------------------------------- */
 
 #my_link {
      text-decoration: underline;
@@ -34,6 +35,7 @@ body {
      font-weight: bold;
      display: inline-block;
 }
+/* -------------------------------- */
 
 #indexBtn {
      background-color: #38e;
@@ -45,8 +47,7 @@ body {
      transition: all 150ms linear;
 }
 
-/* 
- style="background-color:#38e; color: white; padding: 5px 40px; box-shadow: 5px 5px #cb8; font-weight: bold; text-decoration: none;" */
+/* -------------------------------- */
 
 .myBtn {
      background: #38e;
@@ -71,6 +72,7 @@ body {
      transform: scale(0.8);
      transition: all 250ms linear;
 }
+/* -------------------------------- */
 
 .addUserBtn {
      background: #38e;
@@ -90,8 +92,9 @@ body {
      text-decoration: none;
      transition: all 250ms linear;
 }
+/* -------------------------------- */
 
-.messageBtns {
+#messageBtns {
      background-color: #38e;
      color: white;
      padding: 5px 20px;
@@ -103,12 +106,33 @@ body {
 
 #msgInput {
      background-color: aliceblue;
-     border: none;
+     border: solid 2px #3bd;
      transition: border 0.5s;
 }
 #msgInput:hover {
      border: solid 2px #3bd;
 }
+/* -------------------------------- */
+#commentBtns {
+     background-color: #38e;
+     color: white;
+     padding: 5px 20px;
+     /* box-shadow: 5px 5px #cb8; */
+     font-weight: bold;
+     text-decoration: none;
+     border: none;
+}
+
+#commentInput {
+     background-color: aliceblue;
+     border: solid 2px #3bd;
+     transition: border 0.5s;
+}
+
+#commentInput:hover {
+     border: solid 2px #3bd;
+}
+/* -------------------------------- */
 
 #myComment {
      padding: 15px;
@@ -118,11 +142,12 @@ body {
 #myComment:hover {
      border: dotted 3px black;
 }
+/* -------------------------------- */
 
 #myMessage {
-     padding-top: 10px;
+     padding: 10px;
      /* border: solid 1px black; */
-     border-top: solid 5px #3bd;
+     border: solid 5px #3bd;
 }
 
 #editBtns {
@@ -135,5 +160,4 @@ body {
 #deleteBtn {
      border: none;
      background-color: transparent;
-     
 }
