@@ -348,5 +348,8 @@ def message_delete(request, id, messageID):
     return redirect('/user_dashboard/users/show/' + id + '/')
 
 # ------------------------------------------------------------------------
-def comment_delete(request):
-    return 
+def comment_delete(request, id, commentID):
+    if request.method == "POST":
+        Comment.objects.get(id = commentID).delete()
+
+    return redirect('/user_dashboard/users/show/' + id + '/')

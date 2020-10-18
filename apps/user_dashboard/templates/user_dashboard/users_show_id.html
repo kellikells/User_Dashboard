@@ -76,9 +76,9 @@
     </div>
     <div style="border-bottom: solid #cb8 10px;"></div>
 
-    <!-- --------------------------------------------------------------------- -->
-    <!--                         USER INFO                                      -->
-    <!-- --------------------------------------------------------------------- -->
+    <!-- ---------------------------------------- -->
+    <!--            USER INFO                     -->
+    <!-- ---------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
         <div class="row">
             <div class="col-4 w3-panel w3-leftbar w3-rightbar w3-border-silver"
@@ -143,9 +143,9 @@
             </div>
         </div>
 
-        <!-- --------------------------------------------------------------------- -->
-        <!--                         MESSAGE CONTENT                              -->
-        <!-- --------------------------------------------------------------------- -->
+        <!-- ---------------------------------------- -->
+        <!--                 MESSAGE CONTENT           -->
+        <!-- ---------------------------------------- -->
         <div id="table_placeholder">
             {% if messages %}
             {% for message in messages %}
@@ -165,17 +165,17 @@
                             </span>
                         </div>
 
-                        <!-- --------------------------------------------------------------- -->
-                        <!--                        DELETE BUTTON:                           -->
-                        <!-- ---------------------------------------------------------------- -->
+                        <!-- ---------------------------------------- -->
+                        <!--        DELETE BUTTON:                    -->
+                        <!-- ---------------------------------------- -->
                         <!-- if user created the message  -->
 
                         {% if message.dashboardSender_id.id == request.session.user_id %}
                         <div class="col-1">
 
-                            <form id="deleteForm" action="messageDel/{{message.id}}/" method="post">
+                            <form action="messageDel/{{message.id}}/" method="post">
                                 {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="bottom" title="delete" id="deleteBtn"
+                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
                                     type="submit">
                                     <span class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
@@ -187,9 +187,9 @@
                         {% elif message.dashboardReceiver_id.id == request.session.user_id %}
                         <div class="col-1">
 
-                            <form id="deleteForm" action="messageDel/{{message.id}}/" method="post">
+                            <form action="messageDel/{{message.id}}/" method="post">
                                 {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="bottom" title="delete" id="deleteBtn"
+                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
                                     type="submit">
                                     <span class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
@@ -199,9 +199,9 @@
                         {% endif %}
                     </div>
 
-                    <!-- --------------------------------------------------------------------- -->
-                    <!--                           COMMENT CONTENT                             -->
-                    <!-- --------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------- -->
+                    <!--          COMMENT CONTENT                 -->
+                    <!-- ---------------------------------------- -->
                     {% if comments %}
                     {% for comment in comments %}
                     {% if comment.message_id.id == message.id %}
@@ -219,15 +219,47 @@
                                     {{ comment.comment }}
                                 </span>
                             </div>
+
+
+                            <!-- ---------------------------------------- -->
+                            <!--                 DELETE COMMENT:            -->
+                            <!-- ---------------------------------------- -->
+                            <!-- if user created the comment  -->
+                            {% if comment.user_id.id == request.session.user_id %}
+                            <div class="col-1">
+                                <form action="commentDel/{{comment.id}}/" method="post">
+                                    {% csrf_token %}
+                                    <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                        type="submit">
+                                        <span class="fas fa-trash" style="font-size: 20px;"></span>
+                                    </button>
+                                </form>
+
+                            </div>
+                            <!-- if user received the message  -->
+                            {% elif message.dashboardReceiver_id.id == request.session.user_id %}
+                            <div class="col-1">
+
+                                <form action="commentDel/{{comment.id}}/" method="post">
+                                    {% csrf_token %}
+                                    <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                        type="submit">
+                                        <span class="fas fa-trash" style="font-size: 20px;"></span>
+                                    </button>
+                                </form>
+
+                            </div>
+                            {% endif %}
+
                         </div>
                     </div>
                     {% endif %}
                     {% endfor %}
                     {% endif %}
 
-                    <!-- --------------------------------------------------------------------- -->
-                    <!--                         form: create a comment                        -->
-                    <!-- --------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------- -->
+                    <!--            form: create a comment        -->
+                    <!-- ---------------------------------------- -->
 
                     <div class="row justify-content-end" style="padding-top: 50px;">
                         <div class="col">
