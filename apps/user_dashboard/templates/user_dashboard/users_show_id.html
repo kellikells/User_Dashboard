@@ -165,8 +165,6 @@
                             </span>
                         </div>
 
-
-
                         <!-- --------------------------------------------------------------- -->
                         <!--                        DELETE BUTTON:                           -->
                         <!-- ---------------------------------------------------------------- -->
@@ -176,45 +174,14 @@
                         <div class="col-1">
 
                             <form id="deleteForm" action="messageDel/{{message.id}}/" method="post">
-                                <!-- <form id="deleteForm" action="user_dashboard/messageDel/{{message.id}}/{{user.id}}/"
-                                method="post"> -->
-
                                 {% csrf_token %}
-
-                                <button id="deleteBtn" type="submit">
-                                    <i id="trash" class="fas fa-trash" style="font-size: 20px;"></i>
+                                <button data-toggle="tooltip" data-placement="bottom" title="delete" id="deleteBtn"
+                                    type="submit">
+                                    <span class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
-
-
                             </form>
-                            <!-- <form id="deleteForm" action="user_dashboard/messageDel/" method="post"> -->
-
-
-                            <!-- <i id="trash" class="fas fa-trash" style="font-size: 20px;">
-                                    <input type="submit" value="Submit"
-                                        style="border:none; background-color: transparent; color: transparent;">
-                                </i> -->
-                            <!-- <input type="hidden" value="{{message.id}}"> -->
 
                         </div>
-
-                        <!-- <script>
-                            $('#deleteForm').submit(function (event) {
-                                event.preventDefault()
-
-                                console.log('script tag')
-
-                                $.ajax({
-                                    method: 'post',
-                                    url: $(this).attr('action'),
-                                    data: $(this).serialize(),
-                                    success: function (serverResponse) {
-
-                                        $('#table_placeholder').html(serverResponse)
-                                    }
-                                })
-                            })
-                        </script> -->
 
                         <!-- if user received the message  -->
                         {% elif message.dashboardReceiver_id.id == request.session.user_id %}
@@ -222,12 +189,12 @@
 
                             <form id="deleteForm" action="messageDel/{{message.id}}/" method="post">
                                 {% csrf_token %}
-
-                                <button id="deleteBtn" type="submit">
-                                    <i id="trash" class="fas fa-trash" style="font-size: 20px;"></i>
+                                <button data-toggle="tooltip" data-placement="bottom" title="delete" id="deleteBtn"
+                                    type="submit">
+                                    <span class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
                             </form>
-            
+
                         </div>
                         {% endif %}
                     </div>
@@ -292,7 +259,11 @@
 
 
 
-
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

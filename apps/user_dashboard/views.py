@@ -339,26 +339,14 @@ def search_by_name(request):
             users = DashboardUser.objects.all()
         return render(request, 'user_dashboard/table_admin.html', {'users': users})
 
-
 # ------------------------------------------------------------------------
 def message_delete(request, id, messageID):
-
     if request.method == "POST":
-
-        print('-'*30)
-        print('gotit')
 
         Message.objects.get(id = messageID).delete()
     
     return redirect('/user_dashboard/users/show/' + id + '/')
 
-
-
-# def message_delete(request):
-
-#     if request.method == 'POST':
-#         return redirect('/user_dashboard')
-    
-
-
-
+# ------------------------------------------------------------------------
+def comment_delete(request):
+    return 
