@@ -9,46 +9,67 @@ body {
 
 /* -------------------------------- */
 textarea {
-  resize: none;
+     resize: none;
 }
 /* -------------------------------- */
-#my_link {
-     text-decoration: underline;
+#addUserBtn {
+     background-color: #38e;
+     color: white;
+     border: none;
+     padding: 5px 40px;
+     /* box-shadow: 5px 5px #cb8; */
+     font-weight: bold;
+     text-decoration: none;
+     transition: all 150ms;
+}
+#addUserBtn:hover {
+     border: solid 5px #cb8;
 }
 /* -------------------------------- */
-#myUser {
-     padding: 10px;
-     transition: 0.3s;
-}
 
-#myUser:hover {
-     font-size: 120%;
-}
-/* -------------------------------- */
-#myNav {
-     background-color: #e9ecef;
+#commentBtns {
+     background-color: #38e;
+     color: white;
+     padding: 5px 20px;
+     /* box-shadow: 5px 5px #cb8; */
      font-weight: bold;
-     line-height: 1.5;
-     padding: 15px;
+     text-decoration: none;
+     border: none;
 }
 /* -------------------------------- */
-.nav-item {
-     font-size: 15px;
-     font-weight: 450;
-}
-/* -------------------------------- */
-#navLink {
-     text-transform: uppercase;
-     cursor: pointer;
-     font-weight: bold;
-     display: inline-block;
-     padding: .5em;
+#commentInput {
+     background-color: aliceblue;
+     border: solid 2px #3bd;
      transition: 0.1s;
 }
 
-#navLink:hover {
-     background-color: #ddd;
+#commentInput:focus {
+     background-color: #ffd;
 }
+
+#commentInput:hover {
+     background-color: #ffd;
+}
+/* -------------------------------- */
+#deleteBtn {
+     border: none;
+     background-color: transparent;
+     display: none;
+}
+/* -------------------------------- */
+#deleteImg {
+     font-size: 20px;
+     background-color: transparent;
+     transition: 0.1s;
+}
+
+#deleteImg:hover {
+     color: red;
+}
+
+/* -------------------------------- */
+
+
 /* -------------------------------- */
 #indexBtn {
      background-color: #38e;
@@ -64,49 +85,8 @@ textarea {
      border: solid 3px #cb8;
 }
 /* -------------------------------- */
-.myBtn {
-     background: #38e;
-     color: white;
-     border: none;
-     padding: 5px 40px;
-     /* box-shadow: 5px 5px #cb8; */
-     font-weight: bold;
-     text-decoration: none;
-     transition: all 150ms linear;
-}
-.myBtn:hover {
-     background: #cb8;
-     color: white;
-     border: none;
-     /* box-shadow: 5px 5px #38e; */
-     text-decoration: none;
 
-     /* shrink effect */
-     /* -webkit-transform: scale(0.8);
-     -ms-transform: scale(0.8);
-     transform: scale(0.8); */
-     transition: all 250ms linear;
-}
-/* -------------------------------- */
-.addUserBtn {
-     background: #38e;
-     color: white;
-     border: none;
-     padding: 5px 40px;
-     box-shadow: 5px 5px #cb8;
-     font-weight: bold;
-     text-decoration: none;
-     transition: all 150ms linear;
-}
-.addUserBtn:hover {
-     background: #cb8;
-     color: white;
-     border: none;
-     box-shadow: 5px 5px #38e;
-     text-decoration: none;
-     transition: all 250ms linear;
-}
-/* -------------------------------- */
+
 #messageBtns {
      background-color: #38e;
      color: white;
@@ -117,6 +97,29 @@ textarea {
      border: none;
 }
 /* -------------------------------- */
+
+#modalForm {
+     font-weight: bold;
+}
+/* -------------------------------- */
+#modalView {
+     width: 100%;
+     background-color: #e9ecef;
+     border: solid 4px #cb8;
+     border-radius: 20px;
+     padding: 20px;
+     font-size: 21px;
+     font-weight: normal;
+     font-family: Verdana, Geneva, Tahoma, sans-serif;
+     transition: 0.3s;
+}
+
+#modalView:hover {
+     background-color: #e3eaf3;
+     border: solid 4px #3bd;
+}
+/* -------------------------------- */
+
 /* #msgInput {
      height: 50px;
      background-color: rgb(197, 230, 247);
@@ -145,71 +148,34 @@ textarea {
      border: none;
      outline: none;
 }
-
-#modalView {
-     width: 100%;
-     background-color: #e9ecef;
-     border: solid 4px #cb8;
-     border-radius: 20px;
-     padding: 20px;
-     font-size: 21px;
-     font-weight:normal;
-     font-family :Verdana, Geneva, Tahoma, sans-serif;
-     transition: 0.3s;
-}
-
-#modalView:hover {
-     background-color: #e3eaf3;
-     border: solid 4px #3bd;
-}
-
-#modalForm {
-     font-weight: bold;
-}
 /* -------------------------------- */
-#sendBtn {
-     font-size: 125%;
-}
 
-/* -------------------------------- */
-#commentBtns {
-     background-color: #38e;
+#myBtn {
+     background: #38e;
      color: white;
-     padding: 5px 20px;
+     border: none;
+     padding: 5px 40px;
      /* box-shadow: 5px 5px #cb8; */
      font-weight: bold;
      text-decoration: none;
-     border: none;
+     transition: all 150ms linear;
 }
-/* -------------------------------- */
-#commentInput {
-     background-color: aliceblue;
-     border: solid 2px #3bd;
-     transition: 0.1s;
-}
-
-#commentInput:focus {
-     background-color: #ffd;
-}
-
-#commentInput:hover {
-     background-color: #ffd;
-}
-
-/* -------------------------------- */
-#editBtns {
-     background-color: #38e;
+#myBtn:hover {
+     background: #cb8;
      color: white;
-     padding: 5px 20px;
      border: none;
+     /* box-shadow: 5px 5px #38e; */
+     text-decoration: none;
+
+     /* shrink effect */
+     /* -webkit-transform: scale(0.8);
+     -ms-transform: scale(0.8);
+     transform: scale(0.8); */
+     transition: all 250ms linear;
 }
 /* -------------------------------- */
-#deleteBtn {
-     border: none;
-     background-color: transparent;
-     display: none;
-}
-/* -------------------------------- */
+
+
 #myComment {
      padding: 10px;
      border: dotted 3px transparent;
@@ -225,7 +191,10 @@ textarea {
 #myComment:hover #deleteBtn {
      display: block;
 }
-
+/* -------------------------------- */
+#my_link {
+     text-decoration: underline;
+}
 /* -------------------------------- */
 #myMessage {
      padding: 10px;
@@ -242,15 +211,63 @@ textarea {
      display: block;
 }
 
+
 /* -------------------------------- */
-#deleteImg {
-     font-size: 20px;
+#myNav {
+     background-color: #e9ecef;
+     font-weight: bold;
+     line-height: 1.5;
+     padding: 15px;
+}
+/* -------------------------------- */
+#myUser {
+     padding: 10px;
+     transition: 0.3s;
+}
+
+#myUser:hover {
+     font-size: 120%;
+}
+/* -------------------------------- */
+
+#nameSearch {
      background-color: transparent;
      transition: 0.1s;
 }
 
-#deleteImg:hover {
-     color: red;
+#nameSearch:hover {
+     background-color: #fff;
 }
 
 
+
+
+/* -------------------------------- */
+.nav-item {
+     text-transform: uppercase;
+     font-size: 15px;
+     font-weight: 450;
+     display: inline-block;
+     padding: 0.5em;
+}
+/* -------------------------------- */
+#navLink {
+     text-transform: uppercase;
+     cursor: pointer;
+     font-weight: 550;
+     display: inline-block;
+     padding: 0.5em;
+     transition: 0.1s;
+}
+
+#navLink:hover {
+     background-color: #ddd;
+}
+
+/* -------------------------------- */
+
+#sendBtn {
+     font-size: 125%;
+}
+
+/* -------------------------------- */

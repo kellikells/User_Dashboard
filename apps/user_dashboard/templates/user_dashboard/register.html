@@ -37,7 +37,7 @@
                         </div>
                         <div class="col">
                             <div class="row justify-content-center">
-                                <li class="nav-item" style="margin-right:30px;">
+                                <li class="nav-item">
                                     <span class="navbar-text">
                                         Register
                                     </span>
@@ -106,23 +106,59 @@
                     <a id="my_link" href="/user_dashboard/signin/">Already have an account? Login</a>
                 </div>
             </div>
-            <!-- ------------------------------------------------------------>
-            <!--               ERROR MESSAGES                               -->
-            <!-- ---------------------------------------------------------- -->
-            <div class="col" style="color: red;">
-                {% if errors %}
-                <div class="messages">
-                    {% for message in errors %}
-                    <p>{% if message.tags %} class="{{ message.tags }}" {% endif %} {{ message }}</p>
-                    {% endfor %}
-                </div>
-                {% endif %}
 
-                {% if email_messages %}
-                <div class="messages">
-                    <p>{{ email_messages }}</p>
+
+            <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.tags == "success" %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <h4 class="alert-heading">SUCCESS!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
                 </div>
-                {% endif %}
+            </div>
+
+
+            <!-- ======== ALERT FOR ERRORS======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if errors %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <ul>
+                            {% for message in errors %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ======== ALERT FOR EMAIL ERRORS======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if email_messages %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <ul>
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ email_messages }}</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
 
         </div>
