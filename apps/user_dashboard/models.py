@@ -12,16 +12,16 @@ class DashboardUserManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
         if len(postData['first_name']) < 1 : 
-            errors['first_name'] = "Enter a first name"
+            errors['Enter a first name'] = "Enter a first name"
         if len(postData['last_name']) < 2:
-            errors['last_name'] = "Enter a last name"
+            errors['Enter a last name'] = "Enter a last name"
         if not (postData['first_name']).isalpha() or not (postData['last_name']).isalpha():
             errors['Name only include letters'] = "Name only include letters"
         
         if not (re.search(regex,postData['email'])):  
             errors['Invalid email'] = "Invalid email address"
         if len(postData['email']) < 1:
-            errors['Add your email'] = "Add your email"
+            errors['Add an email'] = "Add your email"
         if len(postData['password']) < 8:
             errors['Password must be at least 8 characters'] = "Password must be at least 8 characters"
         if postData['password'] != postData['confirm_password']:
@@ -35,7 +35,7 @@ class MessageManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
         if len(postData['message_content']) < 1 : 
-            errors['message_content'] = "you can''t post an empty message"
+            errors['you can''t post an empty message'] = "you can''t post an empty message"
      
         return errors
 
@@ -46,7 +46,7 @@ class CommentManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
         if len(postData['comment_content']) < 1 : 
-            errors['comment_content'] = "you can''t post an empty comment"
+            errors['You can''t post an empty comment'] = "you can''t post an empty comment"
      
         return errors
 

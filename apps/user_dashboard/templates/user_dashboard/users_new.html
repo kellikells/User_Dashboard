@@ -14,8 +14,8 @@
     <script src="https://kit.fontawesome.com/47aea27298.js" crossorigin="anonymous"></script>
     <!-- google icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <!-- w3schools -->
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- w3schools -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <!-- --------------------------------------------------------------------- -->
 <!-- --------------------------------------------------------------------- -->
@@ -40,7 +40,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        | <a href="">Profile</a>
+                                        | <a href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
                                     </span>
                                 </li>
                             </div>
@@ -126,13 +126,61 @@
             <!-- ------------------------------------------------------------>
             <!--               SUCCESS MESSAGES                               -->
             <!-- ---------------------------------------------------------- -->
-            <div class="col" style="color: green;">
-                {% if good_messages %}
-                <div class="messages">
-                    <p>{{ good_messages }}</p>
+            <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.tags == "success" %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <h4 class="alert-heading">SUCCESS!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
+
+
+
+            <!-- ======== ALERT FOR ERRORS======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if errors %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <ul>
+                            {% for message in errors %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ======== ALERT FOR EMAIL ERRORS======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if email_messages %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <ul>
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ email_messages }}</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+
         </div>
     </div>
     <!-- ------------------------------------------------------------>

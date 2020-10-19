@@ -30,22 +30,34 @@ def register_process(request):
 
         # if there are errors: go back to signin.html and display errors
         if len(errors):
+   
             context = {
-                "messages": errors
+                "errors": errors
             }
-            return render(request, 'user_dashboard/register.html', context)
+        
+            if request.session['user_level'] == "1":
+
+                return render(request, 'user_dashboard/users_new.html', context)
+
+            else:
+                return render(request, 'user_dashboard/register.html', context)
 
         # if email is already in the database
         if len(DashboardUser.objects.filter(email = request.POST['email'])) > 0:
             context = {
                 "email_messages" : request.POST['email'] + ' : email already exists'
             }
-            return render(request, 'user_dashboard/register.html', context)
+
+            if request.session['user_level'] == "1":
+
+                return render(request, 'user_dashboard/users_new.html', context)
+                
+            else:
+                return render(request, 'user_dashboard/register.html', context)
 
         # -----------------------------------------------------------------
         # NO ERRORS: ADD USER TO DATABASE
         else:
-
             # use bcrypt to hash password
             password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
 
@@ -53,26 +65,28 @@ def register_process(request):
             new_user = DashboardUser(first_name=request.POST['first_name'], last_name=request.POST['last_name'], email=request.POST['email'], password_hash=password_hash)
             new_user.save()
 
-
             if 'user_level' not in request.session:
                 return redirect('/user_dashboard/register_success/')
 
             if request.session['user_level'] == "1":
-                context = {
-                    "good_messages": "you successfully created a new user! good job admin!"
-                }
-                return render(request, 'user_dashboard/users_new.html', context)
+
+                # add messages.SUCCESS
+                messages.success(request, 'Congrats! You have successfully created a new user! Good job admin!')
+
+                return render(request, 'user_dashboard/users_new.html')
            
             else:
                 return redirect('/user_dashboard')
 
 # ------------------------------------------------------------------------
 def register_success(request):
-    context = {
-                "good_messages": "you successfully registered, now you may sign in"
-            }
 
-    return render(request, 'user_dashboard/signin.html', context)
+    messages.success(request, 'You successfully registered, now you may sign in')
+    # context = {
+    #             "good_messages": "you successfully registered, now you may sign in"
+    #         }
+
+    return render(request, 'user_dashboard/signin.html')
 
 # ========================================================================
 # ------------------------------------------------------------------------

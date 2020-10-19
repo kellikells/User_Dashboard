@@ -139,7 +139,8 @@
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header" style="background-color: #e4e6eb; border-bottom: solid 7px #38e;">
+                                    <div class="modal-header"
+                                        style="background-color: #e4e6eb; border-bottom: solid 7px #38e;">
                                         <h5 class="modal-title" id="modalFormLabel"
                                             style="font-size: 145%; font-weight:bold;">Create
                                             Message</h5>
@@ -167,7 +168,7 @@
                                     <div class="modal-footer" style="border-top: none; padding-top: none;">
 
                                         <button type="submit" class="btn btn-primary" data-toggle="tooltip"
-                                            data-placement="bottom" title="send" id="sendBtn">
+                                            data-placement="top" title="send" id="sendBtn">
                                             <i class="far fa-paper-plane" id="sendBtn"></i>
                                         </button>
                                     </div>
@@ -175,178 +176,154 @@
                             </div>
                         </div>
 
-
-
-
-                        <!-- 
-                        <form action="/user_dashboard/create_message/{{request.session.user_id}}/{{user.id}}/"
-                            method="post">
-                            {% csrf_token %}
-                            <div class="input-group input-group mb-3" id="container-2">
-
-                                <textarea id="msgInput" name="message_content" class="form-control"
-                                    placeholder="{{request.session.user_name}} wrote: ..." aria-label="message space"
-                                    aria-describedby="messageBtns">
-                                                                                </textarea>
-
-                            </div>
-
-                            <div class="row justify-content-end">
-                                <button class="btn btn-outline-secondary" id="messageBtns" type="submit">
-                                    <span>Send
-                                        &nbsp; ></span>
-                                </button>
-                            </div>
-
-                        </form> -->
-
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+ 
+        <!-- ---------------------------------------- -->
+        <!--                 MESSAGE CONTENT           -->
+        <!-- ---------------------------------------- -->
+        <div id="table_placeholder">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="row justify-content-center" style="margin: 2em 2em 0 2em;">
+                <div class="col-10">
 
-    <!-- ---------------------------------------- -->
-    <!--                 MESSAGE CONTENT           -->
-    <!-- ---------------------------------------- -->
-    <div id="table_placeholder">
-        {% if messages %}
-        {% for message in messages %}
-        <div class="row justify-content-center" style="margin: 2em 2em 0 2em;">
-            <div class="col-10">
+                    <div id="myMessage">
+                        <div class="row">
+                            <div class="col" style="padding-left:10px; font-style: italic; font-size: 1rem;">
+                                <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                                    style="margin-right: 10px; color: #38d; text-decoration: underline;">{{ message.dashboardSender_id.first_name }}
+                                </a> wrote:
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col' style="margin-left: 10px;  padding: 10px 10px 10px 15px;">
+                                <span style="font-size: 1rem; font-weight:normal;">
+                                    {{ message.message }}
+                                </span>
+                            </div>
 
-                <div id="myMessage">
-                    <div class="row">
-                        <div class="col" style="font-style: italic; font-size: 2rem;">
-                            <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                                style="margin-right: 10px; color: #38d; text-decoration: underline;">{{ message.dashboardSender_id.first_name }}
-                            </a> wrote:
-                        </div>
-                        <!-- ---------------------------------------- -->
-                        <!--        DELETE BUTTON:                    -->
-                        <!-- ---------------------------------------- -->
+                            <!-- ---------------------------------------- -->
+                            <!--        DELETE BUTTON:                    -->
+                            <!-- ---------------------------------------- -->
 
-                        <!-- if user created the message  -->
-                        {% if message.dashboardSender_id.id == request.session.user_id %}
-                        <div class="col-1">
-                            <form action="messageDel/{{message.id}}/" method="post">
-                                {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
-                                    type="submit">
-                                    <span id="deleteImg" class="fas fa-trash"></span>
-                                </button>
-                            </form>
-                        </div>
+                            <!-- if user created the message  -->
+                            {% if message.dashboardSender_id.id == request.session.user_id %}
+                            <div class="col-1">
+                                <form action="messageDel/{{message.id}}/" method="post">
+                                    {% csrf_token %}
+                                    <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                        type="submit">
+                                        <span id="deleteImg" class="fas fa-trash"></span>
+                                    </button>
+                                </form>
+                            </div>
 
-                        <!-- if user received the message  -->
-                        {% elif message.dashboardReceiver_id.id == request.session.user_id %}
-                        <div class="col-1">
-                            <form action="messageDel/{{message.id}}/" method="post">
-                                {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
-                                    type="submit">
-                                    <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
-                                </button>
-                            </form>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="row">
-                        <div class='col' style="margin-left: 10px;  padding: 20px;">
-                            <span style="font-size: 1.5rem; font-weight:normal;">
-                                {{ message.message }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- ---------------------------------------- -->
-                <!--          COMMENT CONTENT                 -->
-                <!-- ---------------------------------------- -->
-                {% if comments %}
-                {% for comment in comments %}
-                {% if comment.message_id.id == message.id %}
-                <div id="myComment">
-                    <div class="row">
-                        <div class="col" style=" font-style: italic; font-weight: 400; font-size: 16px;">
-                            <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
-                                style=" color: #38d; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
-                            </a> commented:
+                            <!-- if user received the message  -->
+                            {% elif message.dashboardReceiver_id.id == request.session.user_id %}
+                            <div class="col-1">
+                                <form action="messageDel/{{message.id}}/" method="post">
+                                    {% csrf_token %}
+                                    <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                        type="submit">
+                                        <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
+                                    </button>
+                                </form>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class='col' style="margin-left: 10px;  padding: 10px;">
-                            <span style="font-size: 18px; font-weight:400; ">
-                                {{ comment.comment }}
-                            </span>
+
+                    <!-- ---------------------------------------- -->
+                    <!--          COMMENT CONTENT                 -->
+                    <!-- ---------------------------------------- -->
+                    {% if comments %}
+                    {% for comment in comments %}
+                    {% if comment.message_id.id == message.id %}
+                    <div id="myComment">
+                        <div class="row">
+                            <div class="col"
+                                style="padding-left:10px; font-style: italic; font-weight: 400; font-size: 16px;">
+                                <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
+                                    style=" color: #38d; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
+                                </a> commented:
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class='col' style="margin-left: 10px;  padding: 10px;">
+                                <span style="font-size: 18px; font-weight:400; ">
+                                    {{ comment.comment }}
+                                </span>
+                            </div>
 
+                            <!-- ---------------------------------------- -->
+                            <!--                 DELETE COMMENT:            -->
+                            <!-- ---------------------------------------- -->
+                            <!-- if user created the comment  -->
+                            {% if comment.user_id.id == request.session.user_id %}
+                            <div class="col-1">
+                                <form action="commentDel/{{comment.id}}/" method="post">
+                                    {% csrf_token %}
+                                    <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                        type="submit">
+                                        <span id="deleteImg" class="fas fa-trash"></span>
+                                    </button>
+                                </form>
 
-                        <!-- ---------------------------------------- -->
-                        <!--                 DELETE COMMENT:            -->
-                        <!-- ---------------------------------------- -->
-                        <!-- if user created the comment  -->
-                        {% if comment.user_id.id == request.session.user_id %}
-                        <div class="col-1">
-                            <form action="commentDel/{{comment.id}}/" method="post">
-                                {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
-                                    type="submit">
-                                    <span id="deleteImg" class="fas fa-trash"></span>
-                                </button>
-                            </form>
+                            </div>
+                            <!-- if user received the message  -->
+                            {% elif message.dashboardReceiver_id.id == request.session.user_id %}
+                            <div class="col-1">
+
+                                <form action="commentDel/{{comment.id}}/" method="post">
+                                    {% csrf_token %}
+                                    <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
+                                        type="submit">
+                                        <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
+                                    </button>
+                                </form>
+
+                            </div>
+                            {% endif %}
 
                         </div>
-                        <!-- if user received the message  -->
-                        {% elif message.dashboardReceiver_id.id == request.session.user_id %}
-                        <div class="col-1">
-
-                            <form action="commentDel/{{comment.id}}/" method="post">
-                                {% csrf_token %}
-                                <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
-                                    type="submit">
-                                    <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
-                                </button>
-                            </form>
-
-                        </div>
-                        {% endif %}
-
                     </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
 
-                <!-- ---------------------------------------- -->
-                <!--            form: create a comment        -->
-                <!-- ---------------------------------------- -->
+                    <!-- ---------------------------------------- -->
+                    <!--            form: create a comment        -->
+                    <!-- ---------------------------------------- -->
 
-                <div class="row justify-content-end" style="padding-top: 50px; ">
-                    <div class="col">
+                    <div class="row justify-content-end" style="padding-top: 50px; ">
+                        <div class="col">
 
-                        <form
-                            action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
-                            method="post">
+                            <form
+                                action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
+                                method="post">
 
-                            {% csrf_token %}
-                            <div class="input-group mb-3">
-                                <input id="commentInput" name="comment_content" type="text" class="form-control"
-                                    placeholder="{{request.session.user_name}} commented: ..." aria-label="user comment"
-                                    aria-describedby="messageBtns">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" id="commentBtns"
-                                        type="submit" data-toggle="tooltip" data-placement="top" title="post comment"><i class="far fa-comment"></i></button>
+                                {% csrf_token %}
+                                <div class="input-group mb-3">
+                                    <input id="commentInput" name="comment_content" type="text" class="form-control"
+                                        placeholder="{{request.session.user_name}} commented: ..."
+                                        aria-label="user comment" aria-describedby="messageBtns">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" id="commentBtns" type="submit"
+                                            data-toggle="tooltip" data-placement="top" title="post comment"><i
+                                                class="far fa-comment"></i></button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
+            {% endif %}
         </div>
-        {% endfor %}
-        {% endif %}
-    </div>
     </div>
 
 
@@ -356,8 +333,6 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
-
-        // $('textarea').autoResize();
     </script>
 
     <!-- Optional JavaScript -->

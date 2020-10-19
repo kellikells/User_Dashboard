@@ -211,13 +211,13 @@ textarea {
 }
 /* -------------------------------- */
 #myComment {
-     padding: 15px;
+     padding: 10px;
      border: dotted 3px transparent;
      transition: 0.1s;
 }
 
 #myComment:hover {
-     padding: 15px;
+     padding: 10px;
      border: dotted 3px black;
      background-color: #ffd;
 }
@@ -230,7 +230,7 @@ textarea {
 #myMessage {
      padding: 10px;
      /* border: solid 1px black; */
-     border: solid 5px #3bd;
+     border: solid 4px #3bd;
      transition: 0.1s;
 }
 
