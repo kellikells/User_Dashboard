@@ -107,7 +107,7 @@
                 <div class="row justify-content-end" style="margin-right: 20px;">
 
                     <!-- LINK TO ADD A USER PAGE: users_new.html  -->
-                    <a id="addUserBtn" href="/user_dashboard/users_new/">
+                    <a id="myBtn" href="/user_dashboard/users_new/">
                         Add new <span class="material-icons" style="font-size: 1.2em;">
                             person_add_alt_1
                         </span>
@@ -124,14 +124,26 @@
                 <table class="table table-striped table-bordered table-hover" id="table_placeholder"
                     style="border:solid black 2px;">
                     <thead style="background-color:black; color: white;">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Created</th>
-                            <th scope="col">user_level</th>
-                            <th scope="col">Actions</th>
-                        </tr>
+
+                        <form action="/user_dashboard/search_by_name/" id="searchForm">
+                            {% csrf_token %}
+
+                            <tr>
+
+                                <th scope="col">ID</th>
+
+
+                                <th class="sort_header" clicks="true" scope="col" name="by_name">Name <i
+                                        class="fas fa-angle-down"></i>
+                                    <input type="hidden" name="by_name">
+
+
+                                <th scope="col">Email <i class="fas fa-angle-up"></i></th>
+                                <th scope="col">Created <i class="fas fa-angle-up"></i></th>
+                                <th scope="col">user_level <i class="fas fa-angle-up"></i></th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </form>
                     </thead>
                     <tbody>
                         {% for user in users %}
@@ -160,7 +172,7 @@
 
                                 <!--======== MODAL FOR REMOVING A USER ================-->
                                 <!-- ------------------------------------------------ -->
-                                <button type="button" class="btn btn-link" data-toggle="modal"
+                                <button id="my_link" type="button" class="btn btn-link" data-toggle="modal"
                                     data-target="#removeModal" data-whatever="{{user.id}}"
                                     style="font-weight: bold; text-decoration: underline;">remove</button>
 
@@ -214,9 +226,52 @@
             });
         }
 
-        $("input[name=name").keyup(function () {
+        $("input[name=name]").keyup(function () {
             submitAjaxform();
         })
+
+
+
+        $(".sort_header").click(function () {
+            console.log("clicked")
+
+            var clicks = $(this).data("clicks");
+
+            // sort by desc
+            if (clicks) {
+                console.log('true');
+                var name = $(this).attr("name") 
+                console.log(name)
+
+                var getInput = ($('input').attr("name") == name)
+                getInput.data("value") = "desc"
+
+                var test = getInput.data("value")
+                console.log(test)
+                submitAjaxform();
+
+
+            // sort by asc
+            } else {
+                console.log('false');
+            }
+            $(this).data("clicks", !clicks)
+
+
+        })
+
+
+        // $('a').click(function () {
+        //         var clicks = $(this).data('clicks');
+        //         if (clicks) {
+        //             alert('odd number of clicks');
+        //         } else {
+        //             alert('even number of clicks');
+        //         }
+        //         $(this).data("clicks", !clicks);
+        //     });
+
+
 
     </script>
 

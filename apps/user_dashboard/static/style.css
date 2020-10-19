@@ -11,20 +11,7 @@ body {
 textarea {
      resize: none;
 }
-/* -------------------------------- */
-#addUserBtn {
-     background-color: #38e;
-     color: white;
-     border: none;
-     padding: 5px 40px;
-     /* box-shadow: 5px 5px #cb8; */
-     font-weight: bold;
-     text-decoration: none;
-     transition: all 150ms;
-}
-#addUserBtn:hover {
-     border: solid 5px #cb8;
-}
+
 /* -------------------------------- */
 
 #commentBtns {
@@ -173,6 +160,21 @@ textarea {
      transform: scale(0.8); */
      transition: all 250ms linear;
 }
+
+/* -------------------------------- */
+/* #addUserBtn {
+     background-color: #38e;
+     color: white;
+     border: none;
+     padding: 5px 40px;
+  
+     font-weight: bold;
+     text-decoration: none;
+     transition: all 150ms;
+}
+#addUserBtn:hover {
+     border: solid 5px #cb8;
+} */
 /* -------------------------------- */
 
 
@@ -216,8 +218,8 @@ textarea {
 #myNav {
      background-color: #e9ecef;
      font-weight: bold;
-     line-height: 1.5;
-     padding: 15px;
+     line-height: 1;
+     padding: 7px;
 }
 /* -------------------------------- */
 #myUser {
@@ -261,6 +263,7 @@ textarea {
 }
 
 #navLink:hover {
+     border-radius: 100px;
      background-color: #ddd;
 }
 

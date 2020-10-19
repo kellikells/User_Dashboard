@@ -51,7 +51,7 @@ def register_process(request):
             if request.session['user_level'] == "1":
 
                 return render(request, 'user_dashboard/users_new.html', context)
-                
+
             else:
                 return render(request, 'user_dashboard/register.html', context)
 
@@ -346,7 +346,7 @@ def search_by_name(request):
         return render(request, 'user_dashboard/table_normal.html', {'users': users})
     
     # admin level 
-    else:
+    if request.POST['name'] and request.session['user_level'] == "1":
         users = DashboardUser.objects.filter(first_name__startswith = request.POST['name'])
         # if there are no users that fit the seach input OR search input is empty
         if users.count() == 0 or request.POST['name'] == '':
