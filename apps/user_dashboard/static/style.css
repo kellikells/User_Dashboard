@@ -222,6 +222,12 @@ textarea {
      padding: 7px;
 }
 /* -------------------------------- */
+
+.myRadio {
+     opacity: 0;
+}
+/* -------------------------------- */
+
 #myUser {
      padding: 10px;
      transition: 0.3s;

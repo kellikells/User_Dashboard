@@ -16,19 +16,18 @@
     <!-- Link to jQuery  -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <!-- w3schools -->
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="../../static/style.css">
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             $.ajax({
                 url: '/user_dashboard/on_load/',
                 success: function (serverResponse) {
-                    // $('tbody').append(serverResponse)
-                    $("#table_placeholder").html(serverResponse)
+                    $('#table_placeholder').html(serverResponse)
                 }
             });
         })
-    </script>
+    </script> -->
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -133,7 +132,7 @@
         <!-- ------------------------------------------------------- -->
         <div class="row">
             <div class="col">
-                <table class="table table-striped table-bordered table-hover" 
+                <table class="table table-striped table-bordered table-hover" id="table_placeholder"
                     style="border:solid black 2px;">
                     <thead style="background-color:black; color: white;">
 
@@ -142,16 +141,14 @@
 
                             <tr>
                                 <th scope="col">ID
-                                    <i style="display:inline-flex;" class="fas fa-angle-up">
-                                        <input type="radio" class="myRadio" name="th-radio" style="opacity: 0;"
-                                            value="-id">
+                                    <i class="fas fa-angle-up">
+                                        <input type="radio" class="myRadio" name="th-radio" value="-id">
                                     </i>
                                 </th>
 
                                 <th scope="col">Name
                                     <i style="display:inline-flex;" class="fas fa-angle-down">
-                                        <input type="radio" class="myRadio" name="th-radio" style="opacity: 0;"
-                                            value="first_name">
+                                        <input type="radio" class="myRadio" name="th-radio" value="first_name">
                                     </i>
 
                                     <i style="display:none;" class="fas fa-angle-up"></i>
@@ -159,8 +156,7 @@
 
                                 <th scope="col">Email
                                     <i class="fas fa-angle-up">
-                                        <input type="radio" class="myRadio" name="th-radio" style="opacity: 0;"
-                                            value="-email">
+                                        <input type="radio" class="myRadio" name="th-radio" value="-email">
                                     </i>
                                 </th>
 
@@ -172,16 +168,71 @@
                             </tr>
                         </form>
                     </thead>
-                    <tbody id="table_placeholder">
+                    <tbody>
 
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>
+                                <a href="/user_dashboard/users/show/{{user.id}}/">
+                                    {{ user.first_name }} {{ user.last_name }}
+                                </a>
+                            </td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.created_at }}</td>
 
+                            {% if user.user_level == "1" %}
+                            <td>admin</td>
+                            {% endif %}
+                            {% if user.user_level == "0" %}
+                            <td>normal</td>
+                            {% endif %}
+
+                            <td>
+
+                                <a id="my_link" href="/user_dashboard/users/edit/{{user.id}}/"
+                                    style="padding-right: 20px;">edit</a>
+
+                                <!--======== MODAL FOR REMOVING A USER ================-->
+                                <!-- ------------------------------------------------ -->
+                                <button id="my_link" type="button" class="btn btn-link" data-toggle="modal"
+                                    data-target="#removeModal" data-whatever="{{user.id}}"
+                                    style="font-weight: bold; text-decoration: underline;">remove</button>
+
+                                <div class="modal fade" id="removeModal" tabindex="-1"
+                                    aria-labelledby="removeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="removeModalLabel">Are you sure you want to
+                                                    REMOVE?</h5>
+                                            </div>
+                                            <div class="modal-body row justify-content-center">
+
+                                                <form action="/user_dashboard/remove/" method="post">
+                                                    {% csrf_token %}
+
+                                                    <button type="button" class="btn btn-warning"
+                                                        data-dismiss="modal">No</button>
+                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                    <!-- div gets hidden input appended  -->
+                                                    <div id="special-div"></div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <p></p>
+    <p>dashboard_admin.html</p>
 
     <!-- ------------------------------------------------------------ -->
     <!-- ------------------------------------------------------------ -->
@@ -196,10 +247,8 @@
                 data: $("#searchForm").serialize(),
                 success: function (serverResponse) {
                     $("#table_placeholder").html(serverResponse)
-                    // $('tbody').append(serverResponse)
                 }
             });
-            return false;
         }
 
         $("input[name=name]").keyup(function () {
