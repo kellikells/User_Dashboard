@@ -49,6 +49,11 @@ urlpatterns = [
     url(r'^users/show/(?P<id>\d+)/messageDel/(?P<messageID>\d+)/$', views.message_delete, name="user_Dashboard_messageDel"),
 
     url(r'^users/show/(?P<id>\d+)/commentDel/(?P<commentID>\d+)/$', views.comment_delete, name="user_Dashboard_commentDel"),
+
+    url(r'^search_by_header/$', views.search_by_header, name="user_dashboard_search_by_header"),
+
+    url(r'^on_load/$', views.on_load, name="user_dashboard_on_load"),
+    
     
 
 

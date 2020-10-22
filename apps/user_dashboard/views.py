@@ -36,7 +36,6 @@ def register_process(request):
             }
         
             if request.session['user_level'] == "1":
-
                 return render(request, 'user_dashboard/users_new.html', context)
 
             else:
@@ -314,23 +313,13 @@ def search_by_name(request):
     searchByName = request.POST.get('name')
     users = DashboardUser.objects.all()
 
-    if request.session['user_level'] == "0":
-        # if search input is empty
-        if searchByName is None:
-            users = DashboardUser.objects.all()
-            # return render(request, 'user_dashboard/table_admin.html', {'users': users})
-        else:
-            users = DashboardUser.objects.filter(first_name__startswith = searchByName)
-        return render(request, 'user_dashboard/table_normal.html', {'users': users})
+    if searchByName is None:
+        users = DashboardUser.objects.all()
+        # return render(request, 'user_dashboard/table_admin.html', {'users': users})
+    else:
+        users = DashboardUser.objects.filter(first_name__startswith = searchByName)
+    return render(request, 'user_dashboard/table_normal.html', {'users': users})
 
-    if request.session['user_level'] == "1":
-        # if search input OR search input is empty
-        if searchByName is None:
-            users = DashboardUser.objects.all()
-            # return render(request, 'user_dashboard/table_admin.html', {'users': users})
-        else:
-            users = DashboardUser.objects.filter(first_name__startswith = searchByName)
-        return render(request, 'user_dashboard/table_admin.html', {'users': users})
 
 
 
@@ -348,3 +337,25 @@ def comment_delete(request, id, commentID):
         Comment.objects.get(id = commentID).delete()
 
     return redirect('/user_dashboard/users/show/' + id + '/')
+
+
+# ------------------------------------------------------------------------
+def search_by_header(request):
+    print('-'*30)
+    # users = User.objects.order_by("-id")
+    if request.method == "POST":
+        orderby = request.POST["th-radio"]
+        print(request.POST["th-radio"])
+        print(orderby)
+        # print(DashboardUser.objects.order_by(orderby))
+
+        users = DashboardUser.objects.order_by(request.POST["th-radio"])
+        # users=DashboardUser.objects.all()
+        return render(request, 'user_dashboard/table_admin.html', {'users': users})
+
+# ------------------------------------------------------------------------
+def on_load(request):
+
+    users=DashboardUser.objects.all()
+
+    return render(request, 'user_dashboard/table_admin.html', {'users': users})
