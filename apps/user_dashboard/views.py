@@ -358,4 +358,4 @@ def on_load(request):
 
     users=DashboardUser.objects.all()
 
-    return render(request, 'user_dashboard/table_admin.html', {'users': users})
+    return render(request, 'user_dashboard/table_normal.html', {'users': users})

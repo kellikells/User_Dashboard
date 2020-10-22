@@ -18,6 +18,7 @@
     <!-- w3schools -->
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
     <link rel="stylesheet" href="../../static/style.css">
+
     <script>
         $(document).ready(function () {
             $.ajax({
@@ -29,6 +30,7 @@
             });
         })
     </script>
+
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -133,8 +135,7 @@
         <!-- ------------------------------------------------------- -->
         <div class="row">
             <div class="col">
-                <table class="table table-striped table-bordered table-hover" 
-                    style="border:solid black 2px;">
+                <table class="table table-striped table-bordered table-hover" style="border:solid black 2px;">
                     <thead style="background-color:black; color: white;">
 
                         <form action="/user_dashboard/search_by_header/" method="post" id="headerSearch">
@@ -212,37 +213,37 @@
             console.log('data header search:')
             console.log($("#headerSearch").serialize())
 
-        $(".sort_header").click(function () {
-            console.log("clicked")
+            $(".sort_header").click(function () {
+                console.log("clicked")
 
-            var clicks = $(this).data("clicks");
+                var clicks = $(this).data("clicks");
 
-            // sort by desc
-            if (clicks) {
-                console.log('true');
-                var name = $(this).attr("name")
-                console.log(name)
+                // sort by desc
+                if (clicks) {
+                    console.log('true');
+                    var name = $(this).attr("name")
+                    console.log(name)
 
-                var getInput = ($('input').attr("name") == name)
-                getInput.data("value") = "desc"
+                    var getInput = ($('input').attr("name") == name)
+                    getInput.data("value") = "desc"
 
-                var test = getInput.data("value")
-                console.log(test)
-                submitAjaxform();
+                    var test = getInput.data("value")
+                    console.log(test)
+                    submitAjaxform();
 
 
-                // sort by asc
-            } else {
-                console.log('false');
-            }
-            $(this).data("clicks", !clicks)
+                    // sort by asc
+                } else {
+                    console.log('false');
+                }
+                $(this).data("clicks", !clicks)
 
-        $(".myRadio").click(function (event) {
-            event.preventDefault()
+                $(".myRadio").click(function (event) {
+                    event.preventDefault()
 
-            console.log('clicked the radio button')
-            headerSearch()
-        })
+                    console.log('clicked the radio button')
+                    headerSearch()
+                })
 
 
 
@@ -260,19 +261,20 @@
         integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6'
         crossorigin='anonymous'></script>
 
+    //
     <!-- modal functionality -->
     <script>
-        $('#removeModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data(('whatever')) // Extract info from data-* attributes
+            $('#removeModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data(('whatever')) // Extract info from data-* attributes
 
-            var modal = $(this)
-            modal.find('.modal-title').text('Are you sure you want to remove user: ' + recipient)
+                var modal = $(this)
+                modal.find('.modal-title').text('Are you sure you want to remove user: ' + recipient)
 
-            // create <input> to hold user.id value 
-            var special = $("<input>").attr("type", "hidden").attr("name", "removeID").attr("value", recipient)
-            $("#special-div").append(special);
-        })
+                // create <input> to hold user.id value 
+                var special = $("<input>").attr("type", "hidden").attr("name", "removeID").attr("value", recipient)
+                $("#special-div").append(special);
+            })
     </script>
 
 </body>
