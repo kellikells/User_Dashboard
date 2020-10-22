@@ -96,78 +96,53 @@ def signin(request):
 # ------------------------------------------------------------------------
 def signin_process(request):
 
+    # saving user object    
+    this_user = DashboardUser.objects.get(email = request.POST['email'])
+
     if request.method == "POST":
         errors = {}
 
         if len(request.POST['email']) < 1:
             errors['Enter your email'] = "Enter your email"
-        if len(request.POST['password']) < 1:
+        elif len(request.POST['password']) < 1:
             errors['Enter your password'] = "Enter your password"
         
         # if email is not in the database:
-        if len(DashboardUser.objects.filter(email = request.POST['email'])) < 1 :
+        elif len(DashboardUser.objects.filter(email = request.POST['email'])) < 1 :
             errors['Email does not exist, please register'] = "Email does not exist, please register"
         
         if len(errors):
+            context = {
+                "errors": errors
+            }
+            return render(request, 'user_dashboard/signin.html', context)
+        # -------------------------------------
+        # SUCCESS
+        elif bcrypt.checkpw(request.POST['password'].encode(), this_user.password_hash.encode()):
+                # saving user_level for admin/normal user html pages
+                if 'user_level' not in request.session:
+                    request.session['user_level'] = this_user.user_level
+                if 'user_id' not in request.session:
+                    request.session['user_id'] = this_user.id
+                if 'user_name' not in request.session:
+                    request.session['user_name'] = this_user.first_name
+
+                return redirect('/user_dashboard/dashboard/')   
+        # -------------------------------------
+        # password doesn't match 
+        else:
+            errors['password doesn''t match'] = "password doesn''t match"
             context = {
                 "messages": errors
             }
             return render(request, 'user_dashboard/signin.html', context)
 
-        else: 
-            # saving user object
-            this_user = DashboardUser.objects.get(email = request.POST['email'])
-
-            # if password matches database password ************************
-            if bcrypt.checkpw(request.POST['password'].encode(), this_user.password_hash.encode()):
-          
-                # if user_level is admin : renders dashboard_admin.html
-                if this_user.user_level == "1":
-                    if 'user_level' not in request.session:
-                        request.session['user_level'] = "1"
-                    else:
-                        request.session['user_level'] = "1"
-                    if 'user_id' not in request.session:
-                        request.session['user_id'] = this_user.id
-                    else:
-                        request.session['user_id'] = this_user.id
-                    if 'user_name' not in request.session:
-                        request.session['user_name'] = this_user.first_name
-                    else:
-                        request.session['user_name'] = this_user.first_name
-                    return redirect('/user_dashboard/dashboard_admin/')   
-
-                # if user_level is normal : renders dashboard.html
-                else:
-                    if 'user_level' not in request.session:
-                        request.session['user_level'] = "0"
-                    else:
-                        request.session['user_level'] = "0"
-                    if 'user_id' not in request.session:
-                        request.session['user_id'] = this_user.id
-                    else:
-                        request.session['user_id'] = this_user.id
-                    if 'user_name' not in request.session:
-                        request.session['user_name'] = this_user.first_name
-                    else:
-                        request.session['user_name'] = this_user.first_name
-                    return redirect('/user_dashboard/dashboard/')
-            # .............................................................
-                
-            # if password doens't match database password
-            else: 
-                errors['password doesn''t match'] = "password doesn''t match"
-                context = {
-                    "messages": errors
-                }
-                return render(request, 'user_dashboard/signin.html', context)
-
 # ------------------------------------------------------------------------
-def dashboard_admin(request):
-    context ={
-        "users" : DashboardUser.objects.all()
-    }
-    return render(request,'user_dashboard/dashboard_admin.html', context)
+# def dashboard_admin(request):
+#     context ={
+#         "users" : DashboardUser.objects.all()
+#     }
+#     return render(request,'user_dashboard/dashboard_admin.html', context)
 
 # ------------------------------------------------------------------------
 def dashboard(request):
@@ -178,8 +153,8 @@ def dashboard(request):
     return render(request, 'user_dashboard/dashboard.html', context)
 
 # ------------------------------------------------------------------------
-def users_new(request):
-    return render(request, 'user_dashboard/users_new.html')
+# def users_new(request):
+    # return render(request, 'user_dashboard/users_new.html')
 
 # ------------------------------------------------------------------------
 def remove(request):
@@ -336,22 +311,28 @@ def create_comment(request, userID, messageID, receiverID):
 
 # ------------------------------------------------------------------------
 def search_by_name(request):
+    searchByName = request.POST.get('name')
+    users = DashboardUser.objects.all()
 
-    # normal user level
-    if request.POST['name'] and request.session['user_level'] == "0":
-        users = DashboardUser.objects.filter(first_name__startswith = request.POST['name'])
-        # if there are no users that fit the seach input OR search input is empty
-        if users.count() == 0 or request.POST['name'] == '':
+    if request.session['user_level'] == "0":
+        # if search input is empty
+        if searchByName is None:
             users = DashboardUser.objects.all()
+            # return render(request, 'user_dashboard/table_admin.html', {'users': users})
+        else:
+            users = DashboardUser.objects.filter(first_name__startswith = searchByName)
         return render(request, 'user_dashboard/table_normal.html', {'users': users})
-    
-    # admin level 
-    if request.POST['name'] and request.session['user_level'] == "1":
-        users = DashboardUser.objects.filter(first_name__startswith = request.POST['name'])
-        # if there are no users that fit the seach input OR search input is empty
-        if users.count() == 0 or request.POST['name'] == '':
+
+    if request.session['user_level'] == "1":
+        # if search input OR search input is empty
+        if searchByName is None:
             users = DashboardUser.objects.all()
+            # return render(request, 'user_dashboard/table_admin.html', {'users': users})
+        else:
+            users = DashboardUser.objects.filter(first_name__startswith = searchByName)
         return render(request, 'user_dashboard/table_admin.html', {'users': users})
+
+
 
 # ------------------------------------------------------------------------
 def message_delete(request, id, messageID):

@@ -74,6 +74,11 @@
     <div class="container" style="padding: 20px 0 20px 0;">
         <div class="row">
             <div class="col">
+
+                {% if request.session.user_level == "1" %}
+                <h4 style="padding: 0 0 50px 0; text-align:center;">Manage Users</h4>
+                {% endif %}
+
                 <p style="text-align: center; font-weight: lighter;">Click on a user's name
                     to checkout their profile page where you can leave them a message</p>
             </div>
@@ -100,6 +105,19 @@
                     </div>
                 </form>
             </div>
+
+            {% if request.session.user_level == "1" %}
+            <div class="col">
+                <div class="row justify-content-end" style="margin-right: 20px;">
+                    <!-- LINK TO ADD A USER PAGE: users_new.html  -->
+                    <a id="myBtn" href="/user_dashboard/register/">
+                        Add new <span class="material-icons" style="font-size: 1.2em;">
+                            person_add_alt_1
+                        </span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <!-- --------------------------------------------------------------------- -->
@@ -117,6 +135,10 @@
                             <th scope="col">Email</th>
                             <th scope="col">Created</th>
                             <th scope="col">user_level</th>
+                            {% if request.session.user_level == "1" %}
+                            <th scope="col">Actions</th>
+
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -142,6 +164,45 @@
                             <td>normal</td>
                             {% endif %}
 
+                            {% if request.session.user_level == "1" %}
+                            <td>
+
+                                <a id="my_link" href="/user_dashboard/users/edit/{{user.id}}/"
+                                    style="padding-right: 20px;">edit</a>
+
+                                <!--======== MODAL FOR REMOVING A USER ================-->
+                                <!-- ------------------------------------------------ -->
+                                <button id="my_link" type="button" class="btn btn-link" data-toggle="modal"
+                                    data-target="#removeModal" data-whatever="{{user.id}}"
+                                    style="font-weight: bold; text-decoration: underline;">remove</button>
+
+                                <div class="modal fade" id="removeModal" tabindex="-1"
+                                    aria-labelledby="removeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="removeModalLabel">Are you sure you want to
+                                                    REMOVE?</h5>
+                                            </div>
+                                            <div class="modal-body row justify-content-center">
+
+                                                <form action="/user_dashboard/remove/" method="post">
+                                                    {% csrf_token %}
+
+                                                    <button type="button" class="btn btn-warning"
+                                                        data-dismiss="modal">No</button>
+                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                    <!-- div gets hidden input appended  -->
+                                                    <div id="special-div"></div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endif %}
+
                         </tr>
                         {% endfor %}
 
@@ -154,9 +215,26 @@
     <!-- --------------------------------------------------------------------- -->
     <!-- --------------------------------------------------------------------- -->
 
+    <!-- remove modal functionality -->
+    {% if user.user_level == "1" %}
+    <script>
+        $('#removeModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data(('whatever')) // Extract info from data-* attributes
+
+            var modal = $(this)
+            modal.find('.modal-title').text('Are you sure you want to remove user: ' + recipient)
+
+            // create <input> to hold user.id value 
+            var special = $("<input>").attr("type", "hidden").attr("name", "removeID").attr("value", recipient)
+            $("#special-div").append(special);
+        })
+    </script>
+    {% endif %}
+
+
     <!-- input search by name form  -->
     <script>
-
         function submitAjaxform() {
             $.ajax({
                 method: "post",
@@ -172,6 +250,7 @@
             submitAjaxform();
         })
     </script>
+
 
     <!-- BOOTSTRAP'S: Optional JavaScript
         jQuery first, then Popper.js, then Bootstrap JS -->

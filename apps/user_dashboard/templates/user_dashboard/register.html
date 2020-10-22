@@ -21,11 +21,13 @@
 <!-- --------------------------------------------------------------------- -->
 
 <body>
+    {% if not request.session.user_level %}
     <div id="myNav">
         <div class="container">
             <div class="row">
                 <div class="col justify-content-between">
                     <ul class="nav">
+
                         <div class="col">
                             <div class="row">
                                 <li class="nav-item">
@@ -35,6 +37,7 @@
                                 </li>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="row justify-content-center">
                                 <li class="nav-item">
@@ -44,6 +47,7 @@
                                 </li>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="row justify-content-end">
                                 <li class="nav-item">
@@ -58,17 +62,10 @@
             </div>
         </div>
     </div>
-    <div style="border-bottom: solid #cb8 10px;"></div>
-    <!-- --------------------------------------------------------------------- -->
-
-    <!-- --------------------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
         <div class="row">
             <div class="col-5">
-
                 <h4 style="padding: 0 0 50px 0;">Register</h4>
-
-
 
                 <!-- ------------------------------------------------------------>
                 <!--                   FORM TO REGISTER                         -->
@@ -81,7 +78,6 @@
                         <label for="email">Email Address:</label>
                         <input name="email" type="email" class="form-control" id="email">
                     </div>
-
                     <div class="form-group row">
                         <label for="first_name">First Name:</label>
                         <input name="first_name" type="text" class="form-control" id="first_name">
@@ -107,7 +103,6 @@
                 </div>
             </div>
 
-
             <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->
             <div class="col">
                 <div class="container" style="min-height:100%; width:80%">
@@ -125,7 +120,6 @@
                     {% endif %}
                 </div>
             </div>
-
 
             <!-- ======== ALERT FOR ERRORS======== -->
             <div class="col">
@@ -160,9 +154,178 @@
                     {% endif %}
                 </div>
             </div>
-
         </div>
     </div>
+    {% endif %}
+
+    <!-- ADMIN VIEW  -->
+    <!-- =================================================== -->
+    {% if request.session.user_level == "1" %}
+    <div id="myNav">
+        <div class="container">
+            <div class="row">
+                <div class="col justify-content-between">
+                    <ul class="nav">
+                        <div class="col">
+                            <div class="row">
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        {% if request.session.user_level == "1" %}
+                                        <a id="navLink" href="/user_dashboard/dashboard_admin/">Dashboard</a>
+                                        {% endif %}
+                                        {% if request.session.user_level == "0" %}
+                                        <a id="navLink" href="/user_dashboard/dashboard/">Dashboard</a>
+                                        {% endif %}
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        | <a id="navLink" href="/user_dashboard/users/show/{{request.session.user_id}}/">Profile</a>
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row justify-content-center">
+                                <li class="nav-item">
+                                    <span class="navbar-text">
+                                        Add User
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row justify-content-end">
+                                <li class="nav-item">
+                                    <span class=" navbar-text">
+                                        <a id="navLink" href="/user_dashboard/logout/">Log out</a>
+                                    </span>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div style="border-bottom: solid #cb8 10px;"></div>
+    <!-- --------------------------------------------------------------------- -->
+
+    <!-- --------------------------------------------------------------------- -->
+
+    {% if request.session.user_level == "1" %}
+    <div class="container" style="padding: 50px 0 0 0;">
+        <div class="row">
+            <div class="col">
+                <h4 style="padding: 0 0 50px 0;">Add a new user</h4>
+            </div>
+            <div class="col">
+                <div class="row justify-content-end">
+                    <a class="myBtn" href="/user_dashboard/dashboard/">Return
+                        to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- ------------------------------------------------------------>
+    <!-- ---------------------------------------------------------- -->
+    <div class="container" style="padding-top: 50px;">
+        <div class="row">
+            <div class="col-5">
+
+                <!-- ------------------------------------------------------------>
+                <!--                FORM: REGISTER                            -->
+                <!-- ---------------------------------------------------------- -->
+
+                <form action="/user_dashboard/register_process/" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group row">
+                        <label for="email">Email Address:</label>
+                        <input name="email" type="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group row">
+                        <label for="first_name">First Name:</label>
+                        <input name="first_name" type="text" class="form-control" id="first_name">
+                    </div>
+                    <div class="form-group row">
+                        <label for="last_name">Last Name</label>
+                        <input name="last_name" type="text" class="form-control" id="last_name">
+                    </div>
+                    <div class="form-group row">
+                        <label for="password">Password</label>
+                        <input name="password" type="password" class="form-control" id="password">
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirm_password">Password Confirmation</label>
+                        <input name="confirm_password" type="password" class="form-control" id="confirm_password">
+                    </div>
+                    <div class="row justify-content-end">
+                        <button class="myBtn" type="submit">Add User</button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- ------------------------------------------------------------>
+            <!--               SUCCESS MESSAGES                               -->
+            <!-- ---------------------------------------------------------- -->
+            <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.tags == "success" %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <h4 class="alert-heading">SUCCESS!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ======== ALERT FOR ERRORS======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if errors %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <ul>
+                            {% for message in errors %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ======== ALERT FOR EMAIL ERRORS======== -->
+            <div class="col">
+                <div class="container" style="min-height:100%; width:80%">
+                    {% if email_messages %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <ul>
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ email_messages }}</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     <!-- ------------------------------------------------------------>
 

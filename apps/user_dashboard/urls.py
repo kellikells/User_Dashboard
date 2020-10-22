@@ -17,11 +17,11 @@ urlpatterns = [
 
     url(r'^register_success/$', views.register_success, name='user_dashboard_register_success'),    
 
-    url(r'^dashboard_admin/$', views.dashboard_admin, name="user_dashboard_dashboard_admin"),
+    # url(r'^dashboard_admin/$', views.dashboard_admin, name="user_dashboard_dashboard_admin"),
 
     url(r'^dashboard/$', views.dashboard, name="user_dashboard_dashboard"),    
 
-    url(r'^users_new/$', views.users_new, name="user_dashboard_users_new"),
+    # url(r'^users_new/$', views.users_new, name="user_dashboard_users_new"),
 
     url(r'^remove/$', views.remove, name="user_dashboard_remove"),
 

@@ -31,12 +31,9 @@
                             <div class="row">
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                        {% if request.session.user_level == "1" %}
-                                        <a id="navLink" href="/user_dashboard/dashboard_admin/">Dashboard</a>
-                                        {% endif %}
-                                        {% if request.session.user_level == "0" %}
+
                                         <a id="navLink" href="/user_dashboard/dashboard/">Dashboard</a>
-                                        {% endif %}
+
                                     </span>
                                 </li>
                                 <li class="nav-item">
@@ -50,9 +47,19 @@
                         <div class="col">
                             <div class="row justify-content-center">
                                 <li class="nav-item">
+
+                                    {% if request.session.user_level == "0" %}
                                     <span class="navbar-text">
-                                        Edit Profile: {{user.first_name}}
+                                        edit your profile {{user.first_name}}
                                     </span>
+                                    {% endif %}
+
+                                    {% if request.session.user_level == "1" %}
+                                    <span class="navbar-text">
+                                        Edit {{user.first_name}} Profile
+                                    </span>
+                                    {% endif %}
+
                                 </li>
                             </div>
                         </div>
@@ -75,14 +82,14 @@
     <!-- ---------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
         <div class="row">
-            {% if request.session.user_level == "1" %}
+
             <div class="col">
                 <div class="row justify-content-end">
-                    <a id="myBtn" href="/user_dashboard/dashboard_admin/">Return
+                    <a id="myBtn" href="/user_dashboard/dashboard/">Return
                         to Dashboard</a>
                 </div>
             </div>
-            {% endif %}
+
         </div>
     </div>
     <!-- ------------------------------------------------------------>
@@ -194,7 +201,7 @@
         <!--           FORM:  DESCRIPTION NORMAL USER                  -->
         <!-- --------------------------------------------------------- -->
 
-        {% if request.session.user_level == "0" %}
+        {% if request.session.user_level == "0" or user.id == request.session.user_id%}
         <div class="row" style="margin-top:40px;">
             <div class="col">
                 <h5>Edit Description</h5>
@@ -221,6 +228,7 @@
             </div>
         </div>
         {% endif %}
+
 
     </div>
 

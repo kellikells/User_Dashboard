@@ -28,7 +28,7 @@
         {% for message in messages %}
         <div class="row justify-content-center" style="margin: 2em 2em 0 2em;">
             <div class="col-10">
-    
+
                 <div id="myMessage">
                     <div class="row">
                         <div class="col" style="padding-left:10px; font-style: italic; font-size: 1rem;">
@@ -43,13 +43,15 @@
                                 {{ message.message }}
                             </span>
                         </div>
-    
+
                         <!-- ---------------------------------------- -->
                         <!--        DELETE BUTTON:                    -->
                         <!-- ---------------------------------------- -->
-    
+
                         <!-- if user created the message  -->
                         {% if message.dashboardSender_id.id == request.session.user_id %}
+                        <!-- if user is an admin -->
+                        {% if request.session.user_level == "1" %}
                         <div class="col-1">
                             <form action="messageDel/{{message.id}}/" method="post">
                                 {% csrf_token %}
@@ -59,7 +61,7 @@
                                 </button>
                             </form>
                         </div>
-    
+
                         <!-- if user received the message  -->
                         {% elif message.dashboardReceiver_id.id == request.session.user_id %}
                         <div class="col-1">
@@ -72,18 +74,23 @@
                             </form>
                         </div>
                         {% endif %}
+                        {% endif %}
                     </div>
                 </div>
-    
+
                 <!-- ---------------------------------------- -->
                 <!--          COMMENT CONTENT                 -->
                 <!-- ---------------------------------------- -->
                 {% if comments %}
                 {% for comment in comments %}
                 {% if comment.message_id.id == message.id %}
+
+                <!-- if user is an admin -->
+                {% if request.session.user_level == "1" %}
                 <div id="myComment">
                     <div class="row">
-                        <div class="col" style="padding-left:10px; font-style: italic; font-weight: 400; font-size: 16px;">
+                        <div class="col"
+                            style="padding-left:10px; font-style: italic; font-weight: 400; font-size: 16px;">
                             <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/"
                                 style=" color: #38d; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
                             </a> commented:
@@ -95,7 +102,7 @@
                                 {{ comment.comment }}
                             </span>
                         </div>
-    
+
                         <!-- ---------------------------------------- -->
                         <!--                 DELETE COMMENT:            -->
                         <!-- ---------------------------------------- -->
@@ -109,12 +116,12 @@
                                     <span id="deleteImg" class="fas fa-trash"></span>
                                 </button>
                             </form>
-    
+
                         </div>
                         <!-- if user received the message  -->
                         {% elif message.dashboardReceiver_id.id == request.session.user_id %}
                         <div class="col-1">
-    
+
                             <form action="commentDel/{{comment.id}}/" method="post">
                                 {% csrf_token %}
                                 <button data-toggle="tooltip" data-placement="top" title="delete" id="deleteBtn"
@@ -122,27 +129,28 @@
                                     <span id="deleteImg" class="fas fa-trash" style="font-size: 20px;"></span>
                                 </button>
                             </form>
-    
+
                         </div>
                         {% endif %}
-    
+
                     </div>
                 </div>
                 {% endif %}
+                {% endif %}
                 {% endfor %}
                 {% endif %}
-    
+
                 <!-- ---------------------------------------- -->
                 <!--            form: create a comment        -->
                 <!-- ---------------------------------------- -->
-    
+
                 <div class="row justify-content-end" style="padding-top: 50px; ">
                     <div class="col">
-    
+
                         <form
                             action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
                             method="post">
-    
+
                             {% csrf_token %}
                             <div class="input-group mb-3">
                                 <input id="commentInput" name="comment_content" type="text" class="form-control"
