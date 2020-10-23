@@ -19,6 +19,7 @@
     <!-- w3schools -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+
     <script>
         $(document).ready(function () {
             $.ajax({
@@ -30,7 +31,6 @@
             });
         })
     </script>
-
 
 </head>
 <!-- --------------------------------------------------------------------- -->
@@ -89,18 +89,19 @@
             <div class="col">
 
                 {% if request.session.user_level == "1" %}
-                <h4 style="padding: 0 0 50px 0; text-align:center;">Manage Users</h4>
+                <h4 style="padding: 0 0 20px 0; text-align:center;">Manage Users</h4>
                 {% endif %}
 
-                <p style="text-align: center; font-weight: lighter;">Click on a user's name
+                <p style="text-align: center; font-weight: lighter; padding-bottom: 20px;">Click on a user's name
                     to checkout their profile page where you can leave them a message</p>
             </div>
         </div>
 
-        <!-- ------------------------------------------------------- -->
-        <!--               input: search by name                     -->
-        <!-- ------------------------------------------------------- -->
         <div class="row" style="margin-bottom: 30px;">
+
+            <!-- ------------------------------------------------------- -->
+            <!--               input: search by name                     -->
+            <!-- ------------------------------------------------------- -->
             <div class="col-4">
                 <form action="/user_dashboard/search_by_name/" id="searchForm">
                     {% csrf_token %}
@@ -118,7 +119,25 @@
                     </div>
                 </form>
             </div>
+            <!-- ------------------------------------------------------- -->
+            <!--         input: dropdown orderBy                    -->
+            <!-- ------------------------------------------------------- -->
+            <div class="col-3">
+                <form action="/user_dashboard/search_by_header/" method="get" id="headerForm">
+                    {% csrf_token %}
 
+                    <select name="orderByHeader" class="form-control form-control-md" id="orderBySelect">
+                        <option value="id">Sort table options</option>
+                        <option value="id">ID (low to high)</option>
+                        <option value="-id">ID (high to low)</option>
+                        <option value="first_name">Name (A-Z)</option>
+                        <option value="-first_name">Name (Z-A)</option>
+                        <option value="email">Email (A-Z)</option>
+                        <option value="-email">Email (Z-A)</option>
+                    </select>
+                </form>
+
+            </div>
             {% if request.session.user_level == "1" %}
             <div class="col">
                 <div class="row justify-content-end" style="margin-right: 20px;">
@@ -131,6 +150,7 @@
                 </div>
             </div>
             {% endif %}
+
         </div>
 
         <!-- --------------------------------------------------------------------- -->
@@ -139,48 +159,21 @@
         <div class="row">
             <div class="col">
 
-                <table class="table table-striped table-bordered table-hover" style="border:solid black 2px;">
+                <table class="table table-striped table-bordered table-hover tablesorter" id="myTable"
+                    style="border:solid black 2px;">
                     <thead style="background-color:black; color: white;">
-
-                        <form action="/user_dashboard/search_by_header/" method="post" id="headerSearch">
-                            {% csrf_token %}
-                            <tr>
-                                <th scope="col">ID
-                                    <i style="display:inline-flex;" class="fas fa-angle-up">
-                                        <input type="radio" class="myRadio" name="th-radio" style="opacity: 0;"
-                                            value="-id">
-                                    </i>
-                                </th>
-
-                                <th scope="col">Name
-                                    <i style="display:inline-flex;" class="fas fa-angle-down">
-                                        <input type="radio" class="myRadio" name="th-radio" style="opacity: 0;"
-                                            value="first_name">
-                                    </i>
-
-                                    <i style="display:none;" class="fas fa-angle-up"></i>
-                                </th>
-
-                                <th scope="col">Email
-                                    <i class="fas fa-angle-up">
-                                        <input type="radio" class="myRadio" name="th-radio" style="opacity: 0;"
-                                            value="-email">
-                                    </i>
-                                </th>
-
-
-
-                                <th scope="col">Created <i class="fas fa-angle-up"></i></th>
-                                <th scope="col">user_level <i class="fas fa-angle-up"></i></th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </form>
+                        <tr>
+                            <th scope="col"> ID </th>
+                            <th scope="col">Name
+                                <i style="display:none;" class="fas fa-angle-up"></i>
+                            </th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Created </th>
+                            <th scope="col">user_level </th>
+                            <th scope="col">Actions</th>
+                        </tr>
                     </thead>
-
                     <tbody id="table_placeholder">
-
-
-
 
                     </tbody>
                 </table>
@@ -192,8 +185,6 @@
     <!-- --------------------------------------------------------------------- -->
 
     <script>
-
-
 
         // input search by name form
         // --------------------------------
@@ -212,50 +203,27 @@
             submitAjaxform();
         })
 
-        // --------------------------------
-
         // input search by header form
-        function headerSearch() {
+        // --------------------------------
+        $("select#orderBySelect").change(function () {
 
-            console.log('data header search:')
-            console.log($("#headerSearch").serialize())
-
-            $(".sort_header").click(function () {
-                console.log("clicked")
-
-                var clicks = $(this).data("clicks");
-
-                // sort by desc
-                if (clicks) {
-                    console.log('true');
-                    var name = $(this).attr("name")
-                    console.log(name)
-
-                    var getInput = ($('input').attr("name") == name)
-                    getInput.data("value") = "desc"
-
-                    var test = getInput.data("value")
-                    console.log(test)
-                    submitAjaxform();
-
-
-                    // sort by asc
-                } else {
-                    console.log('false');
-                }
-                $(this).data("clicks", !clicks)
-
-                $(".myRadio").click(function (event) {
-                    event.preventDefault()
-
-                    console.log('clicked the radio button')
-                    headerSearch()
+            if ($(this).children("option:selected").val() == "default") {
+                console.log('default')
+            }
+            else {
+                $.ajax({
+                    method: "get",
+                    url: $("#headerForm").attr("action"),
+                    data: $("#headerForm").serialize(),
+                    success: function (serverResponse) {
+                        $("#table_placeholder").html(serverResponse)
+                    }
                 })
-            });
-        }
+            }
+        })
+
 
     </script>
-
 
     <!-- // BOOTSTRAP'S: Optional JavaScript
     // jQuery first, then Popper.js, then Bootstrap JS -->
@@ -265,7 +233,6 @@
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'
         integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6'
         crossorigin='anonymous'></script>
-
 
     <!-- // admin remove modal popup -->
     <script>

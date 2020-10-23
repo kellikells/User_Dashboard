@@ -342,16 +342,13 @@ def comment_delete(request, id, commentID):
 # ------------------------------------------------------------------------
 def search_by_header(request):
     print('-'*30)
-    # users = User.objects.order_by("-id")
-    if request.method == "POST":
-        orderby = request.POST["th-radio"]
-        print(request.POST["th-radio"])
-        print(orderby)
-        # print(DashboardUser.objects.order_by(orderby))
+    if request.method == "GET":
+        howToSort = request.GET.get("orderByHeader")
 
-        users = DashboardUser.objects.order_by(request.POST["th-radio"])
-        # users=DashboardUser.objects.all()
-        return render(request, 'user_dashboard/table_admin.html', {'users': users})
+        print(howToSort)
+
+        users = DashboardUser.objects.order_by(howToSort)
+        return render(request, 'user_dashboard/table_normal.html', {'users': users})
 
 # ------------------------------------------------------------------------
 def on_load(request):
