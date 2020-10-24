@@ -17,6 +17,8 @@
     <!-- w3schools -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+
+
 </head>
 <!-- --------------------------------------------------------------------- -->
 <!-- --------------------------------------------------------------------- -->
@@ -63,19 +65,19 @@
 
     <!-- ------------------------------------------------------------>
     <!-- ---------------------------------------------------------- -->
-    <div class="container" style="padding: 50px 0 0 0;">
+    <div class="container" style="padding: 30px 0 0 0;">
 
-        <div class="row justify-content-center" style="font-size: 2.5rem;">
+        <div class="row justify-content-center" style="font-size: 2rem;">
             {% if request.session.user_level == "0" %}
             edit your profile {{user.first_name}}
             {% endif %}
 
             {% if request.session.user_level == "1" %}
-            Edit {{user.first_name}} Profile
+            Edit Profile: {{user.first_name}}
             {% endif %}
         </div>
 
-        <div class="row" style="padding: 50px 0 0 0;">
+        <div class="row" style="padding: 30px 0 0 0;">
             <div class="col" id="editBox">
                 <div class="row">
                     <div class="col" style="padding: 20px 40px;border: solid 1px black; ">
@@ -178,10 +180,7 @@
 
         {% if request.session.user_level == "0" or user.id == request.session.user_id%}
         <div class="row" style="margin-top:40px;">
-            <div class="col" style="padding: 40px;border: solid 1px black; margin-right: 30px; background-clip:padding-box;" id="editBox">
-
-
-
+            <div class="col" style="padding: 20px 40px;border: solid 1px black; margin-right: 30px; background-clip:padding-box;" id="editBox">
 
                 <form action="/user_dashboard/update_description/{{user.id}}/" method="post">
                     {% csrf_token %}
@@ -198,10 +197,8 @@
                 </form>
 
             </div>
-
         </div>
         {% endif %}
-
 
     </div>
 
