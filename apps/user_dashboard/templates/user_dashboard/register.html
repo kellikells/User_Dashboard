@@ -24,6 +24,7 @@
 
     <div id="myNav">
         <div class="container">
+            
             <div class="row">
                 <div class="col justify-content-between">
                     <ul class="nav">
@@ -41,26 +42,6 @@
                                         {% endif %}
 
                                     </span>
-                                </li>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="row justify-content-center">
-                                <li class="nav-item">
-
-                                    {% if not request.session.user_level %}
-                                    <span class="navbar-text">
-                                        Register
-                                    </span>
-                                    {% endif %}
-
-                                    {% if request.session.user_level == "1" %}
-                                    <span class="navbar-text">
-                                        Add User
-                                    </span>
-                                    {% endif %}
-
                                 </li>
                             </div>
                         </div>
@@ -87,13 +68,14 @@
             </div>
         </div>
     </div>
+    <div style="border-bottom: solid #cb8 10px;"></div>
 
     <div class="container" style="padding: 50px 0 0 0;">
         <div class="row">
             <div class="col-5">
 
                 {% if not request.session.user_level %}
-                <h4 style="padding: 0 0 50px 0;">Register</h4>
+                <h4 style="padding: 0 0 50px 0;">REGISTER</h4>
                 {% endif %}
 
                 {% if request.session.user_level == "1" %}
@@ -130,11 +112,11 @@
 
 
                         {% if not request.session.user_level %}
-                        <button class="myBtn" type="submit">Submit</button>
+                        <button id="myBtn" type="submit">Submit</button>
                         {% endif %}
 
                         {% if request.session.user_level == "1" %}
-                        <button class="myBtn" type="submit">Add User</button>
+                        <button id="myBtn" type="submit">Add User</button>
                         {% endif %}
                     </div>
                 </form>
@@ -196,7 +178,6 @@
             </div>
         </div>
     </div>
-    {% endif %}
 
 
     <!-- ------------------------------------------------------------>

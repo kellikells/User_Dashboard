@@ -19,13 +19,12 @@
     <!-- w3schools -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-
     <script>
         $(document).ready(function () {
             $.ajax({
                 url: '/user_dashboard/on_load/',
                 success: function (serverResponse) {
-                    // $('tbody').append(serverResponse)
+
                     $("#table_placeholder").html(serverResponse)
                 }
             });
@@ -57,15 +56,7 @@
                                 </li>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="row justify-content-center">
-                                <li class="nav-item">
-                                    <span class="navbar-text">
-                                        Dashboard
-                                    </span>
-                                </li>
-                            </div>
-                        </div>
+
                         <div class="col">
                             <div class="row justify-content-end">
                                 <li class="nav-item">
@@ -89,7 +80,7 @@
             <div class="col">
 
                 {% if request.session.user_level == "1" %}
-                <h4 style="padding: 0 0 20px 0; text-align:center;">Manage Users</h4>
+                <h4 style="padding: 0 0 20px 0; text-align:center;">MANAGE USERS</h4>
                 {% endif %}
 
                 <p style="text-align: center; font-weight: lighter; padding-bottom: 20px;">Click on a user's name
@@ -102,7 +93,7 @@
             <!-- ------------------------------------------------------- -->
             <!--               input: search by name                     -->
             <!-- ------------------------------------------------------- -->
-            <div class="col-4">
+            <div class="col-3">
                 <form action="/user_dashboard/search_by_name/" id="searchForm">
                     {% csrf_token %}
                     <label class="sr-only" for="nameSearch">Search by name</label>
@@ -129,12 +120,14 @@
                     <select name="orderByHeader" class="form-control form-control-md" id="orderBySelect">
                         <option value="id">Sort table options</option>
                         <option value="id">ID (low to high)</option>
-                        <option value="-id">ID (high to low)</option>
                         <option value="first_name">Name (A-Z)</option>
-                        <option value="-first_name">Name (Z-A)</option>
                         <option value="email">Email (A-Z)</option>
+                        <option value="id">--------------------</option>
+                        <option value="-id">ID (high to low)</option>
+                        <option value="-first_name">Name (Z-A)</option>
                         <option value="-email">Email (Z-A)</option>
                     </select>
+
                 </form>
 
             </div>
@@ -158,24 +151,21 @@
         <!-- --------------------------------------------------------------------- -->
         <div class="row">
             <div class="col">
-
                 <table class="table table-striped table-bordered table-hover tablesorter" id="myTable"
                     style="border:solid black 2px;">
                     <thead style="background-color:black; color: white;">
                         <tr>
-                            <th scope="col"> ID </th>
-                            <th scope="col">Name
-                                <i style="display:none;" class="fas fa-angle-up"></i>
-                            </th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Created </th>
-                            <th scope="col">user_level </th>
+                            <th scope="col">Joined </th>
+                            <th scope="col">Authority </th>
+                            {% if request.session.user_level == "1" %}
                             <th scope="col">Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
-                    <tbody id="table_placeholder">
-
-                    </tbody>
+                    <tbody id="table_placeholder"></tbody>
                 </table>
             </div>
         </div>
@@ -183,7 +173,6 @@
 
     <!-- --------------------------------------------------------------------- -->
     <!-- --------------------------------------------------------------------- -->
-
     <script>
 
         // input search by name form
@@ -221,7 +210,6 @@
                 })
             }
         })
-
 
     </script>
 

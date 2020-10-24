@@ -44,25 +44,7 @@
                                 </li>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="row justify-content-center">
-                                <li class="nav-item">
 
-                                    {% if request.session.user_level == "0" %}
-                                    <span class="navbar-text">
-                                        edit your profile {{user.first_name}}
-                                    </span>
-                                    {% endif %}
-
-                                    {% if request.session.user_level == "1" %}
-                                    <span class="navbar-text">
-                                        Edit {{user.first_name}} Profile
-                                    </span>
-                                    {% endif %}
-
-                                </li>
-                            </div>
-                        </div>
                         <div class="col">
                             <div class="row justify-content-end">
                                 <li class="nav-item">
@@ -78,30 +60,25 @@
         </div>
     </div>
     <div style="border-bottom: solid #cb8 10px;"></div>
+
     <!-- ------------------------------------------------------------>
     <!-- ---------------------------------------------------------- -->
     <div class="container" style="padding: 50px 0 0 0;">
-        <div class="row">
 
-            <div class="col">
-                <div class="row justify-content-end">
-                    <a id="myBtn" href="/user_dashboard/dashboard/">Return
-                        to Dashboard</a>
-                </div>
-            </div>
+        <div class="row justify-content-center" style="font-size: 2.5rem;">
+            {% if request.session.user_level == "0" %}
+            edit your profile {{user.first_name}}
+            {% endif %}
 
+            {% if request.session.user_level == "1" %}
+            Edit {{user.first_name}} Profile
+            {% endif %}
         </div>
-    </div>
-    <!-- ------------------------------------------------------------>
-    <!-- ---------------------------------------------------------- -->
-    <div class=" container">
-        <div class="row">
 
-            <div class="col">
-
-                <h5>Edit Information</h5>
+        <div class="row" style="padding: 50px 0 0 0;">
+            <div class="col" id="editBox">
                 <div class="row">
-                    <div class="col" style="padding: 20px 40px;border: solid 1px black; margin-right: 30px;">
+                    <div class="col" style="padding: 20px 40px;border: solid 1px black; ">
 
                         {% if request.session.user_level == "1" %}
                         <form action="/user_dashboard/update/{{user.id}}/" method="post">
@@ -109,7 +86,6 @@
                             {% if request.session.user_level == "0" %}
                             <form action="/user_dashboard/update/{{request.session.id}}/" method="post">
                                 {% endif %}
-
 
                                 {% csrf_token %}
                                 <div class="form-group row">
@@ -141,24 +117,21 @@
                                 {% endif %}
 
                                 <div class="row justify-content-end">
-                                    <!-- <button class="myBtn" type="submit">Submit</button> -->
                                     <button id="myBtn" type="submit">Update
-                                        Information<span style="margin-left: 6px;" class="material-icons">
-                                            create
-                                        </span></button>
+                                        Information</button>
                                 </div>
                             </form>
-
                     </div>
                 </div>
             </div>
+
+            <div class="col" style="max-width:30px;"></div>
             <!-- ------------------------------------------------------------>
             <!-- ---------------------------------------------------------- -->
             <div class="col">
 
-                <h5>Change Password</h5>
                 <div class="row">
-                    <div class="col" style="padding: 20px 40px;border: solid 1px black; margin-right: 30px;">
+                    <div class="col" style="padding: 20px 40px;border: solid 1px black; background-clip:padding-box;" id="editBox">
 
                         <form action="/user_dashboard/update_password/{{user.id}}/" method="post">
                             {% csrf_token %}
@@ -195,6 +168,8 @@
                 {% endif %}
 
             </div>
+            <div class="col" style="max-width:30px;"></div>
+
         </div>
 
         <!-- ------------------------------------------------------------>
@@ -203,29 +178,27 @@
 
         {% if request.session.user_level == "0" or user.id == request.session.user_id%}
         <div class="row" style="margin-top:40px;">
-            <div class="col">
-                <h5>Edit Description</h5>
-                <div class="row">
-                    <div class="col" style="padding: 40px;border: solid 1px black; margin-right: 30px;">
+            <div class="col" style="padding: 40px;border: solid 1px black; margin-right: 30px; background-clip:padding-box;" id="editBox">
 
-                        <form action="/user_dashboard/update_description/{{user.id}}/" method="post">
-                            {% csrf_token %}
 
-                            <div class="form-group">
-                                <textarea name="desc" class="form-control" rows="3"
-                                    placeholder="{{user.desc}}"></textarea>
-                            </div>
 
-                            <div class="row justify-content-end">
-                                <button id="myBtn" type="submit">Update
-                                    Description
-                                </button>
-                            </div>
-                        </form>
 
+                <form action="/user_dashboard/update_description/{{user.id}}/" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <textarea name="desc" class="form-control" rows="3" placeholder="{{user.desc}}"></textarea>
                     </div>
-                </div>
+
+                    <div class="row justify-content-end">
+                        <button id="myBtn" type="submit">Update
+                            Description
+                        </button>
+                    </div>
+                </form>
+
             </div>
+
         </div>
         {% endif %}
 

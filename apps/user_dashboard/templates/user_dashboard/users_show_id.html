@@ -33,12 +33,9 @@
                     <ul class="nav">
                         <div class="col">
                             <div class="row">
-
                                 <li class="nav-item">
                                     <span class="navbar-text">
-                                      
                                         <a id="navLink" href="/user_dashboard/dashboard/">Dashboard</a>
-                          
                                     </span>
                                 </li>
                                 <li class="nav-item">
@@ -51,7 +48,7 @@
                         <div class="col">
                             <div class="row justify-content-center">
                                 <li class="nav-item">
-                                    <span class="navbar-text">
+                                    <span class="navbar-text" style="margin-top: .5rem; padding: 1em;">
                                         Visiting: {{user.first_name}} {{user.last_name}}
                                     </span>
                                 </li>
@@ -84,24 +81,39 @@
                     {{user.last_name}}</div>
                 <div class="row">
                     <div class="col">
-                        <table>
-                            <tr>
-                                <td>User ID:</td>
-                                <td> {{user.id}}</td>
-                            </tr>
-                            <tr>
-                                <td>Email address:</td>
-                                <td> {{user.email}}</td>
-                            </tr>
-                            <tr>
-                                <td>Registered at:</td>
-                                <td> {{user.created_at}}</td>
-                            </tr>
-                            <tr>
-                                <td>Description:</td>
-                                <td>{{user.desc}}</td>
-                            </tr>
-                        </table>
+                        <div class="row">
+                            <div class="col-4">
+                                User ID:
+                            </div>
+                            <div class="col" id="userDetails">
+                                {{ user.id }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                Email:
+                            </div>
+                            <div class="col" id="userDetails">
+                                {{ user.email }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                Member since:
+                            </div>
+                            <div class="col" id="userDetails">
+                                {{ user.created_at }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                Description
+                            </div>
+                            <div class="col" id="userDetails">
+                                {{ user.desc }}
+                            </div>
+                        </div>
                     </div>
 
                     {% if errors %}
@@ -238,13 +250,13 @@
                     <!-- ---------------------------------------- -->
                     <!--          COMMENT CONTENT                 -->
                     <!-- ---------------------------------------- -->'
-                    
-                    
-<!--                     
+
+
+                    <!--                     
                         <a id="myUser" href="/user_dashboard/users/show/{{message.dashboardSender_id.id}}/" -->
-                    
-                    
-                    
+
+
+
                     {% if comments %}
                     {% for comment in comments %}
                     {% if comment.message_id.id == message.id %}
@@ -256,10 +268,7 @@
 
 
                                 <a id="myUser" href="/user_dashboard/users/show/{{ comment.user_id.id }}/"
-
-
-
-                                    style=" color: #38d; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
+                                    style=" color: #007bff; text-decoration: underline; font-weight:600;">{{ comment.user_id.first_name }}
                                 </a> commented:
                             </div>
                         </div>
