@@ -53,3 +53,29 @@
     {% endif %}
 </tr>
 {% endfor %}
+
+    <!-- // BOOTSTRAP'S: Optional JavaScript
+        // jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'
+        integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo'
+        crossorigin='anonymous'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'
+        integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6'
+        crossorigin='anonymous'></script>
+    
+    <!-- // admin remove modal popup -->
+    <script>
+
+        $('#removeModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data(('whatever')) // Extract info from data-* attributes
+
+            var modal = $(this)
+            modal.find('.modal-title').text('Are you sure you want to remove user: ' + recipient)
+
+            // create <input> to hold user.id value
+            var special = $("<input>").attr("type", "hidden").attr("name", "removeID").attr("value", recipient)
+            $("#special-div").append(special);
+        })
+
+    </script>

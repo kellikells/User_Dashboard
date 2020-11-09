@@ -34,9 +34,6 @@ def register_process(request):
             context = {
                 "errors": errors
             }
-        
-            # if 'user_level' in request.session:
-            #     return render(request, 'user_dashboard/users_new.html', context)
 
             # else:
             return render(request, 'user_dashboard/register.html', context)
@@ -47,12 +44,9 @@ def register_process(request):
                 "email_messages" : request.POST['email'] + ' : email already exists'
             }
 
-            # if 'user_level' in request.session:
-
             return render(request, 'user_dashboard/register.html', context)
 
-            # else:
-            #     return render(request, 'user_dashboard/register.html', context)
+
 
         # -----------------------------------------------------------------
         # NO ERRORS: ADD USER TO DATABASE
@@ -81,9 +75,6 @@ def register_process(request):
 def register_success(request):
 
     messages.success(request, 'You successfully registered, now you may sign in')
-    # context = {
-    #             "good_messages": "you successfully registered, now you may sign in"
-    #         }
 
     return render(request, 'user_dashboard/signin.html')
 
@@ -136,12 +127,6 @@ def signin_process(request):
             }
             return render(request, 'user_dashboard/signin.html', context)
 
-# ------------------------------------------------------------------------
-# def dashboard_admin(request):
-#     context ={
-#         "users" : DashboardUser.objects.all()
-#     }
-#     return render(request,'user_dashboard/dashboard_admin.html', context)
 
 # ------------------------------------------------------------------------
 def dashboard(request):
@@ -152,16 +137,12 @@ def dashboard(request):
     return render(request, 'user_dashboard/dashboard.html', context)
 
 # ------------------------------------------------------------------------
-# def users_new(request):
-    # return render(request, 'user_dashboard/users_new.html')
-
-# ------------------------------------------------------------------------
 def remove(request):
     if request.method == "POST":
 
         DashboardUser.objects.get(id= request.POST.get('removeID')).delete()
 
-        return redirect('/user_dashboard/dashboard_admin/')
+        return redirect('/user_dashboard/dashboard/')
 
 # ------------------------------------------------------------------------
 def users_edit(request, id):
@@ -195,7 +176,7 @@ def update(request, id):
 
         temp_user.save()
       
-    return redirect('/user_dashboard/dashboard_admin/')
+    return redirect('/user_dashboard/dashboard/')
 
 # ------------------------------------------------------------------------
 def update_password(request, id):
@@ -234,17 +215,6 @@ def users_show(request, id):
         "comments" : Comment.objects.all().order_by("-updated_at")
     }
     return render(request, 'user_dashboard/users_show_id.html', context)
-
-# ------------------------------------------------------------------------
-# get the data for this users page
-# def on_load(request, id):
- 
-#     context = {
-#         "user" : DashboardUser.objects.get(id=id),
-#         "messages" : Message.objects.filter(dashboardReceiver_id = id).order_by("-updated_at"),
-#         "comments" : Comment.objects.all().order_by("-updated_at")
-#     }
-#     return render(request, 'user_dashboard/table_messages.html', context)
 
 # ------------------------------------------------------------------------
 def create_message(request, id, receiverID):
@@ -319,9 +289,6 @@ def search_by_name(request):
     else:
         users = DashboardUser.objects.filter(first_name__startswith = searchByName)
     return render(request, 'user_dashboard/table_normal.html', {'users': users})
-
-
-
 
 # ------------------------------------------------------------------------
 def message_delete(request, id, messageID):
