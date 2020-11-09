@@ -35,11 +35,11 @@ def register_process(request):
                 "errors": errors
             }
         
-            if request.session['user_level'] == "1":
-                return render(request, 'user_dashboard/users_new.html', context)
+            # if 'user_level' in request.session:
+            #     return render(request, 'user_dashboard/users_new.html', context)
 
-            else:
-                return render(request, 'user_dashboard/register.html', context)
+            # else:
+            return render(request, 'user_dashboard/register.html', context)
 
         # if email is already in the database
         if len(DashboardUser.objects.filter(email = request.POST['email'])) > 0:
@@ -47,12 +47,12 @@ def register_process(request):
                 "email_messages" : request.POST['email'] + ' : email already exists'
             }
 
-            if request.session['user_level'] == "1":
+            # if 'user_level' in request.session:
 
-                return render(request, 'user_dashboard/users_new.html', context)
+            return render(request, 'user_dashboard/register.html', context)
 
-            else:
-                return render(request, 'user_dashboard/register.html', context)
+            # else:
+            #     return render(request, 'user_dashboard/register.html', context)
 
         # -----------------------------------------------------------------
         # NO ERRORS: ADD USER TO DATABASE
@@ -72,7 +72,7 @@ def register_process(request):
                 # add messages.SUCCESS
                 messages.success(request, 'Congrats! You have successfully created a new user! Good job admin!')
 
-                return render(request, 'user_dashboard/users_new.html')
+                return render(request, 'user_dashboard/register.html')
            
             else:
                 return redirect('/user_dashboard')

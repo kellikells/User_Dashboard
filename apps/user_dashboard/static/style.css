@@ -77,10 +77,14 @@ textarea {
 }
 
 /* -------------------------------- */
+#index-card {
+     font-weight: bolder;
+}
+
 #indexBtn {
      background-color: #0054b8;
      color: white;
-     border: solid 5px white;
+     border: solid 5px #0054b8;
      padding: 10px 40px;
      font-weight: bold;
      text-decoration: none;
@@ -194,7 +198,7 @@ textarea {
 #myNav {
      background-color: #e9ecef;
      font-weight: bold;
-     line-height: 1;
+     line-height: .75;
 }
 /* -------------------------------- */
 
@@ -229,7 +233,7 @@ textarea {
      font-size: 15px;
      font-weight: 450;
      display: inline-block;
-     padding: 1em;
+     padding: .75em;
 }
 /* -------------------------------- */
 #navLink {
