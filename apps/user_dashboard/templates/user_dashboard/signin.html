@@ -36,7 +36,7 @@
                                 </li>
                             </div>
                         </div>
-                     
+
                         <div class="col">
                             <div class="row justify-content-end">
                                 <li class="nav-item">
@@ -51,15 +51,32 @@
             </div>
         </div>
     </div>
-    <div style="border-bottom: solid #cb8 10px;"></div>
+    <div style="border-bottom: solid #cb8 10px; margin-bottom: 20px;"></div>
     <!-- ------------------------------------------------------------>
-
     <!-- ---------------------------------------------------------- -->
+
+    <!-- ======== ALERT FOR ERRORS======== -->
+    <div class="col">
+        <div class="container" style="min-height:100%; width:max-content;">
+            {% if errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <h4 class="alert-heading" style="text-align:center;">OOPS!</h4>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <ul>
+                    {% for error in errors %}
+                    <li {% if error.tags %} class="{{ error.tags }}" {% endif %} style="font-weight: normal;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- -------------END OF ALERTS----------------- -->
+
     <div class="container" style="padding: 50px 0 0 0;">
-
         <div class="row">
-            <div class="col">
-
+            <div class="col-5">
                 <h4 style="padding: 0 0 50px 0; ">SIGN IN</h4>
 
                 <!-- ------------------------------------------------------------>
@@ -67,7 +84,6 @@
                 <!-- ---------------------------------------------------------- -->
                 <form action="/user_dashboard/signin_process/" method="post">
                     {% csrf_token %}
-
                     <div class="form-group">
                         <label for="email">Email address</label>
                         <input name="email" type="email" class="form-control" id="email">
@@ -79,7 +95,6 @@
                     <div class="row justify-content-end">
                         <button id="myBtn" type="submit">Sign In</button>
                     </div>
-
                 </form>
 
                 <!-- ------------------------------------------------------------>
@@ -89,41 +104,6 @@
                     <div class="col">
                         <a id="my_link" href="/user_dashboard/register/">Don't have an account? Register</a>
                     </div>
-                </div>
-
-            </div>
-
-            <!-- ------------------------------------------------------------>
-            <!--               ERROR MESSAGES                               -->
-            <!-- ---------------------------------------------------------- -->
-            <div class="col" style="color: red;">
-                {% if errors %}
-                <div class="messages">
-                    {% for message in errors %}
-                    <p>{% if message.tags %} class="{{ message.tags }}" {% endif %} {{ message }}</p>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-
-            <!-- ------------------------------------------------------------>
-            <!--               SUCCESS MESSAGES                               -->
-            <!-- ---------------------------------------------------------- -->
-            <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->
-            <div class="col">
-                <div class="container" style="min-height:100%; width:80%">
-                    {% if messages %}
-                    {% for message in messages %}
-                    {% if message.tags == "success" %}
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <h4 class="alert-heading">SUCCESS!</h4>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
-                        <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
         </div>

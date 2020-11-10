@@ -86,9 +86,6 @@ def signin(request):
 # ------------------------------------------------------------------------
 def signin_process(request):
 
-    # saving user object    
-    this_user = DashboardUser.objects.get(email = request.POST['email'])
-
     if request.method == "POST":
         errors = {}
 
@@ -108,7 +105,12 @@ def signin_process(request):
             return render(request, 'user_dashboard/signin.html', context)
         # -------------------------------------
         # SUCCESS
-        elif bcrypt.checkpw(request.POST['password'].encode(), this_user.password_hash.encode()):
+
+        # saving user object    
+        else:
+            this_user = DashboardUser.objects.get(email = request.POST['email'])
+
+            if bcrypt.checkpw(request.POST['password'].encode(), this_user.password_hash.encode()):
                 # saving user_level for admin/normal user html pages
                 if 'user_level' not in request.session:
                     request.session['user_level'] = this_user.user_level
@@ -118,14 +120,15 @@ def signin_process(request):
                     request.session['user_name'] = this_user.first_name
 
                 return redirect('/user_dashboard/dashboard/')   
-        # -------------------------------------
-        # password doesn't match 
-        else:
-            errors['password doesn''t match'] = "password doesn''t match"
-            context = {
-                "messages": errors
-            }
-            return render(request, 'user_dashboard/signin.html', context)
+
+            # -------------------------------------
+            # password doesn't match 
+            else:
+                errors['password doesn''t match'] = "password doesn''t match"
+                context = {
+                    "errors": errors
+                }
+                return render(request, 'user_dashboard/signin.html', context)
 
 
 # ------------------------------------------------------------------------
