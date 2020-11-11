@@ -46,8 +46,6 @@ def register_process(request):
 
             return render(request, 'user_dashboard/register.html', context)
 
-
-
         # -----------------------------------------------------------------
         # NO ERRORS: ADD USER TO DATABASE
         else:
@@ -130,7 +128,6 @@ def signin_process(request):
                 }
                 return render(request, 'user_dashboard/signin.html', context)
 
-
 # ------------------------------------------------------------------------
 def dashboard(request):
     context = {
@@ -185,29 +182,12 @@ def update(request, id):
 def update_password(request, id):
 
     if request.method == "POST":
+        temp_user = DashboardUser.objects.get(id=id)
+        temp_user.password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
 
-        # if passwords do not match
-        if request.POST['password'] != request.POST['confirm_password']:
-            return HttpResponse("fail")
-            # errors = "passwords do not match"
-            # return render(request, 'user_dashboard/flashErrors.html')
-        
-        else:
-            return HttpResponse("passwords match")
-
-
-        # # if passwords do not match
-        # if request.POST['password'] != request.POST['confirm_password']:
-        #     return render(request, 'user_dashboard/flashErrors.html')
-
-        # else:
-        #     # use bcrypt to hash password & update password
-        #     temp_user = DashboardUser.objects.get(id=id)
-        #     temp_user.password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
-
-        #     temp_user.save()
-        #     return redirect('/user_dashboard/users/edit/'+ id + '/')
-
+        temp_user.save()
+        return redirect('/user_dashboard/users/edit/'+ id + '/')
+      
 # ------------------------------------------------------------------------
 def update_description(request, id):
 
@@ -320,7 +300,6 @@ def comment_delete(request, id, commentID):
 
 # ------------------------------------------------------------------------
 def search_by_header(request):
-    print('-'*30)
     if request.method == "GET":
         howToSort = request.GET.get("orderByHeader")
 

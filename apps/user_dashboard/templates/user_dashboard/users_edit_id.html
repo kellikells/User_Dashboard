@@ -18,9 +18,20 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-        </script>
+    </script>
 
-
+    <script>
+        $(document).ready(function () {
+            $('#myBtn').click(function (e) {
+                if ($('#password').val() !== $('#confirm_password').val()) {
+                    e.preventDefault();
+                    $('#error').html("<p>Passwords don't match</p>")
+                } else {
+                    $('#pwForm').submit()
+                }
+            })
+        })         
+    </script>
 </head>
 <!-- --------------------------------------------------------------------- -->
 <!-- --------------------------------------------------------------------- -->
@@ -67,15 +78,6 @@
 
     <!-- ------------------------------------------------------------>
     <!-- ---------------------------------------------------------- -->
-
-    <!-- ======== ALERT FOR ERRORS======== -->
-
-    <div id="errorPlaceholder"></div>
-
-
-   
-
-    <!-- ----------------END OF ERRORS--------------- -->
 
     <div class="container" style="padding: 30px 0 0 0;">
 
@@ -131,7 +133,7 @@
                                 {% endif %}
 
                                 <div class="row justify-content-end">
-                                    <button id="myBtn" type="submit">Update
+                                    <button class="myBtn" type="submit">Update
                                         Information</button>
                                 </div>
                             </form>
@@ -148,6 +150,10 @@
                     <div class="col" style="padding: 20px 40px;border: solid 1px black; background-clip:padding-box;"
                         id="editBox">
 
+                        <!-- for error message: password not matching -->
+                        <span id="error"></span>
+                        <!-- ---------------------------------------- -->
+
                         <form id="pwForm" action="/user_dashboard/update_password/{{user.id}}/" method="post">
                             {% csrf_token %}
                             <div class="form-group row">
@@ -157,12 +163,22 @@
 
                             <div class="form-group row">
                                 <label for="confirm_password">Password Confirmation</label>
+                                <input type='hidden' name='user_id' id='user_id' value={{user.id}} />
                                 <input name="confirm_password" type="password" class="form-control"
                                     id="confirm_password" required minlength="8">
                             </div>
 
-                            <div class="row justify-content-end">
-                                <button id="myBtn" type="submit">Update
+
+                            <style>
+                                #error p {
+                                    color: red;
+                                }
+                            </style>
+
+                            <!-- -------------------- -->
+
+                            <div class="row justify-content-end" id="pw_submit">
+                               <button id="myBtn" class="myBtn" type="submit">Update
                                     Password<span style="margin-left: 6px;" class="fas fa-key"></span></button>
                             </div>
                         </form>
@@ -191,7 +207,7 @@
                     </div>
 
                     <div class="row justify-content-end">
-                        <button id="myBtn" type="submit">Update
+                        <button id="myBtn" class="myBtn" type="submit">Update
                             Description
                         </button>
                     </div>
@@ -205,33 +221,45 @@
 
     <!-- alerts for errors -->
     <script>
-        $('#pwForm').submit(function(e) {
-            e.preventDefault();
 
 
-            $.ajax({
-                method: 'post',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function (serverResponse) {
 
-                    var errorMessage;
-                    // if the passwords don't match
-                    if (serverResponse == "fail") {
-                        errorMessage = 'passwords do not match';
-                    }
-                    alert(errorMessage);
 
-                    // if passwords match for update, redirect
-                    if (serverResponse == "passwords match") {
-                        console.log("matched");
-                    }
+        // $('#pwForm').submit(function (e) {
+        //     e.preventDefault();
 
-                    // console.log("errors", serverResponse)
-                    // $('#errorPlaceholder').html(serverResponse)
-                }
-            })
-        });
+        //     if ($('#password').val() !== $('#confirm_password').val()) {
+        //         console.log('do not match');
+
+        //     }
+
+
+        //     $.ajax({
+        //         method: 'post',
+        //         url: $(this).attr('action'),
+        //         data: $(this).serialize(),
+        //         success: function (serverResponse) {
+
+        //             // console.log("errors", serverResponse)
+        //             // $('#errorPlaceholder').html(serverResponse)
+
+        //             // var errorMessage;
+        //             // if the passwords don't match
+        //             if (serverResponse == "fail") {
+        //                 errorMessage = 'passwords do not match';
+        //             }
+        //             alert(errorMessage);
+
+        //             // if passwords match for update, redirect
+        //             if (serverResponse == "passwords match") {
+        //                 console.log("matched");
+        //             }
+
+        //             // console.log("errors", serverResponse)
+        //             // $('#errorPlaceholder').html(serverResponse)
+        //         }
+        //     })
+        // });
     </script>
 
 

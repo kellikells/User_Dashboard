@@ -152,6 +152,26 @@ textarea {
      /* shrink effect */
      transition: all 250ms linear;
 }
+/* -------------------------------- */
+
+.myBtn {
+     background-color: #0054b8;
+     color: white;
+     border: none;
+     padding: 5px 40px;
+     font-weight: bold;
+     text-decoration: none;
+     transition: all 150ms linear;
+}
+.myBtn:hover {
+     background: #cb8;
+     color: white;
+     border: none;
+     text-decoration: none;
+
+     /* shrink effect */
+     transition: all 250ms linear;
+}
 
 /* -------------------------------- */
 
