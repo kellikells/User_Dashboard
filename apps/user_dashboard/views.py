@@ -165,7 +165,7 @@ def normal_users_edit(request):
 def update(request, id):
     if request.method == "POST":
         temp_user = DashboardUser.objects.get(id=id)
-
+        
         if request.POST['email']:
             temp_user.email = request.POST['email']
         
@@ -179,25 +179,34 @@ def update(request, id):
 
         temp_user.save()
       
-    return redirect('/user_dashboard/dashboard/')
+        return redirect('/user_dashboard/dashboard/')
 
 # ------------------------------------------------------------------------
 def update_password(request, id):
+
     if request.method == "POST":
 
-        # figure out how to have a popup with errors, because can't use context in this redirect
+        # if passwords do not match
         if request.POST['password'] != request.POST['confirm_password']:
-            return redirect('/user_dashboard/users/edit/'+ id + '/')
-        if len(request.POST['password']) < 8:
-            return redirect('/user_dashboard/users/edit/'+ id + '/')
-
-        # use bcrypt to hash password & update password
+            return HttpResponse("fail")
+            # errors = "passwords do not match"
+            # return render(request, 'user_dashboard/flashErrors.html')
+        
         else:
-            temp_user = DashboardUser.objects.get(id=id)
-            temp_user.password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
+            return HttpResponse("passwords match")
 
-            temp_user.save()
-            return redirect('/user_dashboard/users/edit/'+ id + '/')
+
+        # # if passwords do not match
+        # if request.POST['password'] != request.POST['confirm_password']:
+        #     return render(request, 'user_dashboard/flashErrors.html')
+
+        # else:
+        #     # use bcrypt to hash password & update password
+        #     temp_user = DashboardUser.objects.get(id=id)
+        #     temp_user.password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
+
+        #     temp_user.save()
+        #     return redirect('/user_dashboard/users/edit/'+ id + '/')
 
 # ------------------------------------------------------------------------
 def update_description(request, id):
