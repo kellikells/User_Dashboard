@@ -150,7 +150,6 @@
                         <form
                             action="/user_dashboard/create_comment/{{ request.session.user_id }}/{{ message.id }}/{{user.id}}/"
                             method="post">
-
                             {% csrf_token %}
                             <div class="input-group mb-3">
                                 <input id="commentInput" name="comment_content" type="text" class="form-control"
@@ -163,6 +162,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -170,7 +170,6 @@
         {% endfor %}
         {% endif %}
     </div>
-
 
     <!-- BOOTSTRAP'S: Optional JavaScript
     jQuery first, then Popper.js, then Bootstrap JS -->

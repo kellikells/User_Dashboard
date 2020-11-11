@@ -24,15 +24,14 @@
 
     <div id="myNav">
         <div class="container">
-
             <div class="row">
                 <div class="col justify-content-between">
                     <ul class="nav">
-
                         <div class="col">
                             <div class="row">
                                 <li class="nav-item">
                                     <span class="navbar-text">
+
                                         {% if not request.session.user_level %}
                                         <a id="navLink" href="/user_dashboard/">Home</a>
                                         {% endif %}
@@ -45,7 +44,6 @@
                                 </li>
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="row justify-content-end">
                                 <li class="nav-item">
@@ -69,7 +67,6 @@
         </div>
     </div>
     <div style="border-bottom: solid #cb8 10px; margin-bottom: 20px;"></div>
-
 
     <!--                    ALL ALERTS                  -->
     <!-- ======== ALERT FOR REGISTER SUCCESS ======== -->

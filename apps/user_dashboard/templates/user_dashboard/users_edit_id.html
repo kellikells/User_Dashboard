@@ -21,6 +21,8 @@
     </script>
 
     <script>
+
+        // checking if the password and confirm password match 
         $(document).ready(function () {
             $('#myBtn').click(function (e) {
                 if ($('#password').val() !== $('#confirm_password').val()) {
@@ -46,9 +48,7 @@
                             <div class="row">
                                 <li class="nav-item">
                                     <span class="navbar-text">
-
                                         <a id="navLink" href="/user_dashboard/dashboard/">Dashboard</a>
-
                                     </span>
                                 </li>
                                 <li class="nav-item">
@@ -145,7 +145,6 @@
             <!-- ------------------------------------------------------------>
             <!-- ---------------------------------------------------------- -->
             <div class="col">
-
                 <div class="row">
                     <div class="col" style="padding: 20px 40px;border: solid 1px black; background-clip:padding-box;"
                         id="editBox">
@@ -160,7 +159,6 @@
                                 <label for="password">Password</label>
                                 <input name="password" type="password" class="form-control" id="password" minlength="8">
                             </div>
-
                             <div class="form-group row">
                                 <label for="confirm_password">Password Confirmation</label>
                                 <input type='hidden' name='user_id' id='user_id' value={{user.id}} />
@@ -168,7 +166,7 @@
                                     id="confirm_password" required minlength="8">
                             </div>
 
-
+                            <!-- style for <p> error </p> -->
                             <style>
                                 #error p {
                                     color: red;
@@ -201,11 +199,9 @@
 
                 <form action="/user_dashboard/update_description/{{user.id}}/" method="post">
                     {% csrf_token %}
-
                     <div class="form-group">
                         <textarea name="desc" class="form-control" rows="3" placeholder="{{user.desc}}"></textarea>
                     </div>
-
                     <div class="row justify-content-end">
                         <button id="myBtn" class="myBtn" type="submit">Update
                             Description
@@ -218,50 +214,6 @@
         {% endif %}
 
     </div>
-
-    <!-- alerts for errors -->
-    <script>
-
-
-
-
-        // $('#pwForm').submit(function (e) {
-        //     e.preventDefault();
-
-        //     if ($('#password').val() !== $('#confirm_password').val()) {
-        //         console.log('do not match');
-
-        //     }
-
-
-        //     $.ajax({
-        //         method: 'post',
-        //         url: $(this).attr('action'),
-        //         data: $(this).serialize(),
-        //         success: function (serverResponse) {
-
-        //             // console.log("errors", serverResponse)
-        //             // $('#errorPlaceholder').html(serverResponse)
-
-        //             // var errorMessage;
-        //             // if the passwords don't match
-        //             if (serverResponse == "fail") {
-        //                 errorMessage = 'passwords do not match';
-        //             }
-        //             alert(errorMessage);
-
-        //             // if passwords match for update, redirect
-        //             if (serverResponse == "passwords match") {
-        //                 console.log("matched");
-        //             }
-
-        //             // console.log("errors", serverResponse)
-        //             // $('#errorPlaceholder').html(serverResponse)
-        //         }
-        //     })
-        // });
-    </script>
-
 
     <!-- ------------------------------------------------------------>
     <!-- ---------------------------------------------------------- -->
