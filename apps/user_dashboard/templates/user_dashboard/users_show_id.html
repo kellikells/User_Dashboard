@@ -187,7 +187,7 @@
                                                     style="display:none;">Message:</label>
                                                 <textarea 
                                                     id="msgInput" name="message_content" class="form-control"
-                                                    aria-label="message space" aria-describedby="messageBtns" rows="4" required>
+                                                    aria-label="message space" aria-describedby="messageBtns" rows="4" required minlength ="25" type="text">
                                 </textarea>
                                             </div>
                                         </div>
@@ -341,7 +341,7 @@
                                 <div class="input-group mb-3">
                                     <input id="commentInput" name="comment_content" type="text" class="form-control"
                                         placeholder="{{request.session.user_name}} commented: ..."
-                                        aria-label="user comment" aria-describedby="messageBtns">
+                                        aria-label="user comment" aria-describedby="messageBtns" required minlength = "10">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" id="commentBtns" type="submit"
                                             data-toggle="tooltip" data-placement="top" title="post comment"><i
