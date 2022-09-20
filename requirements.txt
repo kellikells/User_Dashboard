@@ -22,5 +22,5 @@ requests==2.24.0
 six==1.15.0
 traitlets==4.3.3
 typepy==1.1.1
-urllib3==1.25.10
+urllib3==1.26.5
 wcwidth==0.2.5
